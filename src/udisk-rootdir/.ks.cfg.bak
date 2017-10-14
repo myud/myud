@@ -6,9 +6,8 @@ auth --enableshadow --passalgo=sha512
 harddrive --partition=sdb1 --dir=/
 text
 
-######custom######
-network --bootproto=static --onboot=on --ip=192.168.1.5 --netmask=255.255.255.0 --gateway=192.168.1.1 --nameserver=114.114.114.114
-network --hostname=myud
+network --bootproto=static --onboot=on --ip=##custom##192.168.1.5## --netmask=255.255.255.0 --gateway=##custom##192.168.1.1## --nameserver=##custom##114.114.114.114##
+network --hostname=myud.org
 
 
 ####
@@ -49,7 +48,7 @@ logvol      /usr/local    --fstype="xfs"         --size=269057    --name=usr_loc
 
 
 ####
-reboot
+poweroff
 
 
 ####
