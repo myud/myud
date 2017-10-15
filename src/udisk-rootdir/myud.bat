@@ -88,9 +88,14 @@ set newstr=%~3
 
 call :checkSedExist
 call :checkFileExist "%filename%"
+call :checkFileExist "GnuWin32\bin\iconv.exe"
 call :checkFileExist "GnuWin32\bin\dos2unix.exe"
 
 sed -i "s/%oldstr%/%newstr%/g" %filename%
+
+iconv -f gbk -t utf-8 %filename% > %filename%.tmp
+
+move /y %filename%.tmp %filename% >nul
 
 dos2unix %filename% >nul 2>nul
 
