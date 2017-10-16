@@ -175,3 +175,57 @@ if not exist %~1 (
 )
 
 goto:eof
+
+
+::+------------------------------------------------------------
+::|     Function - 更改U盘卷标
+::+------------------------------------------------------------
+
+:changeUdiskLabel
+
+for /f "tokens=1-3" %%a in ('wmic logicaldisk get Description^,DeviceID^,VolumeName 2^>nul') do (
+        if "%%a"=="可移动磁盘" (
+                label %%b ivan
+        )
+)
+
+goto:eof
+
+
+::+------------------------------------------------------------
+::|     Function - 获取U盘属性
+::+------------------------------------------------------------
+
+:getUdiskAttribute
+
+set usbDir=%cd%
+set "keyname=HKLM\SYSTEM\CurrentControlSet\Services\USBSTOR\Enum"
+
+for /f "tokens=1-3" %%a in ('reg query "%keyname%" /v Count 2^>nul') do (
+        if "%%a"=="Count" (
+                set /a countVar=%%c
+        )
+)
+
+for /l %%a in (0,1,%countVar%) do (
+        if "%%a" geq "1" (
+                set /a usbNum=%%a-1
+                
+                setlocal enabledelayedexpansion
+                
+                for /f "tokens=1-3" %%b in ('reg query "%keyname%" 2^>nul') do (
+                        if "%%b"=="!usbNum!" (
+                                set usbAttribute=%%d
+                                set usbVID=!usbAttribute:~8,4!
+                                set usbPID=!usbAttribute:~17,4!
+                                set usbSN=!usbAttribute:~22!
+                                
+                                echo !usbVID! !usbPID! !usbSN!>%usbDir%\udisk_!usbSN!
+                        )
+                )
+                
+                endlocal
+        )
+)
+
+goto:eof
