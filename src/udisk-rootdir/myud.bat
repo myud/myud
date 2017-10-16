@@ -185,7 +185,7 @@ goto:eof
 
 for /f "tokens=1-3" %%a in ('wmic logicaldisk get Description^,DeviceID^,VolumeName 2^>nul') do (
         if "%%a"=="ø…“∆∂Ø¥≈≈Ã" (
-                label %%b ivan
+                label %%b %~1
         )
 )
 
