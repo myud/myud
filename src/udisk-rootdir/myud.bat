@@ -114,11 +114,14 @@ goto:eof
 
 :convertFile
 
+set convertfn=%~1
+
 call :checkSedExist
+call :checkFileExist "%convertfn%"
 
-iconv -f gbk -t utf-8 %~1 > %~1.tmp
+iconv -f gbk -t utf-8 %convertfn% > %convertfn%.tmp
 
-move /y %~1.tmp %~1 >nul
+move /y %convertfn%.tmp %convertfn% >nul
 
 goto:eof
 
