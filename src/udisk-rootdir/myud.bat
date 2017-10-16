@@ -49,6 +49,11 @@ call :replaceStr "%file4%" "##custom##192\.168\.1\.5##" "%ipaddr%"
 call :replaceStr "%file4%" "##custom##192\.168\.1\.1##" "%gateway%"
 call :replaceStr "%file4%" "##custom##114\.114\.114\.114##" "%dns%"
 
+::
+::start /max "" "http://mirrors.aliyun.com/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso"
+::choice /t 5 /d y /n >nul
+::start /max "" "https://pan.baidu.com/s/1dEQfc7v"
+
 
 ::+------------------------------------------------------------
 ::|     ½áÊø
