@@ -88,14 +88,8 @@ set newstr=%~3
 
 call :checkSedExist
 call :checkFileExist "%filename%"
-call :checkFileExist "GnuWin32\bin\iconv.exe"
-call :checkFileExist "GnuWin32\bin\dos2unix.exe"
 
 sed -i "s/%oldstr%/%newstr%/g" %filename%
-
-iconv -f gbk -t utf-8 %filename% > %filename%.tmp
-
-move /y %filename%.tmp %filename% >nul
 
 dos2unix %filename% >nul 2>nul
 
@@ -115,7 +109,22 @@ goto:eof
 
 
 ::+------------------------------------------------------------
-::|     Function - 检测 sed 是否存在
+::|     Function - 转换文件编码
+::+------------------------------------------------------------
+
+:convertFile
+
+call :checkSedExist
+
+iconv -f gbk -t utf-8 %~1 > %~1.tmp
+
+move /y %~1.tmp %~1 >nul
+
+goto:eof
+
+
+::+------------------------------------------------------------
+::|     Function - 检测 sed 等命令是否存在
 ::+------------------------------------------------------------
 
 :checkSedExist
@@ -127,6 +136,22 @@ sed --help>nul 2>nul
 
 if not "%errorlevel%"=="0" (
         echo sed - 没有找到!
+        pause>nul
+        exit 1
+)
+
+dos2unix --help>nul 2>nul
+
+if not "%errorlevel%"=="0" (
+        echo dos2unix - 没有找到!
+        pause>nul
+        exit 1
+)
+
+iconv --help>nul 2>nul
+
+if not "%errorlevel%"=="0" (
+        echo iconv - 没有找到!
         pause>nul
         exit 1
 )
