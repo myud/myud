@@ -198,8 +198,12 @@ goto:eof
 
 :getUdiskAttribute
 
-set usbDir=%cd%
+set usbDir=%~1
 set "keyname=HKLM\SYSTEM\CurrentControlSet\Services\USBSTOR\Enum"
+
+if not exist %usbDir% (
+        mkdir %usbDir%
+)
 
 for /f "tokens=1-3" %%a in ('reg query "%keyname%" /v Count 2^>nul') do (
         if "%%a"=="Count" (
