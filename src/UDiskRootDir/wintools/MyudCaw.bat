@@ -15,6 +15,8 @@ set MyudCawPath=%~dp0
 
 call %MyudCawPath%GnuWin32\GnuWin32.bat
 
+:: ±‰¡ø MyudCawHoldRemove MyudCawDir MyudCawMd5 MyudCawUrl MyudCawFile MyudCawHttp
+
 set argument1=%~1
 set argument2=%~2
 set argument3=%~3
