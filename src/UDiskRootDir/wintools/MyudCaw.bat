@@ -2,10 +2,10 @@
 ::|     Batch - Myud 下载工具
 ::+------------------------------------------------------------
 
-:: 使用: call 路径\MyudCaw.bat "URL"
-:: 使用: call 路径\MyudCaw.bat "目录" "URL"
-:: 使用: call 路径\MyudCaw.bat "/r或/h" "目录" "URL"
-:: 使用: call 路径\MyudCaw.bat "/r或/h" "目录" "MD5" "URL"
+:: 使用: call 绝对路径\MyudCaw.bat "URL"
+:: 使用: call 绝对路径\MyudCaw.bat "目录" "URL"
+:: 使用: call 绝对路径\MyudCaw.bat "/r或/h" "目录" "URL"
+:: 使用: call 绝对路径\MyudCaw.bat "/r或/h" "目录" "MD5" "URL"
 :: 结果: 
 :: 说明: 
 
@@ -13,7 +13,7 @@
 
 set MyudCawPath=%~dp0
 
-call GnuWin32\GnuWin32.bat
+call %MyudCawPath%GnuWin32\GnuWin32.bat
 
 set argument1=%~1
 set argument2=%~2
@@ -21,18 +21,27 @@ set argument3=%~3
 set argument4=%~4
 
 if defined argument4 (
-        echo %argument4%
+        set MyudCawHoldRemove=%argument1%
+        set MyudCawDir=%argument2%
+        set MyudCawMd5=%argument3%
+        set MyudCawUrl=%argument4%
+) else (
+        if defined argument3 (
+                set MyudCawHoldRemove=%argument1%
+                set MyudCawDir=%argument2%
+                set MyudCawUrl=%argument3%
+        ) else (
+                if defined argument2 (
+                        set MyudCawDir=%argument1%
+                        set MyudCawUrl=%argument2%
+                ) else (
+                        if defined argument1 (
+                                set MyudCawUrl=%argument1%
+                        ) else (
+                                echo MyudCaw - missing url!
+                                pause>nul
+                                exit 1
+                        )
+                )
+        )
 )
-
-if defined argument3 (
-        echo %argument3%
-)
-
-if defined argument2 (
-        echo %argument2%
-)
-
-if defined argument1 (
-        echo %argument1%
-)
-
