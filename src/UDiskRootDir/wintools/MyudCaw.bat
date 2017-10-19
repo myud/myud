@@ -79,8 +79,8 @@ if "%MyudCawDir:~-1%"=="\" (
 
 :: ¼ì²âÑ¡Ïî
 
-if not "%MyudCawHoldRemove%"=="/r" (
-        if not "%MyudCawHoldRemove%"=="/h" (
+if /i not "%MyudCawHoldRemove%"=="/r" (
+        if /i not "%MyudCawHoldRemove%"=="/h" (
                 echo myudcaw - Unrecognized option %MyudCawHoldRemove%!
                 pause>nul
                 exit 1
