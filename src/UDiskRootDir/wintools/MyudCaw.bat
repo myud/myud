@@ -15,33 +15,37 @@ set MyudCawPath=%~dp0
 
 call %MyudCawPath%GnuWin32\GnuWin32.bat
 
-:: 变量 MyudCawHoldRemove MyudCawDir MyudCawMd5(空) MyudCawUrl(空) MyudCawFile(截取) MyudCawHttp(截取)
+:: 变量
 
 set MyudCawHoldRemove=/r
 set MyudCawDir=%cd%
+rem MyudCawMd5=
+rem MyudCawUrl=
+rem MyudCawFile=
+rem MyudCawHttp=
 
-set argument1=%~1
-set argument2=%~2
-set argument3=%~3
-set argument4=%~4
+set MyudCawArgument1=%~1
+set MyudCawArgument2=%~2
+set MyudCawArgument3=%~3
+set MyudCawArgument4=%~4
 
-if defined argument4 (
-        set MyudCawHoldRemove=%argument1%
-        set MyudCawDir=%argument2%
-        set MyudCawMd5=%argument3%
-        set MyudCawUrl=%argument4%
+if defined MyudCawArgument4 (
+        set MyudCawHoldRemove=%MyudCawArgument1%
+        set MyudCawDir=%MyudCawArgument2%
+        set MyudCawMd5=%MyudCawArgument3%
+        set MyudCawUrl=%MyudCawArgument4%
 ) else (
-        if defined argument3 (
-                set MyudCawHoldRemove=%argument1%
-                set MyudCawDir=%argument2%
-                set MyudCawUrl=%argument3%
+        if defined MyudCawArgument3 (
+                set MyudCawHoldRemove=%MyudCawArgument1%
+                set MyudCawDir=%MyudCawArgument2%
+                set MyudCawUrl=%MyudCawArgument3%
         ) else (
-                if defined argument2 (
-                        set MyudCawDir=%argument1%
-                        set MyudCawUrl=%argument2%
+                if defined MyudCawArgument2 (
+                        set MyudCawDir=%MyudCawArgument1%
+                        set MyudCawUrl=%MyudCawArgument2%
                 ) else (
-                        if defined argument1 (
-                                set MyudCawUrl=%argument1%
+                        if defined MyudCawArgument1 (
+                                set MyudCawUrl=%MyudCawArgument1%
                         ) else (
                                 goto missingUrl
                         )
