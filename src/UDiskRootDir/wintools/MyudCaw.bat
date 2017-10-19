@@ -40,9 +40,7 @@ if defined argument4 (
                         if defined argument1 (
                                 set MyudCawUrl=%argument1%
                         ) else (
-                                echo MyudCaw - missing url!
-                                pause>nul
-                                exit 1
+                                goto :missingUrl
                         )
                 )
         )
@@ -65,102 +63,12 @@ for /f "tokens=1* delims=:" %%a in ("%MyudCawUrl%") do (
 
 
 
+goto :eof
 
+:missingUrl
 
+echo myudcaw - Missing url!
+pause>nul
+exit 1
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+goto :eof
