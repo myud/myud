@@ -12,13 +12,14 @@ set MyudDownloadPath=%~dp0
 
 call %MyudDownloadPath%GnuWin32\GnuWin32.bat
 
-:: 变量
+:: 变量(下载)
 
 set DownloadHR=/h
 
 set DownloadDirA=%MyudDownloadPath%..
 set DownloadUrlA=http://mirrors.aliyun.com/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso
 set DownloadMd5A=5848f2fd31c7acf3811ad88eaca6f4aa
+set DownloadFileA=CentOS-7-x86_64-Minimal-1708.iso
 
 set DownloadDirB=%MyudDownloadPath%..\LMT
 
@@ -34,11 +35,29 @@ set DownloadMd5B3=a922b8209d677d0909a3fdf6cc75420e
 set DownloadMd5B4=f8e3f8659eddddcbe60366d13dfd0816
 set DownloadMd5B5=b7154e6273687382a6382234d095cb56
 
+:: 变量(解压)
+
+set DownloadFileB=CentOS-7-x86_64-NetInstall-1708.iso
+set DownloadMd5B=75acc54b5825edb96a5a843996fd578b
+
+set DownloadFileB1=CentOS-7-x86_64-NetInstall-1708.zip.001
+set DownloadFileB2=CentOS-7-x86_64-NetInstall-1708.zip.002
+set DownloadFileB3=CentOS-7-x86_64-NetInstall-1708.zip.003
+set DownloadFileB4=CentOS-7-x86_64-NetInstall-1708.zip.004
+set DownloadFileB5=CentOS-7-x86_64-NetInstall-1708.zip.005
+
+set DownloadFileList=%DownloadFileB1%,%DownloadFileB2%,%DownloadFileB3%,%DownloadFileB4%,%DownloadFileB5%
+
+set MyudDownloadNum=0
+
 :: 测试阿里云
 
 set AliyunTestUrl=http://mirrors.aliyun.com/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.torrent
 set AliyunTestMd5=f01b8a4a42218b55f0ced67a0875f06e
-call MyudCaw.bat "/r" "%userprofile%\desktop" "%AliyunTestMd5%" "%AliyunTestUrl%"
+
+if not exist %DownloadDirA%\%DownloadFileA% (
+        call MyudCaw.bat "/r" "%userprofile%\desktop" "%AliyunTestMd5%" "%AliyunTestUrl%"
+)
 
 :: 开始下载
 
@@ -50,6 +69,31 @@ call MyudCaw.bat "%DownloadHR%" "%DownloadDirB%" "%DownloadMd5B3%" "%DownloadUrl
 call MyudCaw.bat "%DownloadHR%" "%DownloadDirB%" "%DownloadMd5B4%" "%DownloadUrlB4%"
 call MyudCaw.bat "%DownloadHR%" "%DownloadDirB%" "%DownloadMd5B5%" "%DownloadUrlB5%"
 
-::
+:: 开始解压
+
+for %%a in (%DownloadFileList%) do (
+        if not exist %DownloadDirB%\%%a (
+                echo,myuddownload - %%a not found!
+                pause>nul
+                exit 1
+        )
+)
+
+:loop
+
+7za x "%DownloadDirB%\%DownloadFileB1%" -y -aoa -o"%DownloadDirB%"
+
+for /f "tokens=1* delims=;" %%a in ('md5 %DownloadDirB%\%DownloadFileB%') do (
+        if /i not "%%b"=="%DownloadMd5B%" (
+                if not "%MyudDownloadNum%"=="10" (
+                        set MyudDownloadNum+=1
+                        goto loop
+                ) else (
+                        echo,myuddownload - Decompression failed!
+                        pause>nul
+                        exit 1
+                )
+        )
+)
 
 goto :eof
