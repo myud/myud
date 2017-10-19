@@ -46,7 +46,7 @@ if defined argument4 (
         )
 )
 
-for /f %%a in ('echo %MyudCawUrl% ^| awk -F/ "{ print $NF }"') do (
+for /f %%a in ('echo %MyudCawUrl% ^| awk -F/ "{ if (NF>3) { print $NF } }"') do (
         set MyudCawFile=%%a
 )
 
@@ -56,8 +56,9 @@ for /f "tokens=1* delims=:" %%a in ("%MyudCawUrl%") do (
 
 :: ¼ì²â URL
 
+echo %MyudCawUrl% | grep "^http[s]*://" >nul 2>nul || goto :missingUrl
 
-
+if not defined MyudCawFile goto :missingUrl
 
 
 
