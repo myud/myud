@@ -105,13 +105,15 @@ if defined MyudCawMd5 (
 
 goto :eof
 
+
 :missingUrl
 
-echo myudcaw - Missing url!
+echo,myudcaw - Missing url!
 pause>nul
 exit 1
 
 goto :eof
+
 
 :md5Error
 
