@@ -39,6 +39,7 @@ if defined argument4 (
                 ) else (
                         if defined argument1 (
                                 set MyudCawUrl=%argument1%
+                                set MyudCawDir=%cd%
                         ) else (
                                 goto :missingUrl
                         )
@@ -59,6 +60,22 @@ for /f "tokens=1* delims=:" %%a in ("%MyudCawUrl%") do (
 echo %MyudCawUrl% | grep "^http[s]*://" >nul 2>nul || goto :missingUrl
 
 if not defined MyudCawFile goto :missingUrl
+
+:: ¼ì²âÄ¿Â¼
+
+if "%MyudCawDir:~0,1%"=="\" (
+        set MyudCawDir=%MyudCawDir:~1%
+)
+
+echo %MyudCawDir% | grep "^[C-Zc-z]:\\\\" >nul 2>nul || set MyudCawDir=%cd%\%MyudCawDir%
+
+if "%MyudCawDir:~-1%"=="\" (
+        if not "%MyudCawDir:~-2%"==":\" (
+                set MyudCawDir=%MyudCawDir:~0,-1%
+        )
+)
+
+
 
 
 
