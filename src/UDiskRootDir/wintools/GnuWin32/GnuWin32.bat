@@ -24,11 +24,13 @@ set path=%GnuWin32Path%%GnuWin32Command08%\bin;%GnuWin32Path%%GnuWin32Command07%
 set GnuWin32CommandList=%GnuWin32Command08%,%GnuWin32Command07%,%GnuWin32Command06%,%GnuWin32Command05%,%GnuWin32Command04%,%GnuWin32Command03%,%GnuWin32Command02%,%GnuWin32Command01%
 
 for %%a in (%GnuWin32CommandList%) do (
-        %%a --help>nul 2>nul || set GnuWin32Command=%%a
+        %%a --help>nul 2>nul||set GnuWin32Command=%%a
 )
 
 if defined GnuWin32Command (
-        echo %GnuWin32Command% - Command not found!
+        echo,%GnuWin32Command% - Command not found!
         pause>nul
         exit 1
 )
+
+goto :eof
