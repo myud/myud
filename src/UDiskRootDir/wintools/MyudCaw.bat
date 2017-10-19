@@ -56,7 +56,7 @@ for /f "tokens=1* delims=:" %%a in ("%MyudCawUrl%") do (
         set MyudCawHttp=%%a
 )
 
-
+:: ¼ì²â URL
 
 
 
