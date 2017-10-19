@@ -6,7 +6,7 @@
 :: 使用: call 绝对路径\MyudCaw.bat "目录" "URL"
 :: 使用: call 绝对路径\MyudCaw.bat "/r或/h" "目录" "URL"
 :: 使用: call 绝对路径\MyudCaw.bat "/r或/h" "目录" "MD5" "URL"
-:: 结果: 
+:: 结果: 下载文件失败就退出
 :: 说明: 
 
 @echo off
