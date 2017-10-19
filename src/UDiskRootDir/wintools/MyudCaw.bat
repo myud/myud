@@ -97,8 +97,59 @@ if defined MyudCawMd5 (
         echo,%MyudCawMd5%|grep "^[A-Za-z0-9]\{32\}$">nul 2>nul||goto md5Error
 )
 
+:: 创建目录
 
+if not exist %MyudCawDir% (
+        mkdir %MyudCawDir%
+)
 
+set MyudCawFilePath=%MyudCawDir%\%MyudCawFile%
+
+:: 删除文件
+
+if exist %MyudCawFilePath% (
+        if /i "%MyudCawHoldRemove%"=="/r" (
+                del /f %MyudCawFilePath%
+        )
+)
+
+:: 下载文件并检测 MD5
+
+for /l %%a in (1,1,10) do (
+        if exist %MyudCawFilePath% (
+                if defined MyudCawMd5 (
+                        for /f "tokens=1* delims=;" %%b in ('md5 %MyudCawFilePath%') do (
+                                if not "%%c"=="%MyudCawMd5%" (
+                                        del /f %MyudCawFilePath%
+                                ) else (
+                                        goto loop
+                                )
+                        )
+                ) else (
+                        goto loop
+                )
+        ) else (
+                if /i "%MyudCawHttp%"=="https" (
+                        wget -c -P %MyudCawDir% --no-check-certificate %MyudCawUrl%
+                ) else (
+                        wget -c -P %MyudCawDir% %MyudCawUrl%
+                )
+        )
+        
+        set MyudCawNum=%%a
+)
+
+:loop
+
+:: 下载失败
+
+if "%MyudCawNum%"=="10" (
+        echo,myudcaw - %MyudCawFile% download failed!
+        pause>nul
+        exit 1
+)
+
+:: 结束
 goto :eof
 
 
