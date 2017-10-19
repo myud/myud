@@ -13,6 +13,9 @@ set DownloadDirA=%MyudPath%
 set DownloadUrlA=http://mirrors.aliyun.com/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso
 set DownloadMd5A=5848f2fd31c7acf3811ad88eaca6f4aa
 
+set DownloadUrlATest=http://mirrors.aliyun.com/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.torrent
+set DownloadMd5ATest=f01b8a4a42218b55f0ced67a0875f06e
+
 set DownloadDirB=%MyudPath%LMT
 
 set DownloadUrlB1=https://gitee.com/mydownload/myud-attachment/raw/master/attachment/CentOS-7-x86_64-NetInstall-1708/CentOS-7-x86_64-NetInstall-1708.zip.001
@@ -26,6 +29,8 @@ set DownloadMd5B2=80b73ed0bb84079260181b318cd2b434
 set DownloadMd5B3=a922b8209d677d0909a3fdf6cc75420e
 set DownloadMd5B4=f8e3f8659eddddcbe60366d13dfd0816
 set DownloadMd5B5=b7154e6273687382a6382234d095cb56
+
+call %MyudPath%wintools\MyudCaw.bat "%DownloadHR%" "%DownloadDirA%" "%DownloadMd5ATest%" "%DownloadUrlATest%"
 
 call %MyudPath%wintools\MyudCaw.bat "%DownloadHR%" "%DownloadDirA%" "%DownloadMd5A%" "%DownloadUrlA%"
 
