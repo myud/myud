@@ -145,6 +145,11 @@ for /l %%a in (1,1,10) do (
 
 if "%MyudCawNum%"=="10" (
         echo,myudcaw - %MyudCawFile% download failed!
+        
+        if /i "%MyudCawFile:~-8%"==".torrent" (
+                echo,myudcaw - Aliyun.com causes...
+        )
+        
         pause>nul
         exit 1
 )
