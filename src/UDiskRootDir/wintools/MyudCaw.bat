@@ -63,7 +63,7 @@ for /f "tokens=1* delims=:" %%a in ("%MyudCawUrl%") do (
 
 :: ¼ì²â URL
 
-echo %MyudCawUrl% | grep "^http[s]*://" >nul 2>nul || goto missingUrl
+echo,%MyudCawUrl%|grep "^http[s]*://.">nul 2>nul||goto missingUrl
 
 if not defined MyudCawFile goto missingUrl
 
@@ -73,7 +73,7 @@ if "%MyudCawDir:~0,1%"=="\" (
         set MyudCawDir=%MyudCawDir:~1%
 )
 
-echo %MyudCawDir% | grep "^[C-Zc-z]:\\\\" >nul 2>nul || set MyudCawDir=%cd%\%MyudCawDir%
+echo,%MyudCawDir%|grep "^[C-Zc-z]:\\\\">nul 2>nul||set MyudCawDir=%cd%\%MyudCawDir%
 
 if "%MyudCawDir:~-1%"=="\" (
         if not "%MyudCawDir:~-2%"==":\" (
@@ -85,7 +85,7 @@ if "%MyudCawDir:~-1%"=="\" (
 
 if /i not "%MyudCawHoldRemove%"=="/r" (
         if /i not "%MyudCawHoldRemove%"=="/h" (
-                echo myudcaw - Unrecognized option %MyudCawHoldRemove%!
+                echo,myudcaw - Unrecognized option %MyudCawHoldRemove%!
                 pause>nul
                 exit 1
         )
@@ -94,11 +94,7 @@ if /i not "%MyudCawHoldRemove%"=="/r" (
 :: ¼ì²â MD5
 
 if defined MyudCawMd5 (
-        if not "%MyudCawMd5%"=="%MyudCawMd5:~-32%" (
-                goto md5Error
-        )
-        
-        echo %MyudCawMd5% | grep -v "[A-Za-z0-9]" >nul 2>nul && goto md5Error
+        echo,%MyudCawMd5%|grep "^[A-Za-z0-9]\{32\}$">nul 2>nul||goto md5Error
 )
 
 
