@@ -53,7 +53,7 @@ if defined MyudCawArgument4 (
         )
 )
 
-for /f %%a in ('echo %MyudCawUrl% ^| awk -F/ "{ if (NF>3) { print $NF } }"') do (
+for /f %%a in ('echo,%MyudCawUrl%^|awk -F/ "{ if (NF>3) { print $NF } }"') do (
         set MyudCawFile=%%a
 )
 
@@ -117,7 +117,7 @@ goto :eof
 
 :md5Error
 
-echo myudcaw - Md5 error!
+echo,myudcaw - Md5 error!
 pause>nul
 exit 1
 
