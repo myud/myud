@@ -12,29 +12,6 @@ set MyudDownloadPath=%~dp0
 
 call %MyudDownloadPath%GnuWin32\GnuWin32.bat
 
-:: 变量(下载)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 :: 变量(下载与解压)
 
 set DownloadHoldRemove=/h
@@ -85,47 +62,34 @@ set AliyunUrl=http://mirrors.aliyun.com/centos/7/isos/x86_64/CentOS-7-x86_64-Min
 
 :: 开始测试
 
+if not exist %MinIsoFilePath% (
+        set "MyudCawFailureInformation=Warning:  Aliyun.com causes..."
+        call MyudCaw.bat "%AliyunHoldRemove%" "%AliyunDir%" "%AliyunMd5%" "%AliyunUrl%"
+        set "MyudCawFailureInformation="
+)
+
 :: 开始下载
+
+call MyudCaw.bat "%DownloadHoldRemove%" "%MinIsoDir%" "%MinIsoMd5%" "%MinIsoUrl%"
+
+if not exist %NetIsoFilePath% (
+        call :downloadNetZip
+) else (
+        for /f "tokens=1* delims=;" %%a in ('md5 %NetIsoFilePath%') do (
+                if /i not "%%b"=="%NetIsoMd5%" (
+                        call :downloadNetZip
+                )
+        )
+)
 
 :: 开始解压
 
+echo qinweijunlin
+
+goto :eof
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-call MyudCaw.bat "%AliyunHoldRemove%" "%AliyunDir%" "%AliyunMd5%" "%AliyunUrl%"
-
-call MyudCaw.bat "%DownloadHoldRemove%" "%MinIsoDir%" "%MinIsoMd5%" "%MinIsoUrl%"
+:downloadNetZip
 
 call MyudCaw.bat "%DownloadHoldRemove%" "%NetZipDir%" "%NetZipMd51%" "%NetZipUrl1%"
 call MyudCaw.bat "%DownloadHoldRemove%" "%NetZipDir%" "%NetZipMd52%" "%NetZipUrl2%"
@@ -133,48 +97,32 @@ call MyudCaw.bat "%DownloadHoldRemove%" "%NetZipDir%" "%NetZipMd53%" "%NetZipUrl
 call MyudCaw.bat "%DownloadHoldRemove%" "%NetZipDir%" "%NetZipMd54%" "%NetZipUrl4%"
 call MyudCaw.bat "%DownloadHoldRemove%" "%NetZipDir%" "%NetZipMd55%" "%NetZipUrl5%"
 
-
-
-
-:: 变量(解压)
-
-
-
-
-
-
-
-
-
-
-
-
-
-:: 开始解压
-
-for %%a in (%DownloadFileList%) do (
-        if not exist %DownloadDirB%\%%a (
+for %%a in (%NetZipFileList%) do (
+        if not exist %NetZipDir%\%%a (
                 echo,myuddownload - %%a not found!
                 pause>nul
                 exit 1
         )
 )
 
-:loop
-
-7za x "%DownloadDirB%\%DownloadFileB1%" -y -aoa -o"%DownloadDirB%"
-
-for /f "tokens=1* delims=;" %%a in ('md5 %DownloadDirB%\%DownloadFileB%') do (
-        if /i not "%%b"=="%DownloadMd5B%" (
-                if not "%MyudDownloadNum%"=="10" (
-                        set MyudDownloadNum+=1
+for /l %%a in (1,1,10) do (
+        7za x "%NetZipFilePath1%" -y -aoa -o"%NetZipDir%"
+        
+        for /f "tokens=1* delims=;" %%b in ('md5 %NetIsoFilePath%') do (
+                if /i "%%c"=="%NetIsoMd5%" (
                         goto loop
-                ) else (
-                        echo,myuddownload - Decompression failed!
-                        pause>nul
-                        exit 1
                 )
         )
+        
+        set MyudDownload=%%a
+)
+
+:loop
+
+if "%MyudDownload%"=="10" (
+        echo,myuddownload - Decompression failed!
+        pause>nul
+        exit 1
 )
 
 goto :eof
