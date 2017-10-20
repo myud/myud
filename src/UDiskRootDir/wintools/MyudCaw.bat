@@ -1,32 +1,22 @@
 ::+------------------------------------------------------------
-::|     Batch - Myud 下载工具
+::      Batch - Myud 下载工具
+::
+::      Usage: MyudCaw "/r或/h" "目录" "MD5" "URL"
 ::+------------------------------------------------------------
-
-:: 使用: call 绝对路径\MyudCaw.bat "URL"
-:: 使用: call 绝对路径\MyudCaw.bat "目录" "URL"
-:: 使用: call 绝对路径\MyudCaw.bat "/r或/h" "目录" "URL"
-:: 使用: call 绝对路径\MyudCaw.bat "/r或/h" "目录" "MD5" "URL"
-:: 结果: 下载文件失败就退出
-:: 说明: 显示额外信息, set "MyudCawFailureInformation=额外信息"
-:: 说明: 关闭额外信息, set "MyudCawFailureInformation="
-
 @echo off
+color 0f
+echo,%~n0 - Running...
 
-set MyudCawPath=%~dp0
 
-call %MyudCawPath%GnuWin32\GnuWin32.bat
+rem start
+set MyudCaw_Name=%~n0
+set MyudCaw_Path=%~dp0
+
+call %MyudCaw_Path%GnuWin32\GnuWin32.bat
 
 :: 变量
-
 set MyudCawHoldRemove=/r
 set MyudCawDir=%cd%
-rem MyudCawMd5=
-rem MyudCawUrl=
-rem MyudCawFile=
-rem MyudCawHttp=
-rem MyudCawFilePath=
-rem MyudCawNum=
-rem MyudCawFailureInformation=
 
 set MyudCawArgument1=%~1
 set MyudCawArgument2=%~2
@@ -34,24 +24,34 @@ set MyudCawArgument3=%~3
 set MyudCawArgument4=%~4
 
 if defined MyudCawArgument4 (
+        
         set MyudCawHoldRemove=%MyudCawArgument1%
         set MyudCawDir=%MyudCawArgument2%
         set MyudCawMd5=%MyudCawArgument3%
         set MyudCawUrl=%MyudCawArgument4%
+        
 ) else (
         if defined MyudCawArgument3 (
+                
                 set MyudCawHoldRemove=%MyudCawArgument1%
                 set MyudCawDir=%MyudCawArgument2%
                 set MyudCawUrl=%MyudCawArgument3%
+                
         ) else (
                 if defined MyudCawArgument2 (
+                        
                         set MyudCawDir=%MyudCawArgument1%
                         set MyudCawUrl=%MyudCawArgument2%
+                        
                 ) else (
                         if defined MyudCawArgument1 (
+                                
                                 set MyudCawUrl=%MyudCawArgument1%
+                                
                         ) else (
-                                goto missingUrl
+                                
+                                call :exit "missing url!"
+                                
                         )
                 )
         )
@@ -65,44 +65,34 @@ for /f "tokens=1* delims=:" %%a in ("%MyudCawUrl%") do (
         set MyudCawHttp=%%a
 )
 
-:: 检测 URL
+:: 检测 URL, 目录, 选项, MD5
+echo,%MyudCawUrl%|grep "^http[s]*://.">nul 2>nul||call :exit "missing url!"
 
-echo,%MyudCawUrl%|grep "^http[s]*://.">nul 2>nul||goto missingUrl
+if not defined MyudCawFile (call :exit "url error!")
 
-if not defined MyudCawFile goto missingUrl
-
-:: 检测目录
-
-if "%MyudCawDir:~0,1%"=="\" (
+if /i "%MyudCawDir:~0,1%"=="\" (
         set MyudCawDir=%MyudCawDir:~1%
 )
 
 echo,%MyudCawDir%|grep "^[C-Zc-z]:\\\\">nul 2>nul||set MyudCawDir=%cd%\%MyudCawDir%
 
-if "%MyudCawDir:~-1%"=="\" (
-        if not "%MyudCawDir:~-2%"==":\" (
+if /i "%MyudCawDir:~-1%"=="\" (
+        if /i not "%MyudCawDir:~-2%"==":\" (
                 set MyudCawDir=%MyudCawDir:~0,-1%
         )
 )
 
-:: 检测选项
-
 if /i not "%MyudCawHoldRemove%"=="/r" (
         if /i not "%MyudCawHoldRemove%"=="/h" (
-                echo,myudcaw - Unrecognized option %MyudCawHoldRemove%!
-                pause>nul
-                exit 1
+                call :exit "unrecognized option %MyudCawHoldRemove%"
         )
 )
 
-:: 检测 MD5
-
 if defined MyudCawMd5 (
-        echo,%MyudCawMd5%|grep "^[A-Za-z0-9]\{32\}$">nul 2>nul||goto md5Error
+        echo,%MyudCawMd5%|grep "^[A-Za-z0-9]\{32\}$">nul 2>nul||call :exit "md5 error!"
 )
 
 :: 创建目录
-
 if not exist %MyudCawDir% (
         mkdir %MyudCawDir%
 )
@@ -110,7 +100,6 @@ if not exist %MyudCawDir% (
 set MyudCawFilePath=%MyudCawDir%\%MyudCawFile%
 
 :: 删除文件
-
 if exist %MyudCawFilePath% (
         if /i "%MyudCawHoldRemove%"=="/r" (
                 del /f %MyudCawFilePath%
@@ -118,7 +107,6 @@ if exist %MyudCawFilePath% (
 )
 
 :: 下载文件并检测 MD5
-
 for /l %%a in (1,1,10) do (
         if exist %MyudCawFilePath% (
                 if defined MyudCawMd5 (
@@ -126,11 +114,11 @@ for /l %%a in (1,1,10) do (
                                 if /i not "%%c"=="%MyudCawMd5%" (
                                         del /f %MyudCawFilePath%
                                 ) else (
-                                        goto loop
+                                        goto skip
                                 )
                         )
                 ) else (
-                        goto loop
+                        goto skip
                 )
         ) else (
                 if /i "%MyudCawHttp%"=="https" (
@@ -142,39 +130,22 @@ for /l %%a in (1,1,10) do (
         
         set MyudCawNum=%%a
 )
-
-:loop
+rem skip
+:skip
 
 :: 下载失败
-
 if "%MyudCawNum%"=="10" (
-        echo,myudcaw - %MyudCawFile% download failed!
-        
-        if defined MyudCawFailureInformation (
-                echo,%MyudCawFailureInformation%
-        )
-        
-        pause>nul
-        exit 1
+        call :exit "%MyudCawFile% download failed!"
 )
 
-:: 结束
-goto :eof
+
+rem end
+goto:eof
 
 
-:missingUrl
-
-echo,myudcaw - Missing url!
+rem label
+:exit
+echo,%~n0 - Error: %~1
 pause>nul
 exit 1
-
-goto :eof
-
-
-:md5Error
-
-echo,myudcaw - Md5 error!
-pause>nul
-exit 1
-
-goto :eof
+goto:eof
