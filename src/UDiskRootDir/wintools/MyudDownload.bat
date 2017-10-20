@@ -73,23 +73,19 @@ if not exist %MinIsoFilePath% (
 call MyudCaw.bat "%DownloadHoldRemove%" "%MinIsoDir%" "%MinIsoMd5%" "%MinIsoUrl%"
 
 if not exist %NetIsoFilePath% (
-        call :downloadNetZip
+        call :downloadNetIso
 ) else (
         for /f "tokens=1* delims=;" %%a in ('md5 %NetIsoFilePath%') do (
                 if /i not "%%b"=="%NetIsoMd5%" (
-                        call :downloadNetZip
+                        call :downloadNetIso
                 )
         )
 )
 
-:: ¿ªÊ¼½âÑ¹
-
-echo qinweijunlin
-
 goto :eof
 
 
-:downloadNetZip
+:downloadNetIso
 
 call MyudCaw.bat "%DownloadHoldRemove%" "%NetZipDir%" "%NetZipMd51%" "%NetZipUrl1%"
 call MyudCaw.bat "%DownloadHoldRemove%" "%NetZipDir%" "%NetZipMd52%" "%NetZipUrl2%"
@@ -114,12 +110,12 @@ for /l %%a in (1,1,10) do (
                 )
         )
         
-        set MyudDownload=%%a
+        set MyudDownloadNum=%%a
 )
 
 :loop
 
-if "%MyudDownload%"=="10" (
+if "%MyudDownloadNum%"=="10" (
         echo,myuddownload - Decompression failed!
         pause>nul
         exit 1
