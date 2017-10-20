@@ -127,16 +127,12 @@ for /l %%a in (1,1,10) do (
                         wget -c -P %MyudCawDir% %MyudCawUrl%
                 )
         )
-        
-        set MyudCawNum=%%a
 )
+
+call :exit "%MyudCawFile% download failed!"
+
 rem skip
 :skip
-
-:: œ¬‘ÿ ß∞‹
-if "%MyudCawNum%"=="10" (
-        call :exit "%MyudCawFile% download failed!"
-)
 
 
 rem end

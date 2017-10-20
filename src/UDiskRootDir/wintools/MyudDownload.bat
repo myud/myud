@@ -1,30 +1,30 @@
 ::+------------------------------------------------------------
-::|     Batch - 下载 Myud 附件
+::      Batch - 下载 Myud 附件
+::
+::      Usage: MyudDownload
 ::+------------------------------------------------------------
-
-:: 使用: call 绝对路径\MyudDownload.bat
-:: 结果: 
-:: 说明: 
-
 @echo off
+color 0f
+echo,%~n0 - Running...
 
-set MyudDownloadPath=%~dp0
 
-call %MyudDownloadPath%GnuWin32\GnuWin32.bat
+rem start
+set MyudDownload_Name=%~n0
+set MyudDownload_Path=%~dp0
 
-:: 变量(下载与解压)
+call %MyudDownload_Path%GnuWin32\GnuWin32.bat
 
+:: 变量 (下载与解压)
 set DownloadHoldRemove=/h
 
-set MinIsoDir=%MyudDownloadPath%..
+set MinIsoDir=%MyudDownload_Path%..
 set MinIsoMd5=5848f2fd31c7acf3811ad88eaca6f4aa
 set MinIsoUrl=http://mirrors.aliyun.com/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso
 set MinIsoFile=CentOS-7-x86_64-Minimal-1708.iso
 set MinIsoFilePath=%MinIsoDir%\%MinIsoFile%
 
-set NetIsoDir=%MyudDownloadPath%..\LMT
+set NetIsoDir=%MyudDownload_Path%..\LMT
 set NetIsoMd5=75acc54b5825edb96a5a843996fd578b
-rem NetIsoUrl=
 set NetIsoFile=CentOS-7-x86_64-NetInstall-1708.iso
 set NetIsoFilePath=%NetIsoDir%\%NetIsoFile%
 
@@ -53,23 +53,20 @@ set NetZipFilePath1=%NetZipDir%\%NetZipFile1%
 rem 文件列表
 set NetZipFileList=%NetZipFile1%,%NetZipFile2%,%NetZipFile3%,%NetZipFile4%,%NetZipFile5%
 
-:: 变量(测试阿里云)
-
+:: 变量 (测试阿里云)
 set AliyunHoldRemove=/r
 set AliyunDir=%userprofile%\desktop
 set AliyunMd5=f01b8a4a42218b55f0ced67a0875f06e
 set AliyunUrl=http://mirrors.aliyun.com/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.torrent
+set AliyunFile=CentOS-7-x86_64-Minimal-1708.torrent
 
 :: 开始测试
-
 if not exist %MinIsoFilePath% (
-        set "MyudCawFailureInformation=Warning:  Aliyun.com causes..."
         call MyudCaw.bat "%AliyunHoldRemove%" "%AliyunDir%" "%AliyunMd5%" "%AliyunUrl%"
-        set "MyudCawFailureInformation="
+        del /f %AliyunDir%\%AliyunFile%
 )
 
 :: 开始下载
-
 call MyudCaw.bat "%DownloadHoldRemove%" "%MinIsoDir%" "%MinIsoMd5%" "%MinIsoUrl%"
 
 if not exist %NetIsoFilePath% (
@@ -82,7 +79,17 @@ if not exist %NetIsoFilePath% (
         )
 )
 
-goto :eof
+
+rem end
+goto:eof
+
+
+rem label
+:exit
+echo,%~n0 - Error: %~1
+pause>nul
+exit 1
+goto:eof
 
 
 :downloadNetIso
@@ -95,9 +102,7 @@ call MyudCaw.bat "%DownloadHoldRemove%" "%NetZipDir%" "%NetZipMd55%" "%NetZipUrl
 
 for %%a in (%NetZipFileList%) do (
         if not exist %NetZipDir%\%%a (
-                echo,myuddownload - %%a not found!
-                pause>nul
-                exit 1
+                call :exit "%%a not found!"
         )
 )
 
@@ -106,19 +111,20 @@ for /l %%a in (1,1,10) do (
         
         for /f "tokens=1* delims=;" %%b in ('md5 %NetIsoFilePath%') do (
                 if /i "%%c"=="%NetIsoMd5%" (
-                        goto loop
+                        goto skip
                 )
         )
-        
-        set MyudDownloadNum=%%a
 )
 
-:loop
+call :exit "decompression failed!"
 
-if "%MyudDownloadNum%"=="10" (
-        echo,myuddownload - Decompression failed!
-        pause>nul
-        exit 1
+rem skip
+:skip
+
+for %%a in (%NetZipFileList%) do (
+        if exist %NetZipDir%\%%a (
+                del /f %NetZipDir%\%%a
+        )
 )
 
-goto :eof
+goto:eof
