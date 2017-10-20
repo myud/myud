@@ -7,7 +7,8 @@
 :: 使用: call 绝对路径\MyudCaw.bat "/r或/h" "目录" "URL"
 :: 使用: call 绝对路径\MyudCaw.bat "/r或/h" "目录" "MD5" "URL"
 :: 结果: 下载文件失败就退出
-:: 说明: 
+:: 说明: 显示额外信息, set "MyudCawFailureInformation=额外信息"
+:: 说明: 关闭额外信息, set "MyudCawFailureInformation="
 
 @echo off
 
@@ -151,7 +152,6 @@ if "%MyudCawNum%"=="10" (
         
         if defined MyudCawFailureInformation (
                 echo,%MyudCawFailureInformation%
-                set "MyudCawFailureInformation="
         )
         
         pause>nul
