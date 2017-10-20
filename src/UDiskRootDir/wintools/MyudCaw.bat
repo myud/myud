@@ -23,6 +23,9 @@ rem MyudCawMd5=
 rem MyudCawUrl=
 rem MyudCawFile=
 rem MyudCawHttp=
+rem MyudCawFilePath=
+rem MyudCawNum=
+rem MyudCawFailureInformation=
 
 set MyudCawArgument1=%~1
 set MyudCawArgument2=%~2
@@ -146,8 +149,9 @@ for /l %%a in (1,1,10) do (
 if "%MyudCawNum%"=="10" (
         echo,myudcaw - %MyudCawFile% download failed!
         
-        if /i "%MyudCawFile:~-8%"==".torrent" (
-                echo,myudcaw - Aliyun.com causes...
+        if defined MyudCawFailureInformation (
+                echo,%MyudCawFailureInformation%
+                set "MyudCawFailureInformation="
         )
         
         pause>nul
