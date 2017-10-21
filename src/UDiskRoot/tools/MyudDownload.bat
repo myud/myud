@@ -70,7 +70,7 @@ set AliyunFile=CentOS-7-x86_64-Minimal-1708.torrent
 
 :: ¿ªÊ¼²âÊÔ
 if not exist %MinIsoFilePath% (
-        call MyudCaw.bat "%AliyunHoldRemove%" "%AliyunDir%" "%AliyunMd5%" "%AliyunUrl%"
+        call %MyudDownload_Path%MyudCaw.bat "%AliyunHoldRemove%" "%AliyunDir%" "%AliyunMd5%" "%AliyunUrl%"
         del /f %AliyunDir%\%AliyunFile%
 )
 
