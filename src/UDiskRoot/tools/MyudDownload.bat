@@ -18,6 +18,10 @@ if exist %MyudDownload_Path%GnuWin32\GnuWin32.bat (
         call :exit "GnuWin32.bat not found!"
 )
 
+if not exist %MyudDownload_Path%MyudCaw.bat (
+        call :exit "MyudCaw.bat not found!"
+)
+
 :: 变量 (下载与解压)
 set DownloadHoldRemove=/h
 
@@ -71,7 +75,7 @@ if not exist %MinIsoFilePath% (
 )
 
 :: 开始下载
-call MyudCaw.bat "%DownloadHoldRemove%" "%MinIsoDir%" "%MinIsoMd5%" "%MinIsoUrl%"
+call %MyudDownload_Path%MyudCaw.bat "%DownloadHoldRemove%" "%MinIsoDir%" "%MinIsoMd5%" "%MinIsoUrl%"
 
 if not exist %NetIsoFilePath% (
         call :downloadNetIso
@@ -100,11 +104,11 @@ goto:eof
 
 :downloadNetIso
 
-call MyudCaw.bat "%DownloadHoldRemove%" "%NetZipDir%" "%NetZipMd51%" "%NetZipUrl1%"
-call MyudCaw.bat "%DownloadHoldRemove%" "%NetZipDir%" "%NetZipMd52%" "%NetZipUrl2%"
-call MyudCaw.bat "%DownloadHoldRemove%" "%NetZipDir%" "%NetZipMd53%" "%NetZipUrl3%"
-call MyudCaw.bat "%DownloadHoldRemove%" "%NetZipDir%" "%NetZipMd54%" "%NetZipUrl4%"
-call MyudCaw.bat "%DownloadHoldRemove%" "%NetZipDir%" "%NetZipMd55%" "%NetZipUrl5%"
+call %MyudDownload_Path%MyudCaw.bat "%DownloadHoldRemove%" "%NetZipDir%" "%NetZipMd51%" "%NetZipUrl1%"
+call %MyudDownload_Path%MyudCaw.bat "%DownloadHoldRemove%" "%NetZipDir%" "%NetZipMd52%" "%NetZipUrl2%"
+call %MyudDownload_Path%MyudCaw.bat "%DownloadHoldRemove%" "%NetZipDir%" "%NetZipMd53%" "%NetZipUrl3%"
+call %MyudDownload_Path%MyudCaw.bat "%DownloadHoldRemove%" "%NetZipDir%" "%NetZipMd54%" "%NetZipUrl4%"
+call %MyudDownload_Path%MyudCaw.bat "%DownloadHoldRemove%" "%NetZipDir%" "%NetZipMd55%" "%NetZipUrl5%"
 
 for /l %%a in (1,1,10) do (
         
