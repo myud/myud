@@ -100,17 +100,18 @@ call MyudCaw.bat "%DownloadHoldRemove%" "%NetZipDir%" "%NetZipMd53%" "%NetZipUrl
 call MyudCaw.bat "%DownloadHoldRemove%" "%NetZipDir%" "%NetZipMd54%" "%NetZipUrl4%"
 call MyudCaw.bat "%DownloadHoldRemove%" "%NetZipDir%" "%NetZipMd55%" "%NetZipUrl5%"
 
-for %%a in (%NetZipFileList%) do (
-        if not exist %NetZipDir%\%%a (
-                call :exit "%%a not found!"
-        )
-)
-
 for /l %%a in (1,1,10) do (
+        
+        for %%b in (%NetZipFileList%) do (
+                if not exist %NetZipDir%\%%b (
+                        call :exit "%%b not found!"
+                )
+        )
+        
         7za x "%NetZipFilePath1%" -y -aoa -o"%NetZipDir%"
         
-        for /f "tokens=1* delims=;" %%b in ('md5 %NetIsoFilePath%') do (
-                if /i "%%c"=="%NetIsoMd5%" (
+        for /f "tokens=1* delims=;" %%c in ('md5 %NetIsoFilePath%') do (
+                if /i "%%d"=="%NetIsoMd5%" (
                         goto skip
                 )
         )
