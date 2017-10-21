@@ -72,6 +72,8 @@ call MyudCaw.bat "%DownloadHoldRemove%" "%MinIsoDir%" "%MinIsoMd5%" "%MinIsoUrl%
 if not exist %NetIsoFilePath% (
         call :downloadNetIso
 ) else (
+        echo,%~n0 - MD5Check: %NetIsoFilePath%
+        
         for /f "tokens=1* delims=;" %%a in ('md5 %NetIsoFilePath%') do (
                 if /i not "%%b"=="%NetIsoMd5%" (
                         call :downloadNetIso
@@ -109,6 +111,8 @@ for /l %%a in (1,1,10) do (
         )
         
         7za x "%NetZipFilePath1%" -y -aoa -o"%NetZipDir%"
+        
+        echo,%~n0 - MD5Check: %NetIsoFilePath%
         
         for /f "tokens=1* delims=;" %%c in ('md5 %NetIsoFilePath%') do (
                 if /i "%%d"=="%NetIsoMd5%" (

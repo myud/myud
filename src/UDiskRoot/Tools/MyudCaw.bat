@@ -110,6 +110,8 @@ if exist %MyudCawFilePath% (
 for /l %%a in (1,1,10) do (
         if exist %MyudCawFilePath% (
                 if defined MyudCawMd5 (
+                        echo,%~n0 - MD5Check: %MyudCawFilePath%
+                        
                         for /f "tokens=1* delims=;" %%b in ('md5 %MyudCawFilePath%') do (
                                 if /i not "%%c"=="%MyudCawMd5%" (
                                         del /f %MyudCawFilePath%
