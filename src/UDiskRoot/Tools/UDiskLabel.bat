@@ -36,8 +36,6 @@ for /f "tokens=1-3" %%a in ('wmic logicaldisk get Description^,DeviceID^,VolumeN
         )
 )
 
-choice /t 1 /d y /n>nul
-
 
 rem end
 goto:eof

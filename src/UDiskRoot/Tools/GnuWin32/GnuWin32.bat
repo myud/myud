@@ -29,7 +29,7 @@ for %%a in (%GnuWin32CommandList%) do (
         %%a --help>nul 2>nul||call :exit "%%a command not found!"
 )
 
-choice /t 1 /d y /n>nul
+::choice /t 1 /d y /n>nul
 
 
 rem end
