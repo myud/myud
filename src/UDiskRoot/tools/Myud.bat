@@ -80,43 +80,6 @@ echo 请退出...
 pause>nul
 exit 0
 
-
-::+------------------------------------------------------------
-::|     Function - 替换字符串
-::+------------------------------------------------------------
-
-:: 使用: call :replaceStr "文件" "原字符串" "新字符串"
-:: 结果: 替换文件的内容, 并生成 UNIX 格式的文件
-:: 说明: 不会改变原文件编码
-
-:replaceStr
-
-set filename=%~1
-set oldstr=%~2
-set newstr=%~3
-
-call :checkSedExist
-call :checkFileExist "%filename%"
-
-sed -i "s/%oldstr%/%newstr%/g" %filename%
-
-dos2unix %filename% >nul 2>nul
-
-setlocal enabledelayedexpansion
-
-for %%a in (sed*) do (
-        set tmpfn=%%a
-        
-        if "!tmpfn:~0,9!"=="!tmpfn:~-9!" (
-                del /f !tmpfn!
-        )
-)
-
-endlocal
-
-goto:eof
-
-
 ::+------------------------------------------------------------
 ::|     Function - 转换文件编码
 ::+------------------------------------------------------------
@@ -137,27 +100,3 @@ iconv -f gbk -t utf-8 %convertfn% > %convertfn%.tmp
 move /y %convertfn%.tmp %convertfn% >nul
 
 goto:eof
-
-
-
-
-
-::+------------------------------------------------------------
-::|     Function - 检查文件是否存在
-::+------------------------------------------------------------
-
-:: 使用: call :checkFileExist "文件"
-:: 结果: 文件不存在就退出
-:: 说明: 
-
-:checkFileExist
-
-if not exist %~1 (
-        echo 文件不存在 - %cd%\%~1
-        pause>nul
-        exit 1
-)
-
-goto:eof
-
-
