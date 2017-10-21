@@ -139,44 +139,7 @@ move /y %convertfn%.tmp %convertfn% >nul
 goto:eof
 
 
-::+------------------------------------------------------------
-::|     Function - 检测 sed 等命令是否可用执行
-::+------------------------------------------------------------
 
-:: 使用: call :checkSedExist
-:: 结果: 不可以执行就退出
-:: 说明: GnuWin32\bin 目录下的 sed, dos2unix, iconv
-
-:checkSedExist
-
-set sedPath=%cd%\GnuWin32\bin
-set path=%sedPath%;%path%
-
-sed --help>nul 2>nul
-
-if not "%errorlevel%"=="0" (
-        echo sed - 没有找到!
-        pause>nul
-        exit 1
-)
-
-dos2unix --help>nul 2>nul
-
-if not "%errorlevel%"=="0" (
-        echo dos2unix - 没有找到!
-        pause>nul
-        exit 1
-)
-
-iconv --help>nul 2>nul
-
-if not "%errorlevel%"=="0" (
-        echo iconv - 没有找到!
-        pause>nul
-        exit 1
-)
-
-goto:eof
 
 
 ::+------------------------------------------------------------
@@ -198,67 +161,3 @@ if not exist %~1 (
 goto:eof
 
 
-::+------------------------------------------------------------
-::|     Function - 批量更改U盘卷标
-::+------------------------------------------------------------
-
-:: 使用: call :changeUdiskLabel "卷标"
-:: 结果: 更改U盘卷标
-:: 说明: 
-
-:changeUdiskLabel
-
-for /f "tokens=1-3" %%a in ('wmic logicaldisk get Description^,DeviceID^,VolumeName 2^>nul') do (
-        if "%%a"=="可移动磁盘" (
-                label %%b %~1
-        )
-)
-
-goto:eof
-
-
-::+------------------------------------------------------------
-::|     Function - 批量获取U盘属性
-::+------------------------------------------------------------
-
-:: 使用: call :getUdiskAttribute "目录"
-:: 结果: 在指定目录下创建文件
-:: 说明: 
-
-:getUdiskAttribute
-
-set usbDir=%~1
-set "keyname=HKLM\SYSTEM\CurrentControlSet\Services\USBSTOR\Enum"
-
-if not exist %usbDir% (
-        mkdir %usbDir%
-)
-
-for /f "tokens=1-3" %%a in ('reg query "%keyname%" /v Count 2^>nul') do (
-        if "%%a"=="Count" (
-                set /a countVar=%%c
-        )
-)
-
-for /l %%a in (0,1,%countVar%) do (
-        if "%%a" geq "1" (
-                set /a usbNum=%%a-1
-                
-                setlocal enabledelayedexpansion
-                
-                for /f "tokens=1-3" %%b in ('reg query "%keyname%" 2^>nul') do (
-                        if "%%b"=="!usbNum!" (
-                                set usbAttribute=%%d
-                                set usbVID=!usbAttribute:~8,4!
-                                set usbPID=!usbAttribute:~17,4!
-                                set usbSN=!usbAttribute:~22!
-                                
-                                echo !usbVID! !usbPID! !usbSN!>%usbDir%\udisk_!usbSN!
-                        )
-                )
-                
-                endlocal
-        )
-)
-
-goto:eof
