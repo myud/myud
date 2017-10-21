@@ -12,7 +12,7 @@ rem start
 set _Name=%~n0
 set _Path=%~dp0
 
-echo,é«˜æ‰‹
+echo,¸ßÊÖ
 pause>nul
 
 
