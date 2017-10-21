@@ -12,7 +12,11 @@ rem start
 set MyudDownload_Name=%~n0
 set MyudDownload_Path=%~dp0
 
-call %MyudDownload_Path%GnuWin32\GnuWin32.bat
+if exist %MyudDownload_Path%GnuWin32\GnuWin32.bat (
+        call %MyudDownload_Path%GnuWin32\GnuWin32.bat
+) else (
+        call :exit "GnuWin32.bat not found!"
+)
 
 :: 变量 (下载与解压)
 set DownloadHoldRemove=/h

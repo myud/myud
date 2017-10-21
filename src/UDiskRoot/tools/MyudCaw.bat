@@ -12,7 +12,11 @@ rem start
 set MyudCaw_Name=%~n0
 set MyudCaw_Path=%~dp0
 
-call %MyudCaw_Path%GnuWin32\GnuWin32.bat
+if exist %MyudCaw_Path%GnuWin32\GnuWin32.bat (
+        call %MyudCaw_Path%GnuWin32\GnuWin32.bat
+) else (
+        call :exit "GnuWin32.bat not found!"
+)
 
 :: ±‰¡ø
 set MyudCawHoldRemove=/r
