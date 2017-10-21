@@ -46,7 +46,7 @@ if not exist %UDiskAttrArgument1% (
         mkdir %UDiskAttrArgument1%
 )
 
-for /l %%a in (0,1,%UDiskAttrCountVar%) do (
+for /l %%a in (1,1,%UDiskAttrCountVar%) do (
         set /a UDiskAttrNum=%%a-1
         
         setlocal enabledelayedexpansion
