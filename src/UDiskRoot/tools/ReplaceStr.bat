@@ -55,7 +55,7 @@ dos2unix %ReplaceStrArgument3%>nul 2>nul
 
 :: 当前目录下
 for %%a in (sed*) do (
-        echo,%%a|findstr /i "^sed[a-z0-9]\{6\}$">nul 2>nul&&del /f %%a
+        echo,%%a|grep "^sed[a-z0-9]\{6\}$">nul 2>nul&&del /f %%a
 )
 
 
