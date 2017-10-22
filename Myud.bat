@@ -1,5 +1,6 @@
 @echo off
 ฮารว
+ผ์ฒ้รüม๎
 title Myud
 color 0f
 
