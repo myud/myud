@@ -1,7 +1,211 @@
+:: Main Program
+
+
 @echo off
+color 0f
 
 title Myud
-color 0f
+
+
+rem start
+set Myud_Name=%~n0
+set Myud_Path=%~dp0
+
+set MyudBatchList=MyudCaw.bat,MyudDownload.bat,ReplaceStr.bat,UDiskAttr.bat,UDiskLabel.bat
+
+if exist %Myud_Path%GnuWin32\GnuWin32.bat (
+        call %Myud_Path%GnuWin32\GnuWin32.bat
+) else (
+        call :exit "GnuWin32.bat not found!"
+)
+
+for %%a in (%MyudBatchList%) do (
+        if not exist %Myud_Path%%%a (
+                call :exit "%%a not found!"
+        )
+)
+
+
+:: ÓÃ»§
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rem end
+goto:eof
+
+
+rem label
+:exit
+echo,%~n0 - Error: %~1
+pause>nul
+exit 1
+goto:eof
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ::+------------------------------------------------------------
@@ -49,10 +253,7 @@ call :replaceStr "%file4%" "##custom##192\.168\.1\.5##" "%ipaddr%"
 call :replaceStr "%file4%" "##custom##192\.168\.1\.1##" "%gateway%"
 call :replaceStr "%file4%" "##custom##114\.114\.114\.114##" "%dns%"
 
-::
-::start /max "" "http://mirrors.aliyun.com/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso"
-::choice /t 5 /d y /n >nul
-::start /max "" "https://pan.baidu.com/s/1dEQfc7v"
+
 
 
 ::+------------------------------------------------------------
