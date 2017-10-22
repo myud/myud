@@ -1,103 +1,44 @@
-@echo off
-我们
-检查命令
-title Myud
-color 0f
-
-
 ::+------------------------------------------------------------
-::|     用户
-::+------------------------------------------------------------
-
-:: 设置网络
-echo/
-set /p ipaddr= 请输入你的 IP  (默认:192.168.1.5): 
-
-echo/
-set /p gateway= 请输入你的网关 (默认:192.168.1.1): 
-
-echo/
-set /p dns= 请输入你的 DNS (默认:114.114.114.114): 
-
-if not defined ipaddr (set ipaddr=192.168.1.5)
-if not defined gateway (set gateway=192.168.1.1)
-if not defined dns (set dns=114.114.114.114)
-
-
-::+------------------------------------------------------------
-::|     操作
-::+------------------------------------------------------------
-
-cls
-echo 正在运行, 请稍候...
-
-:: 替换文件内容
-set file1=.ks.cfg.bak
-set file2=ks.cfg
-set file3=manual-install\.config-network.bak
-set file4=manual-install\config-network
-
-call :checkFileExist "%file1%"
-copy /y %file1% %file2% >nul
-call :checkFileExist "%file3%"
-copy /y %file3% %file4% >nul
-
-call :replaceStr "%file2%" "##custom##192\.168\.1\.5##" "%ipaddr%"
-call :replaceStr "%file2%" "##custom##192\.168\.1\.1##" "%gateway%"
-call :replaceStr "%file2%" "##custom##114\.114\.114\.114##" "%dns%"
-
-call :replaceStr "%file4%" "##custom##192\.168\.1\.5##" "%ipaddr%"
-call :replaceStr "%file4%" "##custom##192\.168\.1\.1##" "%gateway%"
-call :replaceStr "%file4%" "##custom##114\.114\.114\.114##" "%dns%"
-
+::      Batch - 检查命令
 ::
-::start /max "" "http://mirrors.aliyun.com/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso"
-::choice /t 5 /d y /n >nul
-::start /max "" "https://pan.baidu.com/s/1dEQfc7v"
-
-
+::      Usage: GnuWin32
 ::+------------------------------------------------------------
-::|     结束
-::+------------------------------------------------------------
+@echo off
+color 0f
+echo,%~n0 - Running...
 
-cls
-color 0a
-echo +------------------------------------------------------------
-echo ^|
-echo ^|                          配置成功
-echo ^|
-echo +------------------------------------------------------------
 
-echo/
-echo 你的 IP:     %ipaddr%
-echo 你的网关:    %gateway%
-echo 你的 DNS:    %dns%
+rem start
+set GnuWin32_Name=%~n0
+set GnuWin32_Path=%~dp0
 
-echo/
-echo/
-echo/
-echo 请退出...
+set GnuWin32Command01=7za
+set GnuWin32Command02=awk
+set GnuWin32Command03=dos2unix
+set GnuWin32Command04=grep
+set GnuWin32Command05=iconv
+set GnuWin32Command06=md5
+set GnuWin32Command07=sed
+set GnuWin32Command08=wget
 
+set path=%GnuWin32_Path%%GnuWin32Command08%\bin;%GnuWin32_Path%%GnuWin32Command07%\bin;%GnuWin32_Path%%GnuWin32Command06%\bin;%GnuWin32_Path%%GnuWin32Command05%\bin;%GnuWin32_Path%%GnuWin32Command04%\bin;%GnuWin32_Path%%GnuWin32Command03%\bin;%GnuWin32_Path%%GnuWin32Command02%\bin;%GnuWin32_Path%%GnuWin32Command01%\bin;%path%
+
+set GnuWin32CommandList=%GnuWin32Command08%,%GnuWin32Command07%,%GnuWin32Command06%,%GnuWin32Command05%,%GnuWin32Command04%,%GnuWin32Command03%,%GnuWin32Command02%,%GnuWin32Command01%
+
+for %%a in (%GnuWin32CommandList%) do (
+        %%a --help>nul 2>nul||call :exit "%%a command not found!"
+)
+
+::choice /t 1 /d y /n>nul
+
+
+rem end
+goto:eof
+
+
+rem label
+:exit
+echo,%~n0 - Error: %~1
 pause>nul
-exit 0
-
-::+------------------------------------------------------------
-::|     Function - 转换文件编码
-::+------------------------------------------------------------
-
-:: 使用: call :convertFile "文件"
-:: 结果: 转换文件编码
-:: 说明: 如果文件含有中文, 不能是 utf-8, 否则会导致乱码或截断
-
-:convertFile
-
-set convertfn=%~1
-
-call :checkSedExist
-call :checkFileExist "%convertfn%"
-
-iconv -f gbk -t utf-8 %convertfn% > %convertfn%.tmp
-
-move /y %convertfn%.tmp %convertfn% >nul
-
+exit 1
 goto:eof
