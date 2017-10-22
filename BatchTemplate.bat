@@ -12,9 +12,9 @@ rem start
 set _Name=%~n0
 set _Path=%~dp0
 
-echo,高手
-pause>nul
+echo,为什么呢
 
+pause>nul
 
 
 rem end
