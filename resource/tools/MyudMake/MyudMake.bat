@@ -10,7 +10,7 @@ set SelfPath=%~dp0
 set SelfPath=%SelfPath:~0,-1%
 
 
-::::  
+::::  交互
 echo,
 set /p Ipaddr=请输入你的 IP  (默认:192.168.1.5): 
 if not defined Ipaddr (
