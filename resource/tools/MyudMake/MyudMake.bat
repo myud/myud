@@ -83,8 +83,6 @@ for %%a in (%CommandList%) do (
         )
 )
 
-choice /t 1 /d y /n>nul
-
 goto:eof
 
 
