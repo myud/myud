@@ -1,0 +1,5 @@
+
+
+
+echo,ΑυµΒ»ª
+pause>nul
