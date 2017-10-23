@@ -1,7 +1,7 @@
 :::::::: Main Start ::::::::
 
 
-::::  
+::::  S
 @echo off
 title %~n0
 color 0f
@@ -30,7 +30,7 @@ if not defined DNS (
 )
 
 
-::::  
+::::  E
 pause>nul
 exit 0
 
