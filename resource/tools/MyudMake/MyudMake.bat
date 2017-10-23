@@ -1,5 +1,7 @@
-:::::::: Main ::::::::
+:::::::: Main Start ::::::::
 
+
+::::
 @echo off
 title %~n0
 color 0f
@@ -8,7 +10,7 @@ set SelfPath=%~dp0
 set SelfPath=%SelfPath:~0,-1%
 
 
-:::: 
+::::
 echo,
 set /p Ipaddr=ÇëÊäÈëÄãµÄ IP  (Ä¬ÈÏ:192.168.1.5): 
 if not defined Ipaddr (
@@ -28,15 +30,19 @@ if not defined DNS (
 )
 
 
-:::::::: End ::::::::
-
+::::
 pause>nul
 exit 0
 
+
+:::::::: Main End ::::::::
 goto:eof
 
 
-:::::::: Label ::::::::
+
+
+:::::::: Label Start ::::::::
+
 
 :::: exit "message"
 :exit
@@ -46,3 +52,6 @@ pause>nul
 exit 1
 
 goto:eof
+
+
+:::::::: Label End ::::::::
