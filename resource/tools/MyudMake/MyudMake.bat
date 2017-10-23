@@ -74,13 +74,16 @@ set path=%SelfPath%\%Command8%\bin;%SelfPath%\%Command7%\bin;%SelfPath%\%Command
 
 set CommandList=%Command8%,%Command7%,%Command6%,%Command5%,%Command4%,%Command3%,%Command2%,%Command1%
 
+choice /t 1 /d y /n>nul
+
 for %%a in (%CommandList%) do (
         if not exist %SelfPath%\%%a\bin\%%a.exe (
-                call :exit "%%a command not found!"
+                call :exit "%%a ÃüÁî²»´æÔÚ!"
+                rem call :exit "%%a command not found!"
         )
-        
-        choice /t 1 /d y /n>nul
 )
+
+choice /t 1 /d y /n>nul
 
 goto:eof
 
