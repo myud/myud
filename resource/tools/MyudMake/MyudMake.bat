@@ -61,7 +61,26 @@ goto:eof
 ::::  init
 :init
 
+set Command1=7za
+set Command2=awk
+set Command3=dos2unix
+set Command4=grep
+set Command5=iconv
+set Command6=md5
+set Command7=sed
+set Command8=wget
 
+set path=%SelfPath%\%Command8%\bin;%SelfPath%\%Command7%\bin;%SelfPath%\%Command6%\bin;%SelfPath%\%Command5%\bin;%SelfPath%\%Command4%\bin;%SelfPath%\%Command3%\bin;%SelfPath%\%Command2%\bin;%SelfPath%\%Command1%\bin;%path%
+
+set CommandList=%Command8%,%Command7%,%Command6%,%Command5%,%Command4%,%Command3%,%Command2%,%Command1%
+
+for %%a in (%CommandList%) do (
+        if not exist %SelfPath%\%%a\bin\%%a.exe (
+                call :exit "%%a command not found!"
+        )
+        
+        choice /t 1 /d y /n>nul
+)
 
 goto:eof
 
