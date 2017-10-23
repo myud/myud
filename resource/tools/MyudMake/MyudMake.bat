@@ -10,6 +10,10 @@ set SelfPath=%~dp0
 set SelfPath=%SelfPath:~0,-1%
 
 
+::::  初始化
+call :init
+
+
 ::::  交互
 echo,
 set /p Ipaddr=请输入你的 IP  (默认:192.168.1.5): 
@@ -50,6 +54,14 @@ goto:eof
 echo,%~n0 - Error: %~1
 pause>nul
 exit 1
+
+goto:eof
+
+
+::::  init
+:init
+
+
 
 goto:eof
 
