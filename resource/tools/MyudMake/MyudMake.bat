@@ -305,7 +305,7 @@
 
 
 
-echo,åˆ˜å¾·åŽ
+echo,ÁõµÂ»ª
 pause>nul
 
 
