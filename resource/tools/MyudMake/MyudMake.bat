@@ -1,7 +1,7 @@
 :::::::: Main Start ::::::::
 
 
-::::
+::::  
 @echo off
 title %~n0
 color 0f
@@ -10,7 +10,7 @@ set SelfPath=%~dp0
 set SelfPath=%SelfPath:~0,-1%
 
 
-::::
+::::  
 echo,
 set /p Ipaddr=ÇëÊäÈëÄãµÄ IP  (Ä¬ÈÏ:192.168.1.5): 
 if not defined Ipaddr (
@@ -30,7 +30,7 @@ if not defined DNS (
 )
 
 
-::::
+::::  
 pause>nul
 exit 0
 
@@ -44,7 +44,7 @@ goto:eof
 :::::::: Label Start ::::::::
 
 
-:::: exit "message"
+::::  exit  "message"
 :exit
 
 echo,%~n0 - Error: %~1
