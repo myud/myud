@@ -1,27 +1,28 @@
 :::::::: Main ::::::::
+
 @echo off
+title %~n0
 color 0f
 
-
-:::: Start ::::
-title %~n0
-
-
-::::  ::::
-echo,ΑυµΒ»ª
+set SelfPath=%~dp0
+set SelfPath=%SelfPath:~0,-1%
 
 
-::::  ::::
+:::::::: End ::::::::
+
 pause>nul
 exit 0
 
-
-:::: End ::::
 goto:eof
 
 
 :::::::: Label ::::::::
-::::  ::::
 
+:::: exit "message"
+:exit
 
-::::  ::::
+echo,%~n0 - Error: %~1
+pause>nul
+exit 1
+
+goto:eof
