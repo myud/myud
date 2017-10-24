@@ -8,7 +8,7 @@ set SelfPath=%SelfPath:~0,-1%
 
 choice /t 1 /d y /n>nul
 
-
+call :checkUDisk "MYUD"
 
 
 
@@ -71,5 +71,60 @@ goto:eof
 echo,%~n0 - Error: %~1
 pause>nul
 exit 1
+
+goto:eof
+
+
+:::: checkUDisk "label"
+:checkUDisk
+
+set CheckUDiskKeyname=HKLM\SYSTEM\CurrentControlSet\Services\USBSTOR\Enum
+
+set CheckUDiskArgument1=%~1
+
+if not defined CheckUDiskArgument1 (
+        rem call :exit "checkUDisk: missing operand!"
+        call :exit "checkUDisk: 缺少参数!"
+)
+
+for /f "tokens=1-3" %%a in ('reg query "%CheckUDiskKeyname%" /v Count 2^>nul') do (
+        if /i "%%a"=="Count" (
+                set /a CheckUDiskCountVar=%%c
+        )
+)
+
+if /i "%CheckUDiskCountVar%"=="0" (
+        call :exit "udisk not found!"
+)
+
+for /f "tokens=1-3" %%a in ('wmic logicaldisk get Description^,DeviceID^,VolumeName 2^>nul') do (
+        if /i "%%a"=="可移动磁盘" (
+                if /i "%%b"=="%SelfPath%" (
+                        set CheckUDiskDeviceID=%%b
+                        set CheckUDiskVolumeName=%%c
+                )
+        )
+)
+
+if not defined CheckUDiskDeviceID (
+        call :exit "8888"
+)
+
+if /i not "%CheckUDiskVolumeName:~0,4%"=="MYUD" (
+        label %CheckUDiskDeviceID% %CheckUDiskArgument1%
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 goto:eof
