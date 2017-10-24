@@ -13,15 +13,6 @@ call :checkUDisk "MYUD"
 call :checkCommand
 
 
-
-
-
-
-
-
-
-
-
 :::: 交互
 echo,
 set /p Ipaddr=请输入你的 IP  (默认:192.168.1.5): 
