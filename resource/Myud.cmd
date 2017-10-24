@@ -94,7 +94,8 @@ for /f "tokens=1-3" %%a in ('reg query "%CheckUDiskKeyname%" /v Count 2^>nul') d
 )
 
 if /i "%CheckUDiskCountVar%"=="0" (
-        call :exit "udisk not found!"
+        rem call :exit "udisk not found!"
+        call :exit "UÅÌ²»´æÔÚ!"
 )
 
 for /f "tokens=1-3" %%a in ('wmic logicaldisk get Description^,DeviceID^,VolumeName 2^>nul') do (
