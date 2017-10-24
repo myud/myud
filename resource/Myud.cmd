@@ -32,6 +32,20 @@ if not defined DNS (
         set DNS=114.114.114.114
 )
 
+echo,
+echo,开始运行, 请继续...
+
+echo,
+pause>nul
+
+
+:::: 
+cls
+echo,正在运行, 请稍后...
+
+
+
+choice /t 10 /d y /n>nul
 
 
 
@@ -39,19 +53,17 @@ if not defined DNS (
 
 
 
+:::: 
+cls
+echo,已完成, 请退出...
 
+echo,
+echo,
+echo,你的  IP:        %Ipaddr%
+echo,你的网关:        %Gateway%
+echo,你的 DNS:        %DNS%
 
-
-
-
-
-
-
-
-
-
-
-
+echo,
 pause>nul
 :::::::: Main End :::::::::::
 goto:eof
