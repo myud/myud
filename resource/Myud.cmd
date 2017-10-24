@@ -6,7 +6,7 @@ color 0f
 set SelfPath=%~dp0
 set SelfPath=%SelfPath:~0,-1%
 
-
+choice /t 1 /d y /n>nul
 
 
 
