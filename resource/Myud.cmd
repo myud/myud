@@ -54,7 +54,6 @@ cls
 echo,已完成, 请退出...
 
 echo,
-echo,
 echo,你的  IP:        %Ipaddr%
 echo,你的网关:        %Gateway%
 echo,你的 DNS:        %DNS%
