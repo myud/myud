@@ -49,7 +49,7 @@ choice /t 1 /d y /n>nul
 
 
 
-:::: 
+:::: 结束
 cls
 echo,已完成, 请退出...
 
