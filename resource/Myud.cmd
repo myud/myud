@@ -115,17 +115,4 @@ if /i not "%CheckUDiskVolumeName:~0,4%"=="MYUD" (
         label %CheckUDiskDeviceID% %CheckUDiskArgument1%
 )
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 goto:eof
