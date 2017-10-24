@@ -108,7 +108,7 @@ for /f "tokens=1-3" %%a in ('wmic logicaldisk get Description^,DeviceID^,VolumeN
 )
 
 if not defined CheckUDiskDeviceID (
-        call :exit "8888"
+        call :exit "请将此程序复制到U盘根目录下运行!"
 )
 
 if /i not "%CheckUDiskVolumeName:~0,4%"=="MYUD" (
