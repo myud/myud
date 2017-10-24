@@ -10,7 +10,7 @@ choice /t 1 /d y /n>nul
 
 call :checkUDisk "MYUD"
 
-
+call :checkCommand
 
 
 
@@ -113,6 +113,32 @@ if not defined CheckUDiskDeviceID (
 
 if /i not "%CheckUDiskVolumeName:~0,4%"=="MYUD" (
         label %CheckUDiskDeviceID% %CheckUDiskArgument1%
+)
+
+goto:eof
+
+
+:::: checkCommand
+:checkCommand
+
+set CheckCommand1=7za
+set CheckCommand2=awk
+set CheckCommand3=dos2unix
+set CheckCommand4=grep
+set CheckCommand5=iconv
+set CheckCommand6=md5
+set CheckCommand7=sed
+set CheckCommand8=wget
+
+set path=%SelfPath%\cmd\%CheckCommand8%\bin;%SelfPath%\cmd\%CheckCommand7%\bin;%SelfPath%\cmd\%CheckCommand6%\bin;%SelfPath%\cmd\%CheckCommand5%\bin;%SelfPath%\cmd\%CheckCommand4%\bin;%SelfPath%\cmd\%CheckCommand3%\bin;%SelfPath%\cmd\%CheckCommand2%\bin;%SelfPath%\cmd\%CheckCommand1%\bin;%path%
+
+set CheckCommandList=%CheckCommand8%,%CheckCommand7%,%CheckCommand6%,%CheckCommand5%,%CheckCommand4%,%CheckCommand3%,%CheckCommand2%,%CheckCommand1%
+
+for %%a in (%CheckCommandList%) do (
+        if not exist %SelfPath%\cmd\%%a\bin\%%a.exe (
+                rem call :exit "%%a command not found!"
+                call :exit "%%a √¸¡Ó≤ª¥Ê‘⁄!"
+        )
 )
 
 goto:eof
