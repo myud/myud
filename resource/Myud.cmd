@@ -1,4 +1,4 @@
-:::: Start
+:::: ≥ı ºªØ
 @echo off
 title %~n0
 color 0f
