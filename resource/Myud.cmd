@@ -140,3 +140,58 @@ for %%a in (%CheckCommandList%) do (
 )
 
 goto:eof
+
+
+:::: replaceStr "oldstr" "newstr" "file"                   # 不会改变原来的文件编码
+:replaceStr
+
+set ReplaceStrArgument1=%~1
+set ReplaceStrArgument2=%~2
+set ReplaceStrArgument3=%~3
+
+if not defined ReplaceStrArgument1 (
+        rem call :exit "replaceStr: missing oldstr!"
+        call :exit "replaceStr: 缺少原字符串!"
+)
+
+if not defined ReplaceStrArgument2 (
+        rem call :exit "replaceStr: missing newstr!"
+        call :exit "replaceStr: 缺少新字符串!"
+)
+
+if not defined ReplaceStrArgument3 (
+        rem call :exit "replaceStr: missing filename!"
+        call :exit "replaceStr: 缺少文件名称!"
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+goto:eof
