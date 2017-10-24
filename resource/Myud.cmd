@@ -33,7 +33,7 @@ if not defined DNS (
 )
 
 echo,
-echo,开始运行, 请继续...
+echo,请按任意键开始运行...
 
 echo,
 pause>nul
@@ -43,11 +43,7 @@ pause>nul
 cls
 echo,正在运行, 请稍后...
 
-
-
-choice /t 10 /d y /n>nul
-
-
+choice /t 1 /d y /n>nul
 
 
 
