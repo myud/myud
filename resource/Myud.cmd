@@ -14,7 +14,7 @@ if not exist %MyudPath%\cmd\MyudFunc.cmd (
         exit 1
 )
 
-
+call %MyudPath%\cmd\MyudFunc.cmd CheckUDisk "MYUD"
 
 
 
