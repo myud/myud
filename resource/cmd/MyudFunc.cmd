@@ -41,7 +41,7 @@ if defined Arg9 (
                                                                 if defined Arg1 (
                                                                         call :%Arg1% 2>nul||call :Error "Main" "%Arg1% 标签不存在"
                                                                 ) else (
-                                                                        call :Error "Main" "缺少标签名称"
+                                                                        call :Error "Main" "缺少参数 标签名称"
 )))))))))
 
 
