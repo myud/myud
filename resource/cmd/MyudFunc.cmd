@@ -1,6 +1,6 @@
 @ECHO OFF
 
-REM 检查参数
+REM 变量
 set FuncPath=%~dp0
 set FuncPath=%FuncPath:~0,-1%
 
@@ -14,6 +14,7 @@ set Arg7=%~7
 set Arg8=%~8
 set Arg9=%~9
 
+REM 检查参数
 if defined Arg9 (
         call :%Arg1% "%Arg2%" "%Arg3%" "%Arg4%" "%Arg5%" "%Arg6%" "%Arg7%" "%Arg8%" "%Arg9%" 2>nul||call :Error "Main" "%Arg1% 标签不存在"
 ) else (
@@ -43,7 +44,6 @@ if defined Arg9 (
                                                                 ) else (
                                                                         call :Error "Main" "缺少参数 标签名称"
 )))))))))
-
 
 @GOTO:EOF
 

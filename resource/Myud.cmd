@@ -15,55 +15,7 @@ if not exist %MyudPath%\cmd\MyudFunc.cmd (
         exit 1
 )
 
-call %MyudPath%\cmd\MyudFunc.cmd CheckUDisk "MYUD"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+::call %MyudPath%\cmd\MyudFunc.cmd CheckUDisk "MYUD"
 
 REM 交互
 echo,
@@ -90,17 +42,11 @@ echo,请按任意键开始运行...
 echo,
 pause>nul
 
-
-REM 
+REM ###################################################
 cls
 echo,正在运行, 请稍后...
 
 choice /t 1 /d y /n>nul
-
-
-
-
-
 
 REM 结束
 cls
@@ -113,21 +59,8 @@ echo,你的 DNS:        %DNS%
 
 echo,
 pause>nul
+
 @GOTO:EOF
-
-
-:
-REM   arg1: 
-REM return: 
-SETLOCAL
-
-:BEGIN
-
-:END
-(ENDLOCAL
-        
-)
-GOTO:EOF
 
 
 REM # Main Var
