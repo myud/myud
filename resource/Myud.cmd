@@ -1,4 +1,5 @@
 @ECHO OFF
+
 REM ≥ı ºªØ
 title %~n0
 color 0f
@@ -15,6 +16,37 @@ if not exist %MyudPath%\cmd\MyudFunc.cmd (
 )
 
 call %MyudPath%\cmd\MyudFunc.cmd CheckUDisk "MYUD"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
