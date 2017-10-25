@@ -7,15 +7,17 @@ color 0f
 set MyudPath=%~dp0
 set MyudPath=%MyudPath:~0,-1%
 
+set MyudFunc=%MyudPath%\cmd\MyudFunc.cmd
+
 choice /t 1 /d y /n>nul
 
-if not exist %MyudPath%\cmd\MyudFunc.cmd (
-        echo,%~n0 - Main Error: %MyudPath%\cmd\MyudFunc.cmd 文件不存在!
+if not exist %MyudFunc% (
+        echo,%~n0 - Main Error: %MyudFunc% 文件不存在!
         pause>nul
         exit 1
 )
 
-::call %MyudPath%\cmd\MyudFunc.cmd CheckUDisk "MYUD"
+::call %MyudFunc% CheckUDisk "MYUD"
 
 REM 交互
 echo,
