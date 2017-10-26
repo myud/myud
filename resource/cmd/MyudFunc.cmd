@@ -155,9 +155,9 @@ GOTO:EOF
 
 
 :CheckCommand
-REM   func: 检查命令是否存在
+REM   func: 检查命令是否存在并设置环境变量
 REM   arg1: 
-REM return: 
+REM return: CommandPath        所有命令的路径
 SETLOCAL
 
 set Command1=7za
@@ -169,9 +169,9 @@ set Command6=md5
 set Command7=sed
 set Command8=wget
 
-set Path=%FuncPath%\%Command8%\bin;%FuncPath%\%Command7%\bin;%FuncPath%\%Command6%\bin;%FuncPath%\%Command5%\bin;%FuncPath%\%Command4%\bin;%FuncPath%\%Command3%\bin;%FuncPath%\%Command2%\bin;%FuncPath%\%Command1%\bin;%Path%
-
 set CommandList=%Command8%,%Command7%,%Command6%,%Command5%,%Command4%,%Command3%,%Command2%,%Command1%
+
+set PathList=%FuncPath%\%Command8%\bin;%FuncPath%\%Command7%\bin;%FuncPath%\%Command6%\bin;%FuncPath%\%Command5%\bin;%FuncPath%\%Command4%\bin;%FuncPath%\%Command3%\bin;%FuncPath%\%Command2%\bin;%FuncPath%\%Command1%\bin
 
 :BEGIN
 
@@ -183,8 +183,10 @@ for %%a in (%CommandList%) do (
 
 :END
 (ENDLOCAL
-        
+        set CommandPath=%PathList%
 )
+
+set Path=%CommandPath%;%Path%
 GOTO:EOF
 
 
