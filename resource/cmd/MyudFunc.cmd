@@ -156,21 +156,141 @@ set Path=%CommandPath%;%Path%
 GOTO:EOF
 
 
-:#01
-REM   func: #05
-REM   arg1: #06 =#07        #08
-REM return: #09_over
+:MyudCaw
+REM   func: Myud 的下载工具, 有检测 MD5 的功能
+REM   arg1: HoldRemove =/r          可选, /r: 删除原文件重新下载, /h: 保留原文件不要下载 (如果存在 MD5 会直接检测 MD5)
+REM   arg2: Dir        =%cd%        可选, 文件的保存目录, 默认值为当前目录
+REM   arg3: MD5        =            可选, 文件的 MD5 值
+REM   arg4: URL        =            必选, 下载地址
+REM return: 
 SETLOCAL
 
-rem #02
+set HoldRemove=/r
+set Dir=%cd%
 
-:BEGIN
+set Arg1=%~1
+set Arg2=%~2
+set Arg3=%~3
+set Arg4=%~4
 
-rem #03
+:BEGIN_MyudCaw
 
-:END
+::::call :CheckCommand
+
+REM 变量 HoldRemove, Dir, MD5, URL, File, Http, FilePath
+if defined Arg4 (
+        set HoldRemove=%Arg1%
+        set Dir=%Arg2%
+        set MD5=%Arg3%
+        set URL=%Arg4%
+) else (
+        if defined Arg3 (
+                set HoldRemove=%Arg1%
+                set Dir=%Arg2%
+                set URL=%Arg3%
+        ) else (
+                if defined Arg2 (
+                        set Dir=%Arg1%
+                        set URL=%Arg2%
+                ) else (
+                        if defined Arg1 (
+                                set URL=%Arg1%
+                        ) else (
+                                call :Error "MyudCaw" "缺少参数 URL"
+))))
+
+for /f %%a in ('echo,%URL%^|awk -F/ "{ if (NF>3) { print $NF } }"') do (
+        set File=%%a
+)
+
+for /f "tokens=1* delims=:" %%a in ("%URL%") do (
+        set Http=%%a
+)
+
+REM 检测 URL
+echo,%URL%|grep "^http[s]*://.">nul 2>nul||call :Error "MyudCaw" "缺少参数 URL"
+
+if not defined File (
+        call :Error "MyudCaw" "URL 格式错误"
+)
+
+REM 检测目录
+if /i "%Dir:~0,1%"=="\" (
+        set Dir=%Dir:~1%
+)
+
+echo,%Dir%|grep "^[C-Zc-z]:\\\\">nul 2>nul||set Dir=%cd%\%Dir%
+
+if /i "%Dir:~-1%"=="\" (
+        if /i not "%Dir:~-2%"==":\" (
+                set Dir=%Dir:~0,-1%
+        )
+)
+
+REM 检测 HoldRemove, MD5
+if /i not "%HoldRemove%"=="/r" (
+        if /i not "%HoldRemove%"=="/h" (
+                call :Error "MyudCaw" "%HoldRemove% 是无效选项"
+        )
+)
+
+REM 检测 MD5
+if defined MD5 (
+        echo,%MD5%|grep "^[A-Za-z0-9]\{32\}$">nul 2>nul||call :Error "MyudCaw" "MD5 格式错误"
+)
+
+REM 创建目录
+if not exist %Dir% (
+        mkdir %Dir%
+)
+
+set FilePath=%Dir%\%File%
+
+REM 删除文件
+if exist %FilePath% (
+        if /i "%HoldRemove%"=="/r" (
+                del /f %FilePath%
+        )
+)
+
+REM 下载文件并检测他的 MD5
+for /l %%a in (1,1,10) do (
+        
+        if exist %FilePath% (
+                
+                if defined MD5 (
+                        
+                        echo,%~n0 - MyudCaw MD5Check: %FilePath%
+                        
+                        for /f "tokens=1* delims=;" %%x in ('md5 %FilePath%') do (
+                                if /i not "%%y"=="%MD5%" (
+                                        del /f %FilePath%
+                                ) else (
+                                        goto END_MyudCaw
+                                )
+                        )
+                        
+                ) else (
+                        goto END_MyudCaw
+                )
+                
+        ) else (
+                
+                if /i "%Http%"=="https" (
+                        wget -c -P %Dir% --no-check-certificate %URL%
+                ) else (
+                        wget -c -P %Dir% %URL%
+                )
+                
+        )
+        
+)
+
+call :Error "MyudCaw" "%File% 下载失败"
+
+:END_MyudCaw
 (ENDLOCAL
-        rem #04
+        
 )
 GOTO:EOF
 
