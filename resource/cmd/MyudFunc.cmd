@@ -74,6 +74,37 @@ for %%a in (%ArgList%) do (
 GOTO:EOF
 
 
+:Directory
+REM   func: #05
+REM   arg1: #06 =#07        #08
+REM return: #09_over
+SETLOCAL
+
+set Dir=%~1
+
+:BEGIN
+
+call :Argument "Directory" "Dir"
+
+if /i "%Dir:~0,1%"=="\" (
+        set Dir=%Dir:~1%
+)
+
+echo,%Dir%|findstr /i "^[c-z]:\\\\">nul 2>nul||set Dir=%cd%\%Dir%
+
+if /i "%Dir:~-1%"=="\" (
+        if /i not "%Dir:~-2%"==":\" (
+                set Dir=%Dir:~0,-1%
+        )
+)
+
+:END
+(ENDLOCAL
+        set DirPath=%Dir%
+)
+GOTO:EOF
+
+
 :CheckUDisk
 REM   func: 检查此程序是否位于U盘并更改U盘卷标
 REM   arg1: UDiskLabel =        新的U盘卷标
