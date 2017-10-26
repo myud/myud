@@ -108,239 +108,191 @@ for %%a in (%ArgList%) do (
 GOTO:EOF
 
 
+:#01
+REM   func: #05
+REM   arg1: #06 =#07        #08
+REM return: #09_over
+SETLOCAL
 
+#02
 
+:BEGIN
 
+#03
 
+:END
+(ENDLOCAL
+        #04
+)
+GOTO:EOF
 
 
+:#01
+REM   func: #05
+REM   arg1: #06 =#07        #08
+REM return: #09_over
+SETLOCAL
 
+#02
 
+:BEGIN
 
+#03
 
+:END
+(ENDLOCAL
+        #04
+)
+GOTO:EOF
 
 
+:#01
+REM   func: #05
+REM   arg1: #06 =#07        #08
+REM return: #09_over
+SETLOCAL
 
+#02
 
+:BEGIN
 
+#03
 
+:END
+(ENDLOCAL
+        #04
+)
+GOTO:EOF
 
 
+:#01
+REM   func: #05
+REM   arg1: #06 =#07        #08
+REM return: #09_over
+SETLOCAL
 
+#02
 
+:BEGIN
 
+#03
 
+:END
+(ENDLOCAL
+        #04
+)
+GOTO:EOF
 
 
+:#01
+REM   func: #05
+REM   arg1: #06 =#07        #08
+REM return: #09_over
+SETLOCAL
 
+#02
 
+:BEGIN
 
+#03
 
+:END
+(ENDLOCAL
+        #04
+)
+GOTO:EOF
 
 
+:#01
+REM   func: #05
+REM   arg1: #06 =#07        #08
+REM return: #09_over
+SETLOCAL
 
+#02
 
+:BEGIN
 
+#03
 
+:END
+(ENDLOCAL
+        #04
+)
+GOTO:EOF
 
 
+:#01
+REM   func: #05
+REM   arg1: #06 =#07        #08
+REM return: #09_over
+SETLOCAL
 
+#02
 
+:BEGIN
 
+#03
 
+:END
+(ENDLOCAL
+        #04
+)
+GOTO:EOF
 
 
+:#01
+REM   func: #05
+REM   arg1: #06 =#07        #08
+REM return: #09_over
+SETLOCAL
 
+#02
 
+:BEGIN
 
+#03
 
+:END
+(ENDLOCAL
+        #04
+)
+GOTO:EOF
 
 
+:#01
+REM   func: #05
+REM   arg1: #06 =#07        #08
+REM return: #09_over
+SETLOCAL
 
+#02
 
+:BEGIN
 
+#03
 
+:END
+(ENDLOCAL
+        #04
+)
+GOTO:EOF
 
 
+:#01
+REM   func: #05
+REM   arg1: #06 =#07        #08
+REM return: #09_over
+SETLOCAL
 
+#02
 
+:BEGIN
 
+#03
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+:END
+(ENDLOCAL
+        #04
+)
+GOTO:EOF
