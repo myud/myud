@@ -90,7 +90,13 @@ if /i "%Dir:~0,1%"=="\" (
         set Dir=%Dir:~1%
 )
 
-echo,%Dir%|findstr /i "^[c-z]:\\\\">nul 2>nul||set Dir=%cd%\%Dir%
+if /i "%cd:~-2%"==":\" (
+        set CurrentDir=%cd:~0,-1%
+) else (
+        set CurrentDir=%cd%
+)
+
+echo,%Dir%|findstr /i "^[c-z]:\\\\">nul 2>nul||set Dir=%CurrentDir%\%Dir%
 
 if /i "%Dir:~-1%"=="\" (
         if /i not "%Dir:~-2%"==":\" (
@@ -247,7 +253,7 @@ if not defined File (
 
 REM ¼ì²âÄ¿Â¼
 call :Directory %Dir%
-set Dir=DirPath
+set Dir=%DirPath%
 
 REM ¼ì²â HoldRemove, MD5
 if /i not "%HoldRemove%"=="/r" (
