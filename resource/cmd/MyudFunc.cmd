@@ -75,9 +75,9 @@ GOTO:EOF
 
 
 :Directory
-REM   func: #05
-REM   arg1: #06 =#07        #08
-REM return: #09_over
+REM   func: 将目录的相对路径转换为绝对路径
+REM   arg1: Dir =          目录的相对路径或绝对路径
+REM return: DirPath        目录的绝对路径
 SETLOCAL
 
 set Dir=%~1
