@@ -109,9 +109,9 @@ GOTO:EOF
 
 
 :CheckUDisk
-REM   func: #05
-REM   arg1: #06 =#07        #08
-REM return: #09_over
+REM   func: 检查此程序是否位于U盘并更改U盘卷标
+REM   arg1: UDiskLabel =        新的U盘卷标
+REM return: 
 SETLOCAL
 
 set UDiskLabel=%~1
@@ -122,22 +122,34 @@ set KeyName=HKLM\SYSTEM\CurrentControlSet\Services\USBSTOR\Enum
 
 call :Argument "CheckUDisk" "UDiskLabel"
 
+for /f "tokens=1-3" %%a in ('reg query "%KeyName%" /v Count 2^>nul') do (
+        if /i "%%a"=="Count" (
+                set /a CountVar=%%c
+        )
+)
 
+if /i "%CountVar%"=="0" (
+        call :Error "CheckUDisk" "U盘不存在"
+)
 
+for /f "tokens=1-3" %%a in ('wmic logicaldisk get Description^,DeviceID^,VolumeName 2^>nul') do (
+        if /i "%%a"=="可移动磁盘" (
+                if /i "%%b\cmd"=="%FuncPath%" (
+                        set DeviceID=%%b
+                        set VolumeName=%%c
+                )
+        )
+)
 
+if not defined DeviceID (
+        call :Error "CheckUDisk" "请将此程序复制到U盘根目录下运行"
+)
 
-
-
-
-
-
-
-
-
+echo,%VolumeName%|findstr "^%UDiskLabel%[0-9]*$"||label %DeviceID% %UDiskLabel%
 
 :END
 (ENDLOCAL
-        rem #04
+        
 )
 GOTO:EOF
 
