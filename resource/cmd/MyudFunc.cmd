@@ -145,7 +145,7 @@ if not defined DeviceID (
         call :Error "CheckUDisk" "请将此程序复制到U盘根目录下运行"
 )
 
-echo,%VolumeName%|findstr "^%UDiskLabel%[0-9]*$"||label %DeviceID% %UDiskLabel%
+echo,%VolumeName%|findstr "^%UDiskLabel%[0-9]*$">nul 2>nul||label %DeviceID% %UDiskLabel%
 
 :END
 (ENDLOCAL
