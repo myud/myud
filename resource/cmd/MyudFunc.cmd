@@ -96,9 +96,8 @@ if not defined ArgList (
 )
 
 for %%a in (%ArgList%) do (
-        set Arg=%%a
-        if not defined Arg (
-                call :Error "%LabelName%" "缺少参数 %Arg%"
+        if not defined %%a (
+                call :Error "%LabelName%" "缺少参数 %%a"
         )
 )
 
