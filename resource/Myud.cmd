@@ -130,4 +130,5 @@ REM DNS
 REM # Func Var
 REM FuncPath
 REM FuncName
+REM DirPath
 REM CommandPath
