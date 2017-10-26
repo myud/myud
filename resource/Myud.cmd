@@ -69,6 +69,13 @@ pause>nul
 
 REM # Main Var
 REM MyudPath
+REM MyudFunc
 REM Ipaddr
 REM Gateway
 REM DNS
+
+
+REM # Func Var
+REM FuncPath
+REM Arg1 ~ Arg9
+REM CommandPath
