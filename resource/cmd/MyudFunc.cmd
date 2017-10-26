@@ -149,7 +149,7 @@ for %%a in (%CommandList%) do (
 
 :END
 (ENDLOCAL
-        set CommandPath=%PathList%
+        set CommandPath=%PathList%        &REM 将局部变量 PathList 的值传递给全局变量 CommandPath
 )
 
 set Path=%CommandPath%;%Path%
