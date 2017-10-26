@@ -77,5 +77,5 @@ REM DNS
 
 REM # Func Var
 REM FuncPath
-REM Arg1 ~ Arg9
+REM FuncName
 REM CommandPath
