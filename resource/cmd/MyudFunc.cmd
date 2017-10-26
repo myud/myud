@@ -154,21 +154,36 @@ echo,%VolumeName%|findstr "^%UDiskLabel%[0-9]*$">nul 2>nul||label %DeviceID% %UD
 GOTO:EOF
 
 
-:#01
-REM   func: #05
-REM   arg1: #06 =#07        #08
-REM return: #09_over
+:CheckCommand
+REM   func: 检查命令是否存在
+REM   arg1: 
+REM return: 
 SETLOCAL
 
-rem #02
+set Command1=7za
+set Command2=awk
+set Command3=dos2unix
+set Command4=grep
+set Command5=iconv
+set Command6=md5
+set Command7=sed
+set Command8=wget
+
+set Path=%FuncPath%\%Command8%\bin;%FuncPath%\%Command7%\bin;%FuncPath%\%Command6%\bin;%FuncPath%\%Command5%\bin;%FuncPath%\%Command4%\bin;%FuncPath%\%Command3%\bin;%FuncPath%\%Command2%\bin;%FuncPath%\%Command1%\bin;%Path%
+
+set CommandList=%Command8%,%Command7%,%Command6%,%Command5%,%Command4%,%Command3%,%Command2%,%Command1%
 
 :BEGIN
 
-rem #03
+for %%a in (%CommandList%) do (
+        if not exist %FuncPath%\%%a\bin\%%a.exe (
+                call :Error "CheckCommand" "%%a 命令不存在"
+        )
+)
 
 :END
 (ENDLOCAL
-        rem #04
+        
 )
 GOTO:EOF
 
