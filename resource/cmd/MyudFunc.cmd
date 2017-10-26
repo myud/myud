@@ -16,31 +16,31 @@ set Arg9=%~9
 
 REM 检查参数
 if defined Arg9 (
-        call :%Arg1% "%Arg2%" "%Arg3%" "%Arg4%" "%Arg5%" "%Arg6%" "%Arg7%" "%Arg8%" "%Arg9%" 2>nul||call :Error "Main" "%Arg1% 标签不存在"
+        call :%Arg1% "%Arg2%" "%Arg3%" "%Arg4%" "%Arg5%" "%Arg6%" "%Arg7%" "%Arg8%" "%Arg9%" 2>nul||call :Error "Main" "%Arg1% 标签不存在或语法错误"
 ) else (
         if defined Arg8 (
-                call :%Arg1% "%Arg2%" "%Arg3%" "%Arg4%" "%Arg5%" "%Arg6%" "%Arg7%" "%Arg8%" 2>nul||call :Error "Main" "%Arg1% 标签不存在"
+                call :%Arg1% "%Arg2%" "%Arg3%" "%Arg4%" "%Arg5%" "%Arg6%" "%Arg7%" "%Arg8%" 2>nul||call :Error "Main" "%Arg1% 标签不存在或语法错误"
         ) else (
                 if defined Arg7 (
-                        call :%Arg1% "%Arg2%" "%Arg3%" "%Arg4%" "%Arg5%" "%Arg6%" "%Arg7%" 2>nul||call :Error "Main" "%Arg1% 标签不存在"
+                        call :%Arg1% "%Arg2%" "%Arg3%" "%Arg4%" "%Arg5%" "%Arg6%" "%Arg7%" 2>nul||call :Error "Main" "%Arg1% 标签不存在或语法错误"
                 ) else (
                         if defined Arg6 (
-                                call :%Arg1% "%Arg2%" "%Arg3%" "%Arg4%" "%Arg5%" "%Arg6%" 2>nul||call :Error "Main" "%Arg1% 标签不存在"
+                                call :%Arg1% "%Arg2%" "%Arg3%" "%Arg4%" "%Arg5%" "%Arg6%" 2>nul||call :Error "Main" "%Arg1% 标签不存在或语法错误"
                         ) else (
                                 if defined Arg5 (
-                                        call :%Arg1% "%Arg2%" "%Arg3%" "%Arg4%" "%Arg5%" 2>nul||call :Error "Main" "%Arg1% 标签不存在"
+                                        call :%Arg1% "%Arg2%" "%Arg3%" "%Arg4%" "%Arg5%" 2>nul||call :Error "Main" "%Arg1% 标签不存在或语法错误"
                                 ) else (
                                         if defined Arg4 (
-                                                call :%Arg1% "%Arg2%" "%Arg3%" "%Arg4%" 2>nul||call :Error "Main" "%Arg1% 标签不存在"
+                                                call :%Arg1% "%Arg2%" "%Arg3%" "%Arg4%" 2>nul||call :Error "Main" "%Arg1% 标签不存在或语法错误"
                                         ) else (
                                                 if defined Arg3 (
-                                                        call :%Arg1% "%Arg2%" "%Arg3%" 2>nul||call :Error "Main" "%Arg1% 标签不存在"
+                                                        call :%Arg1% "%Arg2%" "%Arg3%" 2>nul||call :Error "Main" "%Arg1% 标签不存在或语法错误"
                                                 ) else (
                                                         if defined Arg2 (
-                                                                call :%Arg1% "%Arg2%" 2>nul||call :Error "Main" "%Arg1% 标签不存在"
+                                                                call :%Arg1% "%Arg2%" 2>nul||call :Error "Main" "%Arg1% 标签不存在或语法错误"
                                                         ) else (
                                                                 if defined Arg1 (
-                                                                        call :%Arg1% 2>nul||call :Error "Main" "%Arg1% 标签不存在"
+                                                                        call :%Arg1% 2>nul||call :Error "Main" "%Arg1% 标签不存在或语法错误"
                                                                 ) else (
                                                                         call :Error "Main" "缺少参数 标签名称"
 )))))))))
@@ -108,21 +108,36 @@ for %%a in (%ArgList%) do (
 GOTO:EOF
 
 
-:#01
+:CheckUDisk
 REM   func: #05
 REM   arg1: #06 =#07        #08
 REM return: #09_over
 SETLOCAL
 
-#02
+set UDiskLabel=%~1
+
+set KeyName=HKLM\SYSTEM\CurrentControlSet\Services\USBSTOR\Enum
 
 :BEGIN
 
-#03
+call :Argument "CheckUDisk" "UDiskLabel"
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 :END
 (ENDLOCAL
-        #04
+        rem #04
 )
 GOTO:EOF
 
@@ -133,15 +148,15 @@ REM   arg1: #06 =#07        #08
 REM return: #09_over
 SETLOCAL
 
-#02
+rem #02
 
 :BEGIN
 
-#03
+rem #03
 
 :END
 (ENDLOCAL
-        #04
+        rem #04
 )
 GOTO:EOF
 
@@ -152,15 +167,15 @@ REM   arg1: #06 =#07        #08
 REM return: #09_over
 SETLOCAL
 
-#02
+rem #02
 
 :BEGIN
 
-#03
+rem #03
 
 :END
 (ENDLOCAL
-        #04
+        rem #04
 )
 GOTO:EOF
 
@@ -171,15 +186,15 @@ REM   arg1: #06 =#07        #08
 REM return: #09_over
 SETLOCAL
 
-#02
+rem #02
 
 :BEGIN
 
-#03
+rem #03
 
 :END
 (ENDLOCAL
-        #04
+        rem #04
 )
 GOTO:EOF
 
@@ -190,15 +205,15 @@ REM   arg1: #06 =#07        #08
 REM return: #09_over
 SETLOCAL
 
-#02
+rem #02
 
 :BEGIN
 
-#03
+rem #03
 
 :END
 (ENDLOCAL
-        #04
+        rem #04
 )
 GOTO:EOF
 
@@ -209,15 +224,15 @@ REM   arg1: #06 =#07        #08
 REM return: #09_over
 SETLOCAL
 
-#02
+rem #02
 
 :BEGIN
 
-#03
+rem #03
 
 :END
 (ENDLOCAL
-        #04
+        rem #04
 )
 GOTO:EOF
 
@@ -228,15 +243,15 @@ REM   arg1: #06 =#07        #08
 REM return: #09_over
 SETLOCAL
 
-#02
+rem #02
 
 :BEGIN
 
-#03
+rem #03
 
 :END
 (ENDLOCAL
-        #04
+        rem #04
 )
 GOTO:EOF
 
@@ -247,15 +262,15 @@ REM   arg1: #06 =#07        #08
 REM return: #09_over
 SETLOCAL
 
-#02
+rem #02
 
 :BEGIN
 
-#03
+rem #03
 
 :END
 (ENDLOCAL
-        #04
+        rem #04
 )
 GOTO:EOF
 
@@ -266,15 +281,15 @@ REM   arg1: #06 =#07        #08
 REM return: #09_over
 SETLOCAL
 
-#02
+rem #02
 
 :BEGIN
 
-#03
+rem #03
 
 :END
 (ENDLOCAL
-        #04
+        rem #04
 )
 GOTO:EOF
 
@@ -285,14 +300,33 @@ REM   arg1: #06 =#07        #08
 REM return: #09_over
 SETLOCAL
 
-#02
+rem #02
 
 :BEGIN
 
-#03
+rem #03
 
 :END
 (ENDLOCAL
-        #04
+        rem #04
+)
+GOTO:EOF
+
+
+:#01
+REM   func: #05
+REM   arg1: #06 =#07        #08
+REM return: #09_over
+SETLOCAL
+
+rem #02
+
+:BEGIN
+
+rem #03
+
+:END
+(ENDLOCAL
+        rem #04
 )
 GOTO:EOF
