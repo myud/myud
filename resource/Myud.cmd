@@ -17,6 +17,8 @@ if not exist %MyudFunc% (
         exit 1
 )
 
+REM Usage: call %MyudFunc% 标签名称 "参数1" "参数2" "参数3"
+
 call %MyudFunc% CheckUDisk "MYUD"
 
 call %MyudFunc% CheckCommand
