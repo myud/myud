@@ -50,7 +50,7 @@ if defined Arg9 (
 
 :Error
 REM   func: 输出错误信息并且退出
-REM   arg1: LabelName =Main            出现错误的标签名称
+REM   arg1: LabelName =Unknown         出现错误的标签名称
 REM   arg2: Message   =未知错误        想要输出的错误信息
 REM return: 
 SETLOCAL
@@ -61,7 +61,7 @@ set Message=%~2
 :BEGIN
 
 if not defined LabelName (
-        set LabelName=Main
+        set LabelName=Unknown
 )
 
 if not defined Message (
@@ -77,3 +77,271 @@ exit 1
         
 )
 GOTO:EOF
+
+
+:Argument
+REM   func: 检查参数是否存在
+REM   arg1: LabelName =        出现错误的标签名称
+REM   arg2: ArgList   =        需要检查的参数列表, 如: arg1,arg2,arg3
+REM return: 
+SETLOCAL
+
+set LabelName=%~1
+set ArgList=%~2
+
+:BEGIN
+
+if not defined ArgList (
+        call :Error "Argument" "缺少参数 参数列表"
+)
+
+for %%a in (%ArgList%) do (
+        set Arg=%%a
+        if not defined Arg (
+                call :Error "%LabelName%" "缺少参数 %Arg%"
+        )
+)
+
+:END
+(ENDLOCAL
+        
+)
+GOTO:EOF
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
