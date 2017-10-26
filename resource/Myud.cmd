@@ -17,7 +17,7 @@ if not exist %MyudFunc% (
         exit 1
 )
 
-::call %MyudFunc% CheckUDisk "MYUD"
+call %MyudFunc% CheckUDisk "MYUD"
 
 REM ½»»¥
 echo,
