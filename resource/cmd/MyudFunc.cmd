@@ -467,21 +467,47 @@ for %%a in (%NetZipFileList%) do (
 GOTO:EOF
 
 
-:#013
-REM   func: #05
-REM   arg1: #06 =#07        #08
-REM return: #09_over
+:ReplaceStr
+REM   func: 替换字符串且不会改变原来的文件编码
+REM   arg1: OldStr =        原字符串
+REM   arg1: NewStr =        新字符串
+REM   arg1: File   =        文件的绝对路径或相对路径
+REM return: 
 SETLOCAL
 
-rem #02
+set OldStr=%~1
+set NewStr=%~2
+set File=%~3
 
 :BEGIN
 
-rem #03
+::::call :CheckCommand
+
+call :Argument "ReplaceStr" "OldStr,NewStr,File"
+
+if /i "%File:~-1%"=="\" (
+        call :Error "ReplaceStr" "文件名称格式错误"
+)
+
+call :Directory %File%
+set File=%DirPath%
+
+if not exist %File% (
+        call :Error "ReplaceStr" "%File% 文件不存在"
+)
+
+sed -i "s/%OldStr%/%NewStr%/g" %File%
+
+dos2unix %File%>nul 2>nul
+
+REM 当前目录下
+for %%a in (sed*) do (
+        echo,%%a|grep "^sed[A-Za-z0-9]\{6\}$">nul 2>nul&&del /f %%a
+)
 
 :END
 (ENDLOCAL
-        rem #04
+        
 )
 GOTO:EOF
 
