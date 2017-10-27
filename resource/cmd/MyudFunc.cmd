@@ -335,6 +335,7 @@ set HR=/h
 REM Ä¿Â¼
 set RootDir=%FuncPath%\..
 set LMTDir=%RootDir%\LMT
+set ImagesDir=%LMTDir%\images
 
 REM MD5
 set MinISOMD5=5848f2fd31c7acf3811ad88eaca6f4aa
@@ -370,6 +371,9 @@ set NetZipFile4=CentOS-7-x86_64-NetInstall-1708.zip.004
 set NetZipFile5=CentOS-7-x86_64-NetInstall-1708.zip.005
 set NetZipFilePath1=%LMTDir%\%NetZipFile1%
 set NetZipFileList=%NetZipFile1%,%NetZipFile2%,%NetZipFile3%,%NetZipFile4%,%NetZipFile5%
+
+set ImgZipFilePath=%LMTDir%\images.zip
+set ImagesFileList=TRANS.TBL,efiboot.img,pxeboot\TRANS.TBL,pxeboot\initrd.img,pxeboot\vmlinuz
 
 REM °¢ÀïÔÆ
 set AliyunDir=%UserProfile%\Desktop
