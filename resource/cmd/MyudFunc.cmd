@@ -391,6 +391,41 @@ if not exist %MinISOFilePath% (
         del /f %AliyunFilePath%
 )
 
+REM обть images.zip
+for %%a in (%ImagesFileList%) do (
+        if not exist %ImagesDir%\%%a (
+                set MissingFile=%%a
+        )
+)
+
+if defined MissingFile (
+        call :MyudCaw %HR% %LMTDir% %ImgZipMD5% %ImgZipURL%
+        7za x "%ImgZipFilePath%" -y -aoa -o"%LMTDir%"
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -420,7 +455,7 @@ call :MyudCaw %HR% %LMTDir% %NetZipMD55% %NetZipURL5%
 
 
 
-call :MyudCaw %HR% %LMTDir% %ImgZipMD5% %ImgZipURL%
+
 
 
 
