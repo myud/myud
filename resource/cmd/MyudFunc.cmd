@@ -323,7 +323,7 @@ call :Error "MyudCaw" "%File% œ¬‘ÿ ß∞‹"
 GOTO:EOF
 
 
-:#01
+:#015
 REM   func: #05
 REM   arg1: #06 =#07        #08
 REM return: #09_over
@@ -342,7 +342,7 @@ rem #03
 GOTO:EOF
 
 
-:#01
+:#014
 REM   func: #05
 REM   arg1: #06 =#07        #08
 REM return: #09_over
@@ -361,7 +361,7 @@ rem #03
 GOTO:EOF
 
 
-:#01
+:#013
 REM   func: #05
 REM   arg1: #06 =#07        #08
 REM return: #09_over
@@ -380,7 +380,7 @@ rem #03
 GOTO:EOF
 
 
-:#01
+:#012
 REM   func: #05
 REM   arg1: #06 =#07        #08
 REM return: #09_over
@@ -399,7 +399,7 @@ rem #03
 GOTO:EOF
 
 
-:#01
+:#011
 REM   func: #05
 REM   arg1: #06 =#07        #08
 REM return: #09_over
@@ -418,42 +418,7 @@ rem #03
 GOTO:EOF
 
 
-:#01
-REM   func: #05
-REM   arg1: #06 =#07        #08
-REM return: #09_over
-SETLOCAL
-
-rem #02
-
-:BEGIN
-
-rem #03
-
-:END
-(ENDLOCAL
-        rem #04
-)
-GOTO:EOF
-
-
-:#01
-REM   func: #05
-REM   arg1: #06 =#07        #08
-REM return: #09_over
-SETLOCAL
-
-rem #02
-
-:BEGIN
-
-rem #03
-
-:END
-(ENDLOCAL
-        rem #04
-)
-GOTO:EOF
+GOTO:EOF ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 :#01

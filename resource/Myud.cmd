@@ -119,16 +119,18 @@ pause>nul
 @GOTO:EOF
 
 
-REM # Main Var
-REM MyudPath
-REM MyudFunc
-REM Ipaddr
-REM Gateway
-REM DNS
+GOTO:EOF ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-REM # Func Var
-REM FuncPath
-REM FuncName
-REM DirPath
-REM CommandPath
+# Main Var
+MyudPath
+MyudFunc
+Ipaddr
+Gateway
+DNS
+
+# Func Var
+FuncPath
+FuncName
+DirPath
+CommandPath
