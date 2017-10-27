@@ -323,21 +323,102 @@ call :Error "MyudCaw" "%File% 下载失败"
 GOTO:EOF
 
 
-:#015
-REM   func: #05
-REM   arg1: #06 =#07        #08
-REM return: #09_over
+:DownloadISO
+REM   func: 下载 ISO 文件
+REM   arg1: 
+REM return: 
 SETLOCAL
 
-rem #02
+REM HoldRemove
+set HR=/h
+
+REM 目录
+set RootDir=%FuncPath%\..
+set LMTDir=%RootDir%\LMT
+
+REM MD5
+set MinISOMD5=5848f2fd31c7acf3811ad88eaca6f4aa
+set NetISOMD5=75acc54b5825edb96a5a843996fd578b
+
+set NetZipMD51=6e919504f50d4f49b94366e267fd557a
+set NetZipMD52=80b73ed0bb84079260181b318cd2b434
+set NetZipMD53=a922b8209d677d0909a3fdf6cc75420e
+set NetZipMD54=f8e3f8659eddddcbe60366d13dfd0816
+set NetZipMD55=b7154e6273687382a6382234d095cb56
+
+set ImgZipMD5=f01abc3decf5c91ab3617601e091f188
+
+REM URL
+set MinISOURL=http://mirrors.aliyun.com/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.iso
+
+set NetZipURL1=https://gitee.com/mydownload/myud-attachment/raw/master/resource/LMT/CentOS-7-x86_64-NetInstall-1708.zip.001
+set NetZipURL2=https://gitee.com/mydownload/myud-attachment/raw/master/resource/LMT/CentOS-7-x86_64-NetInstall-1708.zip.002
+set NetZipURL3=https://gitee.com/mydownload/myud-attachment/raw/master/resource/LMT/CentOS-7-x86_64-NetInstall-1708.zip.003
+set NetZipURL4=https://gitee.com/mydownload/myud-attachment/raw/master/resource/LMT/CentOS-7-x86_64-NetInstall-1708.zip.004
+set NetZipURL5=https://gitee.com/mydownload/myud-attachment/raw/master/resource/LMT/CentOS-7-x86_64-NetInstall-1708.zip.005
+
+set ImgZipURL=https://gitee.com/mydownload/myud-attachment/raw/master/resource/LMT/images.zip
+
+REM 文件
+set MinISOFilePath=%RootDir%\CentOS-7-x86_64-Minimal-1708.iso
+set NetISOFilePath=%LMTDir%\CentOS-7-x86_64-NetInstall-1708.iso
+
+set NetZipFile1=CentOS-7-x86_64-NetInstall-1708.zip.001
+set NetZipFile2=CentOS-7-x86_64-NetInstall-1708.zip.002
+set NetZipFile3=CentOS-7-x86_64-NetInstall-1708.zip.003
+set NetZipFile4=CentOS-7-x86_64-NetInstall-1708.zip.004
+set NetZipFile5=CentOS-7-x86_64-NetInstall-1708.zip.005
+set NetZipFilePath1=%LMTDir%\%NetZipFile1%
+set NetZipFileList=%NetZipFile1%,%NetZipFile2%,%NetZipFile3%,%NetZipFile4%,%NetZipFile5%
+
+set ImgZipDirPath=%LMTDir%\images
+set ImgZipFilePath=%ImgZipDirPath%.zip
 
 :BEGIN
 
-rem #03
+::::call :CheckCommand
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+call :MyudCaw "%HR%" "%RootDir%" "%MinISOMD5%" "%MinISOURL%"
+
+
+
+
+
+
+
+
+
+
+
+
 
 :END
 (ENDLOCAL
-        rem #04
+        
 )
 GOTO:EOF
 
