@@ -384,29 +384,11 @@ set AliyunFilePath=%AliyunDir%\CentOS-7-x86_64-Minimal-1708.torrent
 
 ::::call :CheckCommand
 
-REM 测试阿里云
-set AliyunDir=%UserProfile%\Desktop
-set AliyunMD5=f01b8a4a42218b55f0ced67a0875f06e
-set AliyunURL=http://mirrors.aliyun.com/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.torrent
-set AliyunFilePath=%AliyunDir%\CentOS-7-x86_64-Minimal-1708.torrent
-
+REM 检测阿里云是否已经更新
 if not exist %MinISOFilePath% (
-        
-        
-        
-        
-        
-        
-        
-        
-        call :MyudCaw /r 
+        call :MyudCaw /r %AliyunDir% %AliyunMD5% %AliyunURL%
+        del /f %AliyunFilePath%
 )
-
-
-
-
-
-
 
 
 
