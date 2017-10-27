@@ -374,6 +374,12 @@ set NetZipFileList=%NetZipFile1%,%NetZipFile2%,%NetZipFile3%,%NetZipFile4%,%NetZ
 set ImgZipDirPath=%LMTDir%\images
 set ImgZipFilePath=%ImgZipDirPath%.zip
 
+REM ∞¢¿Ô‘∆
+set AliyunDir=%UserProfile%\Desktop
+set AliyunMD5=f01b8a4a42218b55f0ced67a0875f06e
+set AliyunURL=http://mirrors.aliyun.com/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.torrent
+set AliyunFilePath=%AliyunDir%\CentOS-7-x86_64-Minimal-1708.torrent
+
 :BEGIN
 
 ::::call :CheckCommand
