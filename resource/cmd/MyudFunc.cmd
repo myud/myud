@@ -290,8 +290,8 @@ for /l %%a in (1,1,10) do (
                         
                         echo,%~n0 - MyudCaw MD5Check: %FilePath%
                         
-                        for /f "tokens=1* delims=;" %%x in ('md5 %FilePath%') do (
-                                if /i not "%%y"=="%MD5%" (
+                        for /f "tokens=1*" %%z in ('md5 %FilePath%') do (
+                                if /i not "%%z"=="%MD5%" (
                                         del /f %FilePath%
                                 ) else (
                                         goto END_MyudCaw
