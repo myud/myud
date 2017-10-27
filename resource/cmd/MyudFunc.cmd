@@ -82,21 +82,21 @@ SETLOCAL
 
 set Dir=%~1
 
+set Current=%cd%
+
 :BEGIN
 
 call :Argument "Directory" "Dir"
+
+if /i "%Current:~-1%"=="\" (
+        set Current=%Current:~0,-1%
+)
 
 if /i "%Dir:~0,1%"=="\" (
         set Dir=%Dir:~1%
 )
 
-if /i "%cd:~-2%"==":\" (
-        set CurrentDir=%cd:~0,-1%
-) else (
-        set CurrentDir=%cd%
-)
-
-echo,%Dir%|findstr /i "^[c-z]:\\\\">nul 2>nul||set Dir=%CurrentDir%\%Dir%
+echo,%Dir%|findstr /i "^[c-z]:\\\\">nul 2>nul||set Dir=%Current%\%Dir%
 
 if /i "%Dir:~-1%"=="\" (
         if /i not "%Dir:~-2%"==":\" (
