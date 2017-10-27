@@ -5,8 +5,9 @@ set FuncPath=%FuncPath:~0,-1%
 
 set FuncName=%~1
 
+REM 标签最后一条语句执行失败也会显示 标签不存在
 if defined FuncName (
-        call :%FuncName% %2 %3 %4 %5 %6 %7 %8 %9||(cls&call :Error "Main" "%FuncName% 标签不存在")        &REM 检查标签最后一条语句
+        call :%FuncName% %2 %3 %4 %5 %6 %7 %8 %9||(cls&call :Error "Main" "%FuncName% 标签不存在")
 ) else (
         call :Error "Main" "缺少参数 标签名称"
 )
@@ -186,7 +187,8 @@ for %%a in (%CommandList%) do (
 
 :END
 (ENDLOCAL
-        set CommandPath=%PathList%        &REM 将局部变量 PathList 的值传递给全局变量 CommandPath
+        REM 将局部变量 PathList 的值传递给全局变量 CommandPath
+        set CommandPath=%PathList%
 )
 
 set Path=%CommandPath%;%Path%
