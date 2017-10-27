@@ -6,7 +6,7 @@ set FuncPath=%FuncPath:~0,-1%
 set FuncName=%~1
 
 if defined FuncName (
-        call :%FuncName% %2 %3 %4 %5 %6 %7 %8 %9 2>nul||call :Error "Main" "%FuncName% 标签不存在"        &REM 检查标签最后一条语句
+        call :%FuncName% %2 %3 %4 %5 %6 %7 %8 %9||(cls&call :Error "Main" "%FuncName% 标签不存在")        &REM 检查标签最后一条语句
 ) else (
         call :Error "Main" "缺少参数 标签名称"
 )
