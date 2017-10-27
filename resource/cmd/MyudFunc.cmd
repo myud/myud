@@ -383,7 +383,7 @@ set AliyunMD5=f01b8a4a42218b55f0ced67a0875f06e
 set AliyunURL=http://mirrors.aliyun.com/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1708.torrent
 set AliyunFilePath=%AliyunDir%\CentOS-7-x86_64-Minimal-1708.torrent
 
-:BEGIN
+:BEGIN_DownloadISO
 
 ::::call :CheckCommand
 
@@ -405,48 +405,16 @@ if defined MissingFile (
         7za x "%ImgZipFilePath%" -y -aoa -o"%LMTDir%"
 )
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-call :MyudCaw %HR% %RootDir% %MinISOMD5% %MinISOURL%
-
-
-
+REM 下载 CentOS-7-x86_64-NetInstall-1708.iso
+if exist %NetISOFilePath% (
+        echo,%~n0 - DownloadISO MD5Check: %NetISOFilePath%
+        
+        for /f "tokens=1*" %%z in ('md5 %NetISOFilePath%') do (
+                if /i "%%z"=="%NetISOMD5%" (
+                        goto SKIP_DownloadISO
+                )
+        )
+)
 
 call :MyudCaw %HR% %LMTDir% %NetZipMD51% %NetZipURL1%
 call :MyudCaw %HR% %LMTDir% %NetZipMD52% %NetZipURL2%
@@ -454,35 +422,47 @@ call :MyudCaw %HR% %LMTDir% %NetZipMD53% %NetZipURL3%
 call :MyudCaw %HR% %LMTDir% %NetZipMD54% %NetZipURL4%
 call :MyudCaw %HR% %LMTDir% %NetZipMD55% %NetZipURL5%
 
-
-
-
-
-
-
-
-:END
-(ENDLOCAL
+for /l %%a in (1,1,10) do (
+        
+        for %%b in (%NetZipFileList%) do (
+                if not exist %LMTDir%\%%b (
+                        call :Error "DownloadISO" "%LMTDir%\%%b 文件不存在"
+                )
+        )
+        
+        7za x "%NetZipFilePath1%" -y -aoa -o"%LMTDir%"
+        
+        echo,%~n0 - DownloadISO MD5Check: %NetISOFilePath%
+        
+        for /f "tokens=1*" %%z in ('md5 %NetISOFilePath%') do (
+                if /i "%%z"=="%NetISOMD5%" (
+                        goto SKIP_DownloadISO
+                )
+        )
         
 )
-GOTO:EOF
 
+call :Error "DownloadISO" "%NetZipFilePath1% 解压失败"
 
-:#014
-REM   func: #05
-REM   arg1: #06 =#07        #08
-REM return: #09_over
-SETLOCAL
+:SKIP_DownloadISO
 
-rem #02
+REM 下载 CentOS-7-x86_64-Minimal-1708.iso
+call :MyudCaw %HR% %RootDir% %MinISOMD5% %MinISOURL%
 
-:BEGIN
+REM 删除压缩包
+if exist %ImgZipFilePath% (
+        del /f %ImgZipFilePath%
+)
 
-rem #03
+for %%a in (%NetZipFileList%) do (
+        if exist %LMTDir%\%%a (
+                del /f %LMTDir%\%%a
+        )
+)
 
-:END
+:END_DownloadISO
 (ENDLOCAL
-        rem #04
+        
 )
 GOTO:EOF
 
