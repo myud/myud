@@ -52,7 +52,6 @@ REM ###################################################
 cls
 echo,正在运行, 请稍后...
 
-choice /t 1 /d y /n>nul
 
 
 
@@ -64,45 +63,8 @@ choice /t 1 /d y /n>nul
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+REM 下载
+call %MyudFunc% DownloadISO
 
 REM 结束
 cls
