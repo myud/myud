@@ -402,17 +402,21 @@ set ImgZipFilePath=%ImgZipDirPath%.zip
 
 
 
-call :MyudCaw "%HR%" "%RootDir%" "%MinISOMD5%" "%MinISOURL%"
+call :MyudCaw %HR% %RootDir% %MinISOMD5% %MinISOURL%
 
 
 
 
+call :MyudCaw %HR% %LMTDir% %NetZipMD51% %NetZipURL1%
+call :MyudCaw %HR% %LMTDir% %NetZipMD52% %NetZipURL2%
+call :MyudCaw %HR% %LMTDir% %NetZipMD53% %NetZipURL3%
+call :MyudCaw %HR% %LMTDir% %NetZipMD54% %NetZipURL4%
+call :MyudCaw %HR% %LMTDir% %NetZipMD55% %NetZipURL5%
 
 
 
 
-
-
+call :MyudCaw %HR% %LMTDir% %ImgZipMD5% %ImgZipURL%
 
 
 
