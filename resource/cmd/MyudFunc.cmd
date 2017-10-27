@@ -371,9 +371,6 @@ set NetZipFile5=CentOS-7-x86_64-NetInstall-1708.zip.005
 set NetZipFilePath1=%LMTDir%\%NetZipFile1%
 set NetZipFileList=%NetZipFile1%,%NetZipFile2%,%NetZipFile3%,%NetZipFile4%,%NetZipFile5%
 
-set ImgZipDirPath=%LMTDir%\images
-set ImgZipFilePath=%ImgZipDirPath%.zip
-
 REM ∞¢¿Ô‘∆
 set AliyunDir=%UserProfile%\Desktop
 set AliyunMD5=f01b8a4a42218b55f0ced67a0875f06e
