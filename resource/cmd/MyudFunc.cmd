@@ -255,7 +255,7 @@ REM 检测目录
 call :Directory %Dir%
 set Dir=%DirPath%
 
-REM 检测 HoldRemove, MD5
+REM 检测 HoldRemove
 if /i not "%HoldRemove%"=="/r" (
         if /i not "%HoldRemove%"=="/h" (
                 call :Error "MyudCaw" "%HoldRemove% 是无效选项"
@@ -281,7 +281,7 @@ if exist %FilePath% (
         )
 )
 
-REM 下载文件并检测他的 MD5
+REM 下载文件并检测 MD5 值
 for /l %%a in (1,1,10) do (
         
         if exist %FilePath% (
