@@ -552,21 +552,48 @@ call :ReplaceStr "##custom##114\.114\.114\.114##" "%DNS%" "%Network%"
 GOTO:EOF
 
 
-:#01
+:UDiskAttr
 REM   func: #05
 REM   arg1: #06 =#07        #08
 REM return: #09_over
-SETLOCAL
+SETLOCAL ENABLEDELAYEDEXPANSION
 
-rem #02
+set KeyName=HKLM\SYSTEM\CurrentControlSet\Services\USBSTOR\Enum
 
 :BEGIN
 
-rem #03
+for /f "tokens=1-3" %%a in ('reg query "%KeyName%" /v Count 2^>nul') do (
+        if /i "%%a"=="Count" (
+                set /a CountVar=%%c
+        )
+)
+
+if /i "%CountVar%"=="0" (
+        call :Error "CheckUDisk" "UÅÌ²»´æÔÚ"
+)
+
+if exist %FuncPath%\UDiskAttr.tmp (
+        del /f %FuncPath%\UDiskAttr.tmp
+)
+
+for /l %%a in (1,1,%CountVar%) do (
+        set /a UDiskNum=%%a-1
+        
+        for /f "tokens=1-3" %%b in ('reg query "%KeyName%" 2^>nul') do (
+                if /i "%%b"=="!UDiskNum!" (
+                        set Attr=%%d
+                        set VID=!Attr:~8,4!
+                        set PID=!Attr:~17,4!
+                        set SN=!Attr:~22!
+                        
+                        echo,VID: !VID! PID: !PID! SN: !SN!>>%FuncPath%\UDiskAttr.tmp
+                )
+        )
+)
 
 :END
 (ENDLOCAL
-        rem #04
+        
 )
 GOTO:EOF
 
