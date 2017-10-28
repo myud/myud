@@ -64,6 +64,7 @@ kexec-tools
 %end
 
 %post
+##custom##myud_rules##
 systemctl disable postfix.service
 %end
 
