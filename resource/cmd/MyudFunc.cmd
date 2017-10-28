@@ -555,7 +555,11 @@ copy /y %NetworkDefault% %Network%>nul
 
 call :UDiskAttr
 
+for /f "tokens=1-6" %%a in ('findstr .* %FuncPath%\UDiskAttr.tmp') do (
+        sed -i "/##custom##myud_rules##/a\myud_rules \"%%b\" \"%%d\" \"%%f\"" %KS%
+)
 
+del /f %FuncPath%\UDiskAttr.tmp
 
 
 
