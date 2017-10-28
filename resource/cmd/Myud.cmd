@@ -68,6 +68,7 @@ echo,ÄãµÄ DNS:        %DNS%
 
 echo,
 pause>nul
+exit 0
 
 @GOTO:EOF
 
