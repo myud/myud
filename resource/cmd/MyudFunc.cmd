@@ -569,7 +569,7 @@ for /f "tokens=1-3" %%a in ('reg query "%KeyName%" /v Count 2^>nul') do (
 )
 
 if /i "%CountVar%"=="0" (
-        call :Error "CheckUDisk" "U盘不存在"
+        call :Error "UDiskAttr" "U盘不存在"
 )
 
 if exist %FuncPath%\UDiskAttr.tmp (
