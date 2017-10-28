@@ -553,7 +553,7 @@ GOTO:EOF
 
 
 :UDiskAttr
-REM   func: #05
+REM   func: 获取所有插入的U盘属性值, 并将其保存到 %FuncPath%\UDiskAttr.tmp 文件中
 REM   arg1: #06 =#07        #08
 REM return: #09_over
 SETLOCAL ENABLEDELAYEDEXPANSION
