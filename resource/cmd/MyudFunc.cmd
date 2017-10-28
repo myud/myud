@@ -552,6 +552,25 @@ call :ReplaceStr "##custom##114\.114\.114\.114##" "%DNS%" "%Network%"
 GOTO:EOF
 
 
+:#01
+REM   func: #05
+REM   arg1: #06 =#07        #08
+REM return: #09_over
+SETLOCAL
+
+rem #02
+
+:BEGIN
+
+rem #03
+
+:END
+(ENDLOCAL
+        rem #04
+)
+GOTO:EOF
+
+
 GOTO:EOF ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
