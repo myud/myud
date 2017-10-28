@@ -48,20 +48,11 @@ echo,请按任意键开始运行...
 echo,
 pause>nul
 
-REM ###################################################
+REM 更改文件
 cls
 echo,正在运行, 请稍后...
 
-
-
-
-
-
-
-
-
-
-
+call %MyudFunc% ChangeFile
 
 REM 下载
 call %MyudFunc% DownloadISO

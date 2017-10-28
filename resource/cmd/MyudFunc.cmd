@@ -512,40 +512,42 @@ for %%a in (sed*) do (
 GOTO:EOF
 
 
-:#012
-REM   func: #05
-REM   arg1: #06 =#07        #08
-REM return: #09_over
+:ChangeFile
+REM   func: 更改文件 ks.cfg 与 config_network.sh
+REM   arg1: 
+REM return: 
 SETLOCAL
 
-rem #02
+set KSDefault=%FuncPath%\..\data\ks.cfg.default
+set KS=%FuncPath%\..\ks.cfg
+
+set NetworkDefault=%FuncPath%\..\data\config_network.sh.default
+set Network=%FuncPath%\..\config_network.sh
 
 :BEGIN
 
-rem #03
-
-:END
-(ENDLOCAL
-        rem #04
+if not exist %KSDefault% (
+        call :Error "ChangeFile" "%KSDefault% 文件不存在"
 )
-GOTO:EOF
 
+if not exist %NetworkDefault% (
+        call :Error "ChangeFile" "%NetworkDefault% 文件不存在"
+)
 
-:#011
-REM   func: #05
-REM   arg1: #06 =#07        #08
-REM return: #09_over
-SETLOCAL
+copy /y %KSDefault% %KS%>nul
+copy /y %NetworkDefault% %Network%>nul
 
-rem #02
+call :ReplaceStr "##custom##192\.168\.1\.5##" "%Ipaddr%" "%KS%"
+call :ReplaceStr "##custom##192\.168\.1\.1##" "%Gateway%" "%KS%"
+call :ReplaceStr "##custom##114\.114\.114\.114##" "%DNS%" "%KS%"
 
-:BEGIN
-
-rem #03
+call :ReplaceStr "##custom##192\.168\.1\.5##" "%Ipaddr%" "%Network%"
+call :ReplaceStr "##custom##192\.168\.1\.1##" "%Gateway%" "%Network%"
+call :ReplaceStr "##custom##114\.114\.114\.114##" "%DNS%" "%Network%"
 
 :END
 (ENDLOCAL
-        rem #04
+        
 )
 GOTO:EOF
 
