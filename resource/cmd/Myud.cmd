@@ -23,6 +23,80 @@ call %MyudFunc% CheckUDisk "MYUD"
 
 call %MyudFunc% CheckCommand
 
+
+
+
+
+REM 
+cls&echo,(1/%MenuNum%) 正在配置 CentOS 系统:
+
+
+
+
+
+
+
+
+REM 
+cls&echo,(2/%MenuNum%) 启用或关闭 Myud 功能:
+
+
+
+
+
+
+
+
+REM 
+cls&echo,(3/%MenuNum%) 启用或关闭 Myud 功能:
+
+
+
+
+
+
+
+
+REM 
+cls&echo,配置完成!
+
+
+
+
+
+
+
+
+echo,
+echo,请按任意键开始安装...
+echo,
+pause>nul
+
+
+
+
+
+
+REM 
+cls&echo,正在安装 请稍后...
+
+
+
+
+
+
+
+
+REM 
+cls&echo,安装完成!
+
+echo,
+echo,请按任意键退出...
+echo,
+pause>nul
+
+
+
 REM 交互
 echo,
 set /p Ipaddr=请输入你的 IP  (默认:192.168.1.5): 
