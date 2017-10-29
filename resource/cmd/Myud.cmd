@@ -7,8 +7,8 @@ color 0f
 set MyudPath=%~dp0
 set MyudPath=%MyudPath:~0,-1%
 
-set MenuNum=3
 set MyudFunc=%MyudPath%\MyudFunc.cmd
+set MenuNum=3
 
 choice /t 1 /d y /n>nul
 
