@@ -26,16 +26,41 @@ REM Usage: call %MyudFunc% 标签名称 "参数1" "参数2" "参数3"
 
 REM 交互 设置网络与密码
 cls&echo,(1/%MenuNum%) 正在配置 CentOS 系统:
+echo,
 
+echo,
+set /p Ipaddr=请输入你的  IP    (默认:192.168.1.5): 
+if not defined Ipaddr (
+        set Ipaddr=192.168.1.5
+)
 
+echo,
+set /p Gateway=请输入你的网关    (默认:192.168.1.1): 
+if not defined Gateway (
+        set Gateway=192.168.1.1
+)
 
+echo,
+set /p DNS=请输入你的 DNS    (默认:114.114.114.114): 
+if not defined DNS (
+        set DNS=114.114.114.114
+)
 
+echo,
+set /p RootPassword=请输入 root  密码 (默认:123456): 
+if not defined RootPassword (
+        set RootPassword=123456
+)
 
-
-
+echo,
+set /p AdminPassword=请输入 admin 密码 (默认:123456): 
+if not defined AdminPassword (
+        set AdminPassword=123456
+)
 
 REM 
 cls&echo,(2/%MenuNum%) 启用或关闭 Myud 功能:
+echo,
 
 
 
@@ -46,6 +71,7 @@ cls&echo,(2/%MenuNum%) 启用或关闭 Myud 功能:
 
 REM 
 cls&echo,(3/%MenuNum%) 启用或关闭 Myud 功能:
+echo,
 
 
 
@@ -56,8 +82,12 @@ cls&echo,(3/%MenuNum%) 启用或关闭 Myud 功能:
 
 REM 
 cls&echo,配置完成!
+echo,
 
-
+echo,
+echo,你的  IP:        %Ipaddr%
+echo,你的网关:        %Gateway%
+echo,你的 DNS:        %DNS%
 
 
 
@@ -76,6 +106,7 @@ pause>nul
 
 REM 
 cls&echo,正在安装 请稍后...
+echo,
 
 
 
@@ -86,6 +117,7 @@ cls&echo,正在安装 请稍后...
 
 REM 
 cls&echo,安装完成!
+echo,
 
 echo,
 echo,请按任意键退出...
@@ -94,30 +126,7 @@ pause>nul
 
 
 
-REM 交互
-echo,
-set /p Ipaddr=请输入你的 IP  (默认:192.168.1.5): 
-if not defined Ipaddr (
-        set Ipaddr=192.168.1.5
-)
 
-echo,
-set /p Gateway=请输入你的网关 (默认:192.168.1.1): 
-if not defined Gateway (
-        set Gateway=192.168.1.1
-)
-
-echo,
-set /p DNS=请输入你的 DNS (默认:114.114.114.114): 
-if not defined DNS (
-        set DNS=114.114.114.114
-)
-
-echo,
-echo,请按任意键开始运行...
-
-echo,
-pause>nul
 
 REM 更改文件
 cls
