@@ -78,47 +78,9 @@ echo,
 echo,
 set /p MountDisk= «∑Ò∆Ù”√π“‘ÿ”≤≈Ã [Y/N]: 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+if /i "%MountDisk%"=="Y" (
+        call %MyudFunc% InteractiveDisk
+)
 
 REM 
 cls&echo,≈‰÷√ÕÍ≥…!
