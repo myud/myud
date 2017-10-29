@@ -58,20 +58,59 @@ if not defined AdminPassword (
         set AdminPassword=123456
 )
 
-REM 
+REM 交互 设置U盘
 cls&echo,(2/%MenuNum%) 启用或关闭 Myud 功能:
 echo,
 
+echo,
+set /p MountUDisk=是否启用自动挂载U盘 [Y/N]: 
 
+if /i "%MountUDisk%"=="Y" (
+        echo,
+        set /p Var=请插入需要挂载的U盘 ^(支持多个U盘^): 
+)
 
-
-
-
-
-
-REM 
+REM 交互 设置硬盘
 cls&echo,(3/%MenuNum%) 启用或关闭 Myud 功能:
 echo,
+
+echo,
+set /p MountDisk=是否启用挂载硬盘 [Y/N]: 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
