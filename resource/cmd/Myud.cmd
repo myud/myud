@@ -20,9 +20,9 @@ if not exist %MyudFunc% (
 
 REM Usage: call %MyudFunc% 标签名称 "参数1" "参数2" "参数3"
 
-::call %MyudFunc% CheckUDisk "MYUD"
+call %MyudFunc% CheckUDisk "MYUD"
 
-::call %MyudFunc% CheckCommand
+call %MyudFunc% CheckCommand
 
 REM 交互 设置网络与密码
 cls&echo,(1/%MenuNum%) 正在配置 CentOS 系统:
