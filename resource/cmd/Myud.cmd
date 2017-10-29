@@ -24,11 +24,7 @@ REM Usage: call %MyudFunc% 标签名称 "参数1" "参数2" "参数3"
 
 ::call %MyudFunc% CheckCommand
 
-
-
-
-
-REM 
+REM 交互 设置网络与密码
 cls&echo,(1/%MenuNum%) 正在配置 CentOS 系统:
 
 
