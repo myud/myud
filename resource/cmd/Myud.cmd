@@ -7,6 +7,7 @@ color 0f
 set MyudPath=%~dp0
 set MyudPath=%MyudPath:~0,-1%
 
+set MenuNum=3
 set MyudFunc=%MyudPath%\MyudFunc.cmd
 
 choice /t 1 /d y /n>nul
@@ -19,9 +20,9 @@ if not exist %MyudFunc% (
 
 REM Usage: call %MyudFunc% 标签名称 "参数1" "参数2" "参数3"
 
-call %MyudFunc% CheckUDisk "MYUD"
+::call %MyudFunc% CheckUDisk "MYUD"
 
-call %MyudFunc% CheckCommand
+::call %MyudFunc% CheckCommand
 
 
 
