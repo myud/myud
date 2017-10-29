@@ -770,11 +770,11 @@ if defined Device (
                 echo,Device: %Device% Dir: %Dir%>>%FuncPath%\InteractiveDisk.tmp
         ) else (
                 echo,
-                echo,%~n0 - InteractiveDisk Error: 挂载点格式错误, 请重新输入!
+                echo,%~n0 - InteractiveDisk Error: 挂载点输入错误, 请重新输入!
         )
 ) else (
         echo,
-        echo,%~n0 - InteractiveDisk Error: 设备名称格式错误, 请重新输入!
+        echo,%~n0 - InteractiveDisk Error: 设备名称输入错误, 请重新输入!
 )
 
 goto BEGIN_InteractiveDisk
