@@ -149,7 +149,7 @@ if not defined DeviceID (
         call :Error "CheckUDisk" "请将此程序复制到U盘根目录下运行"
 )
 
-echo,%VolumeName%|findstr "^%UDiskLabel%[0-9]*$">nul 2>nul||label %DeviceID% %UDiskLabel%
+echo,%VolumeName%|findstr /i "^%UDiskLabel%[0-9]*$">nul 2>nul||label %DeviceID% %UDiskLabel%
 
 :END
 (ENDLOCAL
@@ -718,6 +718,68 @@ for /l %%a in (1,1,%CountVar%) do (
 )
 
 :END
+(ENDLOCAL
+        
+)
+GOTO:EOF
+
+
+:InteractiveDisk
+REM   func: 获取用户输入的信息, 并将其保存到 %FuncPath%\InteractiveDisk.tmp 文件中
+REM   arg1: 
+REM return: 
+SETLOCAL
+
+set Var1=0
+
+if exist %FuncPath%\InteractiveDisk.tmp (
+        del /f %FuncPath%\InteractiveDisk.tmp
+)
+
+:BEGIN_InteractiveDisk
+
+set Var2=
+set Device=
+set Dir=
+
+set /a Var1+=1
+if /i "%Var1:~1%"=="" (
+        set Var2=0
+)
+
+echo,
+set /p Device=请输入设备名称  %Var2%%Var1% (例如:/dev/sdb1): 
+if /i "%Device%"=="Q" (
+        goto END_InteractiveDisk
+)
+
+echo,
+set /p Dir=请输入挂载点    %Var2%%Var1% (例如:/mnt/dir1): 
+if /i "%Dir%"=="Q" (
+        goto END_InteractiveDisk
+)
+
+echo,
+echo,^>^>^>^>^> 如果需要退出当前模式, 进入下一步, 请输入 Q ...
+
+echo,%Device%|findstr "^/dev/[abcdefghijklmnopqrstuvwxyz][abcdefghijklmnopqrstuvwxyz0-9/_]*$">nul 2>nul||set Device=
+echo,%Dir%|findstr /i "^/[a-z0-9_][a-z0-9/_-]*$">nul 2>nul||set Dir=
+
+if defined Device (
+        if defined Dir (
+                echo,Device: %Device% Dir: %Dir%>>%FuncPath%\InteractiveDisk.tmp
+        ) else (
+                echo,
+                echo,%~n0 - InteractiveDisk Error: 挂载点格式错误, 请重新输入!
+        )
+) else (
+        echo,
+        echo,%~n0 - InteractiveDisk Error: 设备名称格式错误, 请重新输入!
+)
+
+goto BEGIN_InteractiveDisk
+
+:END_InteractiveDisk
 (ENDLOCAL
         
 )

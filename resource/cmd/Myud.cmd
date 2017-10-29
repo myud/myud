@@ -76,7 +76,7 @@ cls&echo,(3/%MenuNum%) 启用或关闭 Myud 功能:
 echo,
 
 echo,
-set /p MountDisk=是否启用挂载硬盘 [Y/N]: 
+set /p MountDisk=是否启用挂载新硬盘 [Y/N]: 
 
 if /i "%MountDisk%"=="Y" (
         call %MyudFunc% InteractiveDisk
