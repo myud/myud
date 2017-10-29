@@ -85,11 +85,11 @@ cls&echo,配置完成!
 echo,
 
 echo,
-echo,你的  IP:        %Ipaddr%
-echo,你的网关:        %Gateway%
-echo,你的 DNS:        %DNS%
-
-
+echo,  你的  IP:        %Ipaddr%
+echo,  你的网关:        %Gateway%
+echo,  你的 DNS:        %DNS%
+echo,root  密码:        %RootPassword%
+echo,admin 密码:        %AdminPassword%
 
 
 
