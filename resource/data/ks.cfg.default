@@ -6,7 +6,7 @@ auth --enableshadow --passalgo=sha512
 harddrive --partition=sdb1 --dir=/
 text
 
-network --bootproto=static --onboot=on --ip=##custom##192.168.1.5## --netmask=255.255.255.0 --gateway=##custom##192.168.1.1## --nameserver=##custom##114.114.114.114##
+network --bootproto=static --onboot=on --ip=##CUSTOM##IP## --netmask=255.255.255.0 --gateway=##CUSTOM##GW## --nameserver=##CUSTOM##DNS##
 network --hostname=myud.org
 
 
@@ -64,7 +64,8 @@ kexec-tools
 %end
 
 %post
-##custom##myud_rules##
+##CUSTOM##ADD##
+
 systemctl disable postfix.service
 %end
 
