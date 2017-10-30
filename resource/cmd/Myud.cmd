@@ -113,9 +113,7 @@ if /i "%MountUDisk%"=="Y" (
 
 if /i "%MountDisk%"=="Y" (
         for /f "tokens=1-4" %%a in ('findstr .* %FuncPath%\InteractiveDisk.tmp') do (
-                if defined %%b (
-                        echo,%%b %%d
-                )
+                echo,%%b %%d
         )
 )
 
