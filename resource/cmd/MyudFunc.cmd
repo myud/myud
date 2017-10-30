@@ -698,9 +698,7 @@ if /i "%CountVar%"=="0" (
         call :Error "UDiskAttr" "UÅÌ²»´æÔÚ"
 )
 
-if exist %FuncPath%\UDiskAttr.tmp (
-        del /f %FuncPath%\UDiskAttr.tmp
-)
+type nul>%FuncPath%\UDiskAttr.tmp
 
 for /l %%a in (1,1,%CountVar%) do (
         set /a UDiskNum=%%a-1
@@ -732,9 +730,7 @@ SETLOCAL
 
 set Var1=0
 
-if exist %FuncPath%\InteractiveDisk.tmp (
-        del /f %FuncPath%\InteractiveDisk.tmp
-)
+type nul>%FuncPath%\InteractiveDisk.tmp
 
 :BEGIN_InteractiveDisk
 
