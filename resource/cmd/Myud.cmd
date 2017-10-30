@@ -150,20 +150,3 @@ pause>nul
 exit 0
 
 @GOTO:EOF
-
-
-GOTO:EOF ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-
-# Main Var
-MyudPath
-MyudFunc
-Ipaddr
-Gateway
-DNS
-
-# Func Var
-FuncPath
-FuncName
-DirPath
-CommandPath
