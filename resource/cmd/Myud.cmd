@@ -109,7 +109,6 @@ echo,admin 密码:        %AdminPassword%
 
 if /i "%MountUDisk%"=="Y" (
         echo,
-        
         for /f "tokens=1-6" %%a in ('findstr .* %FuncPath%\UDiskAttr.tmp') do (
                 echo,U盘序列号:         %%f
         )
@@ -123,34 +122,11 @@ if /i "%MountDisk%"=="Y" (
         )
 )
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 echo,
 echo,
 echo,请按任意键开始安装...
 echo,
 pause>nul
-
-
-
-
-
 
 REM 
 cls&echo,正在安装 请稍后...
@@ -185,17 +161,15 @@ call %MyudFunc% ChangeFile
 REM 下载
 call %MyudFunc% DownloadISO
 
-REM 结束
-cls
-echo,已完成, 请退出...
 
-echo,
-echo,你的  IP:        %Ipaddr%
-echo,你的网关:        %Gateway%
-echo,你的 DNS:        %DNS%
 
-echo,
-pause>nul
+
+
+
+
+
+
+
 exit 0
 
 @GOTO:EOF
