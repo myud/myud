@@ -554,30 +554,25 @@ if /i "%MountDisk%"=="Y" (
 copy /y %KSDefault% %KS%>nul
 copy /y %NetworkDefault% %Network%>nul
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-for /f "tokens=1-6" %%a in ('findstr .* %FuncPath%\UDiskAttr.tmp') do (
-        sed -i "/##custom##myud_rules##/a\myud_rules \"%%b\" \"%%d\" \"%%f\"" %KS%
+REM ”≤≈Ã
+if /i "%MountDisk%"=="Y" (
+        for /f "tokens=1-4" %%a in ('findstr .* %FuncPath%\InteractiveDisk.tmp') do (
+                sed -i "/##CUSTOM##ADD##/a\mount_device \"%%d\" \"%%b\"" %KS%
+        )
+        
+        del /f %FuncPath%\InteractiveDisk.tmp
 )
 
-del /f %FuncPath%\UDiskAttr.tmp
+REM U≈Ã
+if /i "%MountUDisk%"=="Y" (
+        for /f "tokens=1-6" %%a in ('findstr .* %FuncPath%\UDiskAttr.tmp') do (
+                sed -i "/##CUSTOM##ADD##/a\myud_rules \"%%b\" \"%%d\" \"%%f\"" %KS%
+        )
+        
+        del /f %FuncPath%\UDiskAttr.tmp
+)
 
+REM √‹¬Î
 
 
 
@@ -680,13 +675,17 @@ del /f %FuncPath%\UDiskAttr.tmp
 
 
 
-call :ReplaceStr "##custom##192\.168\.1\.5##" "%Ipaddr%" "%KS%"
-call :ReplaceStr "##custom##192\.168\.1\.1##" "%Gateway%" "%KS%"
-call :ReplaceStr "##custom##114\.114\.114\.114##" "%DNS%" "%KS%"
 
-call :ReplaceStr "##custom##192\.168\.1\.5##" "%Ipaddr%" "%Network%"
-call :ReplaceStr "##custom##192\.168\.1\.1##" "%Gateway%" "%Network%"
-call :ReplaceStr "##custom##114\.114\.114\.114##" "%DNS%" "%Network%"
+
+
+
+call :ReplaceStr "##CUSTOM##IP##" "%Ipaddr%" "%KS%"
+call :ReplaceStr "##CUSTOM##GW##" "%Gateway%" "%KS%"
+call :ReplaceStr "##CUSTOM##DNS##" "%DNS%" "%KS%"
+
+call :ReplaceStr "##CUSTOM##IP##" "%Ipaddr%" "%Network%"
+call :ReplaceStr "##CUSTOM##GW##" "%Gateway%" "%Network%"
+call :ReplaceStr "##CUSTOM##DNS##" "%DNS%" "%Network%"
 
 :END
 (ENDLOCAL
