@@ -129,18 +129,17 @@ echo,请按任意键开始安装...
 echo,
 pause>nul
 
-REM 
+REM 开始安装
 cls&echo,正在安装 请稍后...
 echo,
 
+REM 更改文件
+call %MyudFunc% ChangeFile
 
+REM 下载
+call %MyudFunc% DownloadISO
 
-
-
-
-
-
-REM 
+REM 全部结束
 cls&echo,安装完成!
 echo,
 
@@ -148,29 +147,6 @@ echo,
 echo,请按任意键退出...
 echo,
 pause>nul
-
-
-
-
-
-REM 更改文件
-cls
-echo,正在运行, 请稍后...
-
-call %MyudFunc% ChangeFile
-
-REM 下载
-call %MyudFunc% DownloadISO
-
-
-
-
-
-
-
-
-
-
 exit 0
 
 @GOTO:EOF
