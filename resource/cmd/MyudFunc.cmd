@@ -539,6 +539,18 @@ if not exist %NetworkDefault% (
         call :Error "ChangeFile" "%NetworkDefault% 文件不存在"
 )
 
+if /i "%MountUDisk%"=="Y" (
+        if not exist %FuncPath%\UDiskAttr.tmp (
+                call :Error "ChangeFile" "%FuncPath%\UDiskAttr.tmp 文件不存在"
+        )
+)
+
+if /i "%MountDisk%"=="Y" (
+        if not exist %FuncPath%\InteractiveDisk.tmp (
+                call :Error "ChangeFile" "%FuncPath%\InteractiveDisk.tmp 文件不存在"
+        )
+)
+
 copy /y %KSDefault% %KS%>nul
 copy /y %NetworkDefault% %Network%>nul
 
@@ -558,7 +570,7 @@ copy /y %NetworkDefault% %Network%>nul
 
 
 
-call :UDiskAttr
+
 
 for /f "tokens=1-6" %%a in ('findstr .* %FuncPath%\UDiskAttr.tmp') do (
         sed -i "/##custom##myud_rules##/a\myud_rules \"%%b\" \"%%d\" \"%%f\"" %KS%
