@@ -531,6 +531,7 @@ REM 添加或修改都要注意元字符
 
 ::::call :CheckCommand
 
+REM 检查文件是否存在
 if not exist %KSDefault% (
         call :Error "ChangeFile" "%KSDefault% 文件不存在"
 )
@@ -551,10 +552,11 @@ if /i "%MountDisk%"=="Y" (
         )
 )
 
+REM 复制文件
 copy /y %KSDefault% %KS%>nul
 copy /y %NetworkDefault% %Network%>nul
 
-REM 硬盘
+REM 添加硬盘信息
 if /i "%MountDisk%"=="Y" (
         for /f "tokens=1-4" %%a in ('findstr .* %FuncPath%\InteractiveDisk.tmp') do (
                 sed -i "/##CUSTOM##ADD##/a\mount_device \"%%d\" \"%%b\"" %KS%
@@ -563,7 +565,7 @@ if /i "%MountDisk%"=="Y" (
         del /f %FuncPath%\InteractiveDisk.tmp
 )
 
-REM U盘
+REM 添加U盘信息
 if /i "%MountUDisk%"=="Y" (
         for /f "tokens=1-6" %%a in ('findstr .* %FuncPath%\UDiskAttr.tmp') do (
                 sed -i "/##CUSTOM##ADD##/a\myud_rules \"%%b\" \"%%d\" \"%%f\"" %KS%
@@ -572,117 +574,16 @@ if /i "%MountUDisk%"=="Y" (
         del /f %FuncPath%\UDiskAttr.tmp
 )
 
-REM 密码
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+REM 添加密码
+sed -i "/##CUSTOM##ADD##/a\echo '%AdminPassword%' | passwd --stdin admin" %KS%
+sed -i "/##CUSTOM##ADD##/a\echo '%RootPassword%' | passwd --stdin root" %KS%
+
+REM 修改网络
 call :ReplaceStr "##CUSTOM##IP##" "%Ipaddr%" "%KS%"
 call :ReplaceStr "##CUSTOM##GW##" "%Gateway%" "%KS%"
 call :ReplaceStr "##CUSTOM##DNS##" "%DNS%" "%KS%"
 
+REM 修改 config_network.sh 文件
 call :ReplaceStr "##CUSTOM##IP##" "%Ipaddr%" "%Network%"
 call :ReplaceStr "##CUSTOM##GW##" "%Gateway%" "%Network%"
 call :ReplaceStr "##CUSTOM##DNS##" "%DNS%" "%Network%"
