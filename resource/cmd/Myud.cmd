@@ -115,6 +115,7 @@ if /i "%MountUDisk%"=="Y" (
 )
 
 if /i "%MountDisk%"=="Y" (
+        REM 如果 in 命令的返回值或字符串为空, 空格, 制表符, 都不会执行 for 里面的语句
         for /f "tokens=1-4" %%a in ('findstr .* %FuncPath%\InteractiveDisk.tmp') do (
                 echo,
                 echo,设备名称:          %%b
