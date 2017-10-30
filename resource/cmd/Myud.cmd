@@ -82,9 +82,21 @@ if /i "%MountDisk%"=="Y" (
         call %MyudFunc% InteractiveDisk
 )
 
-REM 
+REM 交互 结束
 cls&echo,配置完成!
 echo,
+
+if /i "%MountUDisk%"=="Y" (
+        if not exist %FuncPath%\UDiskAttr.tmp (
+                call %MyudFunc% Error "Main" "%FuncPath%\UDiskAttr.tmp 文件不存在"
+        )
+)
+
+if /i "%MountDisk%"=="Y" (
+        if not exist %FuncPath%\InteractiveDisk.tmp (
+                call %MyudFunc% Error "Main" "%FuncPath%\InteractiveDisk.tmp 文件不存在"
+        )
+)
 
 echo,
 echo,  你的  IP:        %Ipaddr%
@@ -92,6 +104,36 @@ echo,  你的网关:        %Gateway%
 echo,  你的 DNS:        %DNS%
 echo,root  密码:        %RootPassword%
 echo,admin 密码:        %AdminPassword%
+
+if /i "%MountUDisk%"=="Y" (
+        for /f "tokens=1-6" %%a in ('findstr .* %FuncPath%\UDiskAttr.tmp') do (
+                echo,%%f
+        )
+)
+
+if /i "%MountDisk%"=="Y" (
+        for /f "tokens=1-4" %%a in ('findstr .* %FuncPath%\InteractiveDisk.tmp') do (
+                if defined %%b (
+                        echo,%%b %%d
+                )
+        )
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
