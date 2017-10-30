@@ -526,6 +526,11 @@ set Network=%FuncPath%\..\config_network.sh
 
 :BEGIN
 
+REM 先给文件添加内容, 再修改文件, 可以少写转换文件格式与删除临时文件的代码
+REM 添加或修改都要注意元字符
+
+::::call :CheckCommand
+
 if not exist %KSDefault% (
         call :Error "ChangeFile" "%KSDefault% 文件不存在"
 )
