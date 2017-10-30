@@ -99,21 +99,27 @@ if /i "%MountDisk%"=="Y" (
 )
 
 echo,
-echo,  你的  IP:        %Ipaddr%
-echo,  你的网关:        %Gateway%
-echo,  你的 DNS:        %DNS%
+echo,你的  IP:          %Ipaddr%
+echo,你的网关:          %Gateway%
+echo,你的 DNS:          %DNS%
+
+echo,
 echo,root  密码:        %RootPassword%
 echo,admin 密码:        %AdminPassword%
 
 if /i "%MountUDisk%"=="Y" (
+        echo,
+        
         for /f "tokens=1-6" %%a in ('findstr .* %FuncPath%\UDiskAttr.tmp') do (
-                echo,%%f
+                echo,U盘序列号:         %%f
         )
 )
 
 if /i "%MountDisk%"=="Y" (
         for /f "tokens=1-4" %%a in ('findstr .* %FuncPath%\InteractiveDisk.tmp') do (
-                echo,%%b %%d
+                echo,
+                echo,设备名称:          %%b
+                echo,挂载点:            %%d
         )
 )
 
@@ -135,7 +141,7 @@ if /i "%MountDisk%"=="Y" (
 
 
 
-
+echo,
 echo,
 echo,请按任意键开始安装...
 echo,
