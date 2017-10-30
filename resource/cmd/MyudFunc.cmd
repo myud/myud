@@ -725,7 +725,7 @@ GOTO:EOF
 
 
 :InteractiveDisk
-REM   func: 获取用户输入的信息, 并将其保存到 %FuncPath%\InteractiveDisk.tmp 文件中
+REM   func: 获取用户的输入信息, 并将其保存到 %FuncPath%\InteractiveDisk.tmp 文件中
 REM   arg1: 
 REM return: 
 SETLOCAL
