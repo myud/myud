@@ -156,13 +156,23 @@ else
 fi
 EOF
 
+####
+cat > /usr/local/bin/.myud_variable <<-"EOF"
 
+EOF
 
+####
+cat > /usr/local/bin/.myud_execute <<-"EOF"
 
+EOF
 
+####
+chmod 755 /usr/lib/udev/{"myud_mount","myud_umount","myud_exec"}
+chmod 755 /usr/local/bin/.myud_execute
 
-
-
+####
+/usr/bin/cp -af /usr/lib/systemd/system/systemd-udevd.service /etc/systemd/system/systemd-udevd.service
+sed -i "s/^MountFlags=slave$/MountFlags=shared/g" /etc/systemd/system/systemd-udevd.service
 
 
 
