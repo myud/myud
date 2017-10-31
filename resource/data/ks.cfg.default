@@ -77,8 +77,8 @@ fi
 
 cat >> /etc/udev/rules.d/51-myud.rules <<-EOF
 KERNEL=="sd*", ATTRS{idVendor}=="${UDISK_VID}", ATTRS{idProduct}=="${UDISK_PID}", ATTRS{serial}=="${UDISK_SN}", SYMLINK+="myud%n"
-ACTION=="add", KERNEL=="sd?1", ATTRS{idVendor}=="${UDISK_VID}", ATTRS{idProduct}=="${UDISK_PID}", ATTRS{serial}=="${UDISK_SN}", RUN+="mymount"
-ACTION=="remove", ENV{DEVNAME}=="/dev/sd?1", ENV{ID_VENDOR_ID}=="${UDISK_VID}", ENV{ID_MODEL_ID}=="${UDISK_PID}", ENV{ID_SERIAL_SHORT}=="${UDISK_SN}", RUN+="myumount"
+ACTION=="add", KERNEL=="sd?1", ATTRS{idVendor}=="${UDISK_VID}", ATTRS{idProduct}=="${UDISK_PID}", ATTRS{serial}=="${UDISK_SN}", RUN+="myud_mount"
+ACTION=="remove", ENV{DEVNAME}=="/dev/sd?1", ENV{ID_VENDOR_ID}=="${UDISK_VID}", ENV{ID_MODEL_ID}=="${UDISK_PID}", ENV{ID_SERIAL_SHORT}=="${UDISK_SN}", RUN+="myud_umount"
 
 EOF
 }
