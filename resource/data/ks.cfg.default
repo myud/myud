@@ -163,6 +163,19 @@ EOF
 
 ####
 cat > /usr/local/bin/.myud_execute <<-"EOF"
+#!/bin/bash
+
+export TERM=xterm
+export SHELL=/bin/bash
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/bin
+
+####
+
+
+
+
+
+
 
 EOF
 
