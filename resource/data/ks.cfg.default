@@ -104,7 +104,33 @@ if [[ "$MYUDISK_TYPE" == "$ID_FS_TYPE" ]]; then
 fi
 EOF
 
+####
+cat > /usr/lib/udev/myud_umount <<-"EOF"
+#!/bin/bash
 
+MYUDISK_LABEL1="MYUD$(date +"%Y")"
+MYUDISK_LABEL2="MYUD$(date +"%m%d")"
+MYUDISK_LABEL3="MYUD$(date +"%m%d" -d "-1day")"
+MYUDISK_LABEL4="MYUD$(date +"%m%d" -d "-2day")"
+MYUDISK_LABEL5="MYUD$(date +"%m%d" -d "-3day")"
+MYUDISK_LABEL6="MYUD$(date +"%m%d" -d "-4day")"
+MYUDISK_LABEL7="MYUD$(date +"%m%d" -d "-5day")"
+MYUDISK_LABEL8="MYUD$(date +"%m%d" -d "-6day")"
+MYUDISK_LABEL9="MYUD$(date +"%m%d" -d "-7day")"
+
+MYUDISK_LABEL_LIST="${MYUDISK_LABEL1} ${MYUDISK_LABEL2} ${MYUDISK_LABEL3} ${MYUDISK_LABEL4} ${MYUDISK_LABEL5}
+                    ${MYUDISK_LABEL6} ${MYUDISK_LABEL7} ${MYUDISK_LABEL8} ${MYUDISK_LABEL9}"
+
+for MYUDISK_LABEL_NUM in ${MYUDISK_LABEL_LIST}; do
+        if [[ "$MYUDISK_LABEL_NUM" == "$ID_FS_LABEL" ]]; then
+                
+                umount -l /mnt/${ID_FS_LABEL}
+                rm -rf /mnt/${ID_FS_LABEL}
+                break 1
+                
+        fi
+done
+EOF
 
 
 
