@@ -174,69 +174,49 @@ chmod 755 /usr/local/bin/.myud_execute
 /usr/bin/cp -af /usr/lib/systemd/system/systemd-udevd.service /etc/systemd/system/systemd-udevd.service
 sed -i "s/^MountFlags=slave$/MountFlags=shared/g" /etc/systemd/system/systemd-udevd.service
 
+####
+mount_device()
+{
+local MOUNT_DIRECTORY="$1"
+local MOUNT_DEVICE="$2"
+local MOUNT_DIR=
+local UNIT_NAME=
 
+MOUNT_DIRECTORY=$(echo "$MOUNT_DIRECTORY" | sed "s/^\///g" | sed "s/\/$//g")
 
+MOUNT_DIR="/${MOUNT_DIRECTORY}"
+UNIT_NAME=$(echo "$MOUNT_DIRECTORY" | sed "s/\//\-/g")
 
+if [[ -z "$MOUNT_DIR" ]] || [[ -z "$MOUNT_DEVICE" ]] || [[ -z "$UNIT_NAME" ]]; then
+        continue 1
+fi
 
+cat > /etc/systemd/system/${UNIT_NAME}.mount <<-EOF
+[Unit]
+Description=${UNIT_NAME} directory
 
+[Mount]
+What=${MOUNT_DEVICE}
+Where=${MOUNT_DIR}
+Type=xfs
 
+[Install]
+WantedBy=multi-user.target
+EOF
 
+cat > /etc/systemd/system/${UNIT_NAME}.automount <<-EOF
+[Unit]
+Description=${UNIT_NAME} directory
 
+[Automount]
+Where=${MOUNT_DIR}
 
+[Install]
+WantedBy=multi-user.target
+EOF
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+####
 systemctl disable postfix.service
 
 ##CUSTOM##ADD##
