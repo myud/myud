@@ -65,7 +65,23 @@ kexec-tools
 
 %post
 
+myud_rules()
+{
+local UDISK_VID="$1"
+local UDISK_PID="$2"
+local UDISK_SN="$3"
 
+if [[ -z "$UDISK_VID" ]] || [[ -z "$UDISK_PID" ]] || [[ -z "$UDISK_SN" ]]; then
+        continue 1
+fi
+
+cat >> /etc/udev/rules.d/51-myud.rules <<-EOF
+KERNEL=="sd*", ATTRS{idVendor}=="${UDISK_VID}", ATTRS{idProduct}=="${UDISK_PID}", ATTRS{serial}=="${UDISK_SN}", SYMLINK+="myud%n"
+ACTION=="add", KERNEL=="sd?1", ATTRS{idVendor}=="${UDISK_VID}", ATTRS{idProduct}=="${UDISK_PID}", ATTRS{serial}=="${UDISK_SN}", RUN+="mymount"
+ACTION=="remove", ENV{DEVNAME}=="/dev/sd?1", ENV{ID_VENDOR_ID}=="${UDISK_VID}", ENV{ID_MODEL_ID}=="${UDISK_PID}", ENV{ID_SERIAL_SHORT}=="${UDISK_SN}", RUN+="myumount"
+
+EOF
+}
 
 
 
