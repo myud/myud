@@ -181,6 +181,10 @@ init()
         touch ${MYUD_UDISK_ROOT}/{"conf/my.conf","log/my.log","shell/forever/my.sh","shell/once/my.sh"}
         
         MYUD_EXEC_TIME=$(date +"%Y%m%d%H%M%S")
+        
+        MYUD_CREATE_LOG="${MYUD_LOCAL_ROOT}/log/my.log.${MYUD_EXEC_TIME}"
+        
+        MYUD_BACKUP_ONCE="${MYUD_UDISK_ROOT}/bak/once.bak.${MYUD_EXEC_TIME}"
 }
 
 
