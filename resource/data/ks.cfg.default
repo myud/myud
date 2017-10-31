@@ -132,7 +132,29 @@ for MYUDISK_LABEL_NUM in ${MYUDISK_LABEL_LIST}; do
 done
 EOF
 
+####
+cat > /usr/lib/udev/myud_exec <<-"EOF"
+#!/bin/bash
 
+export MYUD_TYPE="$ID_FS_TYPE"
+export MYUD_LABEL="$ID_FS_LABEL"
+export MYUD_DEVNAME="$DEVNAME"
+
+if [[ -z "$(rpm -qa at)" ]] && [[ -s "/mnt/${ID_FS_LABEL}/data/at-3.1.13-22.el7.x86_64.rpm" ]]; then
+        rpm -ivh /mnt/${ID_FS_LABEL}/data/at-3.1.13-22.el7.x86_64.rpm
+fi
+
+if [[ -n "$(rpm -qa at)" ]]; then
+        touch /etc/at.allow /etc/at.deny
+        
+        systemctl restart atd
+        systemctl enable  atd
+        
+        at now -f /usr/local/bin/.myud_execute
+else
+        exit 1
+fi
+EOF
 
 
 
