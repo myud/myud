@@ -65,6 +65,7 @@ kexec-tools
 
 %post
 
+####
 myud_rules()
 {
 local UDISK_VID="$1"
@@ -83,8 +84,25 @@ ACTION=="remove", ENV{DEVNAME}=="/dev/sd?1", ENV{ID_VENDOR_ID}=="${UDISK_VID}", 
 EOF
 }
 
+####
+cat > /usr/lib/udev/myud_mount <<-"EOF"
+#!/bin/bash
 
+MYUDISK_TYPE="vfat"
+MYUDISK_LABEL1="MYUD$(date +"%Y")"
+MYUDISK_LABEL2="MYUD$(date +"%m%d")"
 
+if [[ "$MYUDISK_TYPE" == "$ID_FS_TYPE" ]]; then
+        if [[ "$MYUDISK_LABEL1" == "$ID_FS_LABEL" ]] || [[ "$MYUDISK_LABEL2" == "$ID_FS_LABEL" ]]; then
+                
+                mkdir -p /mnt/${ID_FS_LABEL}
+                mount -t ${ID_FS_TYPE} ${DEVNAME} /mnt/${ID_FS_LABEL}
+                
+                . /usr/lib/udev/myud_exec
+                
+        fi
+fi
+EOF
 
 
 
