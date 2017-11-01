@@ -170,6 +170,13 @@ export SHELL=/bin/bash
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/bin
 
 ####
+ADJUST_TIME="0"
+SLEEP_TIME="180"
+EXECUTE_FOREVER="0"
+EXECUTE_ONCE="0"
+BACKUP_ONCE="1"
+
+####
 init()
 {
         MYUD_LOCAL_ROOT="/mnt/myud"
