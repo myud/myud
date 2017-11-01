@@ -170,16 +170,8 @@ export SHELL=/bin/bash
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/bin
 
 ####
-ADJUST_TIME="0"
-SLEEP_TIME="180"
-EXECUTE_FOREVER="0"
-EXECUTE_ONCE="0"
-BACKUP_ONCE="1"
-
-####
 MYUD_LOCAL_ROOT="/mnt/myud"
 
-####
 init()
 {
         MYUD_UDISK_ROOT="/mnt/${MYUD_LABEL}"
@@ -193,6 +185,45 @@ init()
         MYUD_BACKUP_ONCE="${MYUD_UDISK_ROOT}/bak/once.bak.${MYUD_EXEC_TIME}"
 }
 
+####
+ADJUST_TIME="0"
+SLEEP_TIME="180"
+EXECUTE_FOREVER="0"
+EXECUTE_ONCE="0"
+BACKUP_ONCE="1"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -203,6 +234,39 @@ init()
 
 ####
 mkdir -p ${MYUD_LOCAL_ROOT}/{"bak","bin","conf","log","shell/forever","shell/once"}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
