@@ -158,7 +158,7 @@ EOF
 
 ####
 cat > /usr/local/bin/.myud_variable <<-"EOF"
-
+EXECUTIONS=1
 EOF
 
 ####
