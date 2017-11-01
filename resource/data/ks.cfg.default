@@ -192,9 +192,33 @@ EXECUTE_FOREVER="0"
 EXECUTE_ONCE="0"
 BACKUP_ONCE="1"
 
-
-
-
+config()
+{
+        CONFIG_FILE="/mnt/${MYUD_LABEL}/conf/my.conf"
+        
+        if [[ -s "$CONFIG_FILE" ]]; then
+                
+                while read LINE; do
+                        
+                        if ( echo "$LINE" | grep -i "^[ \t]*${1}[ \t]*=[ \t\"]*${2}[ \t\"]*$" &> /dev/null ); then
+                                
+                                LINE=$(echo "$LINE" | sed "s/^[ \t]*//g" | sed "s/[ \t]*$//g")
+                                LINE=$(echo "$LINE" | sed "s/[ \t]*=[ \t]*/=/g")
+                                LINE=$(echo "$LINE" | sed "s/\"[ \t]*/\"/g" | sed "s/[ \t]*\"/\"/g")
+                                
+                                LINE_KEY=$(echo "$LINE" | cut -d= -f 1 | tr "[a-z]" "[A-Z]")
+                                LINE_VALUE=$(echo "$LINE" | cut -d= -f 2-)
+                                
+                                LINE="${LINE_KEY}=${LINE_VALUE}"
+                                
+                                export "$LINE"
+                                
+                        fi
+                        
+                done < ${CONFIG_FILE}
+                
+        fi
+}
 
 
 
