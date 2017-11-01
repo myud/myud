@@ -167,16 +167,18 @@ cat > /usr/local/bin/.myud_execute <<-"EOF"
 
 export TERM=xterm
 export SHELL=/bin/bash
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/bin
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/bin:/mnt/.myud/bin
 
 ####
-MYUD_LOCAL_ROOT="/mnt/myud"
+MYUD_LOCAL_ROOT="/mnt/.myud"
 
 init()
 {
         MYUD_UDISK_ROOT="/mnt/${MYUD_LABEL}"
         
+        mkdir -p ${MYUD_LOCAL_ROOT}/{"bak","bin","conf","log","shell/forever","shell/once"}
         mkdir -p ${MYUD_UDISK_ROOT}/{"bak","bin","conf","log","shell/forever","shell/once"}
+        
         touch ${MYUD_UDISK_ROOT}/{"conf/my.conf","log/my.log","shell/forever/my.sh","shell/once/my.sh"}
         
         MYUD_EXEC_TIME=$(date +"%Y%m%d%H%M%S")
@@ -200,7 +202,7 @@ config()
                 
                 while read LINE; do
                         
-                        if ( echo "$LINE" | grep -i "^[ \t]*${1}[ \t]*=[ \t\"]*${2}[ \t\"]*$" &> /dev/null ); then
+                        if ( echo "$LINE" | grep -iP "^[ \t]*${1}[ \t]*=[ \t\"]*${2}[ \t\"]*$" &> /dev/null ); then
                                 
                                 LINE=$(echo "$LINE" | sed "s/^[ \t]*//g" | sed "s/[ \t]*$//g")
                                 LINE=$(echo "$LINE" | sed "s/[ \t]*=[ \t]*/=/g")
@@ -220,72 +222,89 @@ config()
         fi
 }
 
+####
+init
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/usr/bin/cp -af ${MYUD_LOCAL_ROOT}/log ${MYUD_UDISK_ROOT}
 
 ####
-mkdir -p ${MYUD_LOCAL_ROOT}/{"bak","bin","conf","log","shell/forever","shell/once"}
+config "ADJUST_TIME" "[0-1]"
 
+if [[ "$ADJUST_TIME" == "1" ]] && ( ping -c 1 ntp1.aliyun.com &> /dev/null ); then
+        
+        if ( ! type -p ntpdate &> /dev/null ); then
+                for (( NUM=0; NUM < 5; NUM++ )); do
+                        yum -y install ntpdate
+                done
+        fi
+        
+        systemctl stop ntpd || true
+        systemctl disable ntpd || true
+        
+        for (( NUM=1; NUM < 11; NUM++ )); do
+                echo "adjust system time ${NUM} ..."
+                SECONDS=$(ntpdate ntp1.aliyun.com | awk '{ print $(NF-1) }')
+                
+                if [[ "0" < "$SECONDS" ]] && [[ "$SECONDS" < "1" ]]; then
+                        break 1
+                fi
+        done
+        
+        hwclock -w
+        
+        sed -i "s/^[ \t]*ADJUST_TIME[ \t]*=[ \t\"]*1[ \t\"]*$/adjust_time = 0/ig" ${CONFIG_FILE}
+        
+fi
 
+####
+config "EXECUTE_FOREVER" "[0-1]"
+config "EXECUTE_ONCE" "[0-1]"
 
+if [[ "$EXECUTE_FOREVER" == "0" ]] && [[ "$EXECUTE_ONCE" == "0" ]]; then
+        exit 0
+fi
 
+####
+config "SLEEP_TIME" "[0-9][0-9]*"
+SLEEP_MAX="$SLEEP_TIME"
 
+for (( NUM=0; NUM < SLEEP_MAX; NUM++ )); do
+        sleep 1
+        
+        if [[ ! -L "/dev/myud" ]]; then
+                exit 0
+        fi
+done
 
+####
+if [[ -s "/usr/local/bin/.myud_variable" ]]; then
+        . /usr/local/bin/.myud_variable
+        
+        EXECUTIONS_PLUS=$(( EXECUTIONS + 1 ))
+        
+        sed -i "s/^EXECUTIONS=[0-9][0-9]*$/EXECUTIONS=${EXECUTIONS_PLUS}/g" /usr/local/bin/.myud_variable
+else
+        exit 1
+fi
 
+####
+if [[ -d "$MYUD_LOCAL_ROOT" ]]; then
+        rm -rf ${MYUD_LOCAL_ROOT}
+fi
 
+init
 
+/usr/bin/cp -af ${MYUD_UDISK_ROOT}/bin ${MYUD_LOCAL_ROOT}
+/usr/bin/cp -af ${MYUD_UDISK_ROOT}/shell/{"forever","once"} ${MYUD_LOCAL_ROOT}/shell
 
+####
+config "BACKUP_ONCE" "[0-1]"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+if [[ "$BACKUP_ONCE" == "1" ]] && [[ "$EXECUTE_ONCE" == "1" ]] && [[ -s "${MYUD_UDISK_ROOT}/shell/once/my.sh" ]]; then
+        if ( cat ${MYUD_UDISK_ROOT}/shell/once/my.sh | grep -vP "^[ \t]*#" | grep -vP "^[ \t]*$" &> /dev/null ); then
+                
+        fi
+fi
 
 
 
