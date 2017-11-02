@@ -277,7 +277,7 @@ for (( NUM=0; NUM < SLEEP_MAX; NUM++ )); do
 done
 
 ####
-if [[ -s "/usr/local/bin/.myud_variable" ]]; then
+if [[ -s "/usr/local/bin/.myud_variable" ]] && ( grep "^EXECUTIONS=[0-9][0-9]*$" /usr/local/bin/.myud_variable &> /dev/null ); then
         . /usr/local/bin/.myud_variable
         
         EXECUTIONS_PLUS=$(( EXECUTIONS + 1 ))
