@@ -344,6 +344,30 @@ export MYUD_LOG="$MYUD_LOCAL_LOG"
 export MYUD_EXEC="$MYUD_EXECUTIONS"
 
 ####
+# EOF  >>  EOFS  >>  EOFT  >>  EOFF
+result()
+{
+        RESULT="$1"
+        
+        if [[ -z "$RESULT" ]]; then
+                RESULT="Success"
+        fi
+        
+cat > ${MYUD_LOCAL_ROOT}/log/my.log <<-EOFS
+You may need to execute the command: screen -list; screen -r SCREEN_NAME
+
+Executions:    ${MYUD_EXECUTIONS}
+Time:          ${MYUD_EXEC_TIME}
+Result:        ${RESULT}
+
+EOFS
+        
+        if [[ "$(echo "$RESULT" | tr "[A-Z]" "[a-z]")" == "failed" ]]; then
+                exit 1
+        fi
+}
+
+####
 if [[ "$EXECUTE_FOREVER" == "1" ]] && [[ -s "${MYUD_LOCAL_ROOT}/shell/forever/my.sh" ]]; then
         cd ${MYUD_LOCAL_ROOT}/shell/forever
         
