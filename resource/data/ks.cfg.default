@@ -371,7 +371,7 @@ EOFS
 if [[ "$EXECUTE_FOREVER" == "1" ]] && [[ -s "${MYUD_LOCAL_ROOT}/shell/forever/my.sh" ]]; then
         cd ${MYUD_LOCAL_ROOT}/shell/forever
         
-        bash my.sh
+        bash my.sh && result "Success" || result "Failed"
         
         cd /mnt
 fi
@@ -379,7 +379,7 @@ fi
 if [[ "$EXECUTE_ONCE" == "1" ]] && [[ -s "${MYUD_LOCAL_ROOT}/shell/once/my.sh" ]]; then
         cd ${MYUD_LOCAL_ROOT}/shell/once
         
-        bash my.sh
+        bash my.sh && result "Success" || result "Failed"
         
         cd /mnt
 fi
