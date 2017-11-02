@@ -300,6 +300,8 @@ init
 /usr/bin/cp -af ${MYUD_UDISK_ROOT}/bin ${MYUD_LOCAL_ROOT}
 /usr/bin/cp -af ${MYUD_UDISK_ROOT}/shell/{"forever","once"} ${MYUD_LOCAL_ROOT}/shell
 
+chmod -R 755 ${MYUD_LOCAL_ROOT}/bin
+
 ####
 config "BACKUP_ONCE" "[0-1]"
 
