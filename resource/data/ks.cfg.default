@@ -344,24 +344,25 @@ export MYUD_LOG="$MYUD_LOCAL_LOG"
 export MYUD_EXEC="$MYUD_EXECUTIONS"
 
 ####
+if [[ "$EXECUTE_FOREVER" == "1" ]] && [[ -s "${MYUD_LOCAL_ROOT}/shell/forever/my.sh" ]]; then
+        cd ${MYUD_LOCAL_ROOT}/shell/forever
+        
+        bash my.sh
+        
+        cd /mnt
+fi
 
+if [[ "$EXECUTE_ONCE" == "1" ]] && [[ -s "${MYUD_LOCAL_ROOT}/shell/once/my.sh" ]]; then
+        cd ${MYUD_LOCAL_ROOT}/shell/once
+        
+        bash my.sh
+        
+        cd /mnt
+fi
 
+wait
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+####
 
 
 
