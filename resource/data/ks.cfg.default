@@ -308,6 +308,11 @@ if [[ "$EXECUTE_ONCE" == "1" ]] && [[ -s "${MYUD_UDISK_ROOT}/shell/once/my.sh" ]
         if [[ "$BACKUP_ONCE" == "1" ]]; then
                 /usr/bin/cp -af ${MYUD_UDISK_ROOT}/shell/once ${MYUD_UDISK_ONCEBAK}
         else
+                if [[ "$(du -ms /root/.myud_bak | cut -f 1)" > "1024" ]]; then
+                        rm -rf /root/.myud_bak
+                        mkdir -p /root/.myud_bak
+                fi
+                
                 /usr/bin/cp -af ${MYUD_UDISK_ROOT}/shell/once ${MYUD_LOCAL_ONCEBAK}
         fi
         
