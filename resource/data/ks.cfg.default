@@ -312,6 +312,9 @@ if [[ "$EXECUTE_ONCE" == "1" ]] && [[ -s "${MYUD_UDISK_ROOT}/shell/once/my.sh" ]
         fi
         
         rm -rf ${MYUD_UDISK_ROOT}/shell/once
+        
+        mkdir -p ${MYUD_UDISK_ROOT}/shell/once
+        touch ${MYUD_UDISK_ROOT}/shell/once/my.sh
 fi
 
 
