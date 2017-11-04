@@ -562,6 +562,8 @@ sed -i "s/^[ \t]*#.*[^\x00-\x7F].*$/# CHINESE ANNOTATION/g" %Network%
 
 REM 添加硬盘信息
 if /i "%MountDisk%"=="Y" (
+        sed -i "s/##CUSTOM##REBOOT##/poweroff/g" %KS%
+        
         for /f "tokens=1-4" %%a in ('findstr .* %FuncPath%\InteractiveDisk.tmp') do (
                 sed -i "/##CUSTOM##ADD##/a\mount_device \"%%d\" \"%%b\"" %KS%
         )
@@ -569,6 +571,8 @@ if /i "%MountDisk%"=="Y" (
         sed -i "/##CUSTOM##ADD##/G" %KS%
         
         del /f %FuncPath%\InteractiveDisk.tmp
+) else (
+        sed -i "s/##CUSTOM##REBOOT##/reboot/g" %KS%
 )
 
 REM 添加U盘信息
