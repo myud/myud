@@ -556,20 +556,31 @@ REM 复制文件
 copy /y %KSDefault% %KS%>nul
 copy /y %NetworkDefault% %Network%>nul
 
+REM 删除文件的中文注释
+sed -i "s/^[ \t]*#.*[^\x00-\x7F].*$/# CHINESE ANNOTATION/g" %KS%
+sed -i "s/^[ \t]*#.*[^\x00-\x7F].*$/# CHINESE ANNOTATION/g" %Network%
+
 REM 添加硬盘信息
 if /i "%MountDisk%"=="Y" (
         for /f "tokens=1-4" %%a in ('findstr .* %FuncPath%\InteractiveDisk.tmp') do (
                 sed -i "/##CUSTOM##ADD##/a\mount_device \"%%d\" \"%%b\"" %KS%
         )
         
+        sed -i "/##CUSTOM##ADD##/G" %KS%
+        
         del /f %FuncPath%\InteractiveDisk.tmp
 )
 
 REM 添加U盘信息
 if /i "%MountUDisk%"=="Y" (
+        sed -i "/##CUSTOM##ADD##/a\MYUD_RULES=\"1\"" %KS%
+        sed -i "/##CUSTOM##ADD##/G" %KS%
+        
         for /f "tokens=1-6" %%a in ('findstr .* %FuncPath%\UDiskAttr.tmp') do (
                 sed -i "/##CUSTOM##ADD##/a\myud_rules \"%%b\" \"%%d\" \"%%f\"" %KS%
         )
+        
+        sed -i "/##CUSTOM##ADD##/G" %KS%
         
         del /f %FuncPath%\UDiskAttr.tmp
 )
