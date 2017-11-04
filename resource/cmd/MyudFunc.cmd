@@ -588,6 +588,7 @@ if /i "%MountUDisk%"=="Y" (
 REM Ìí¼ÓÃÜÂë
 sed -i "/##CUSTOM##ADD##/a\echo '%AdminPassword%' | passwd --stdin admin" %KS%
 sed -i "/##CUSTOM##ADD##/a\echo '%RootPassword%' | passwd --stdin root" %KS%
+sed -i "/##CUSTOM##ADD##/G" %KS%
 
 REM ĞŞ¸ÄÍøÂç
 call :ReplaceStr "##CUSTOM##IP##" "%Ipaddr%" "%KS%"
