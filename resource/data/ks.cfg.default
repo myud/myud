@@ -1,3 +1,6 @@
+# KS 文件不允许包含中文
+
+
 ####
 auth --enableshadow --passalgo=sha512
 
@@ -47,7 +50,6 @@ logvol      /home         --fstype="xfs"         --size=51200     --name=home   
 logvol      /usr/local    --fstype="xfs"         --size=269057    --name=usr_local    --vgname=cl
 
 
-####
 ##CUSTOM##REBOOT##
 
 
@@ -63,6 +65,8 @@ kexec-tools
 %pre
 %end
 
+
+####
 %post
 
 
