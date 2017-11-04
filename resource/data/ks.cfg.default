@@ -297,6 +297,9 @@ init
 
 /usr/bin/cp -af ${MYUD_LOCAL_ROOT}/log ${MYUD_UDISK_ROOT}
 
+sed -i "s/\r$//g" ${MYUD_UDISK_ROOT}/log/my.log*
+sed -i "s/$/\r/g" ${MYUD_UDISK_ROOT}/log/my.log*
+
 ####
 config "ADJUST_TIME" "[0-1]"
 
@@ -460,6 +463,9 @@ if [[ -L "/dev/myud" ]]; then
         init
         
         /usr/bin/cp -af ${MYUD_LOCAL_ROOT}/log ${MYUD_UDISK_ROOT}
+        
+        sed -i "s/\r$//g" ${MYUD_UDISK_ROOT}/log/my.log*
+        sed -i "s/$/\r/g" ${MYUD_UDISK_ROOT}/log/my.log*
 fi
 EOF
 
