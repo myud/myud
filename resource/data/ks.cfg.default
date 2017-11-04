@@ -65,7 +65,57 @@ kexec-tools
 
 %post
 
-####
+
+# 第一部分
+systemctl disable postfix.service
+
+
+# 第二部分
+mount_device()
+{
+local MOUNT_DIRECTORY="$1"
+local MOUNT_DEVICE="$2"
+local MOUNT_DIR=
+local UNIT_NAME=
+
+MOUNT_DIRECTORY=$(echo "$MOUNT_DIRECTORY" | sed "s/^\///g" | sed "s/\/$//g")
+
+MOUNT_DIR="/${MOUNT_DIRECTORY}"
+UNIT_NAME=$(echo "$MOUNT_DIRECTORY" | sed "s/\//\-/g")
+
+if [[ -z "$MOUNT_DIR" ]] || [[ -z "$MOUNT_DEVICE" ]] || [[ -z "$UNIT_NAME" ]]; then
+        continue 1
+fi
+
+cat > /etc/systemd/system/${UNIT_NAME}.mount <<-EOF
+[Unit]
+Description=${UNIT_NAME} directory
+
+[Mount]
+What=${MOUNT_DEVICE}
+Where=${MOUNT_DIR}
+Type=xfs
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+cat > /etc/systemd/system/${UNIT_NAME}.automount <<-EOF
+[Unit]
+Description=${UNIT_NAME} directory
+
+[Automount]
+Where=${MOUNT_DIR}
+
+[Install]
+WantedBy=multi-user.target
+EOF
+}
+
+
+# 第三部分
+MYUD_RULES="0"
+
 myud_rules()
 {
 local UDISK_VID="$1"
@@ -84,7 +134,16 @@ ACTION=="remove", ENV{DEVNAME}=="/dev/sd?1", ENV{ID_VENDOR_ID}=="${UDISK_VID}", 
 EOF
 }
 
-####
+
+# 第四部分
+##CUSTOM##ADD##
+
+
+# 第五部分
+if [[ "$MYUD_RULES" == "1" ]]; then
+
+
+# 第五部分 第 1 节
 cat > /usr/lib/udev/myud_mount <<-"EOF"
 #!/bin/bash
 
@@ -104,7 +163,8 @@ if [[ "$MYUDISK_TYPE" == "$ID_FS_TYPE" ]]; then
 fi
 EOF
 
-####
+
+# 第五部分 第 2 节
 cat > /usr/lib/udev/myud_umount <<-"EOF"
 #!/bin/bash
 
@@ -132,7 +192,8 @@ for MYUDISK_LABEL_NUM in ${MYUDISK_LABEL_LIST}; do
 done
 EOF
 
-####
+
+# 第五部分 第 3 节
 cat > /usr/lib/udev/myud_exec <<-"EOF"
 #!/bin/bash
 
@@ -156,12 +217,14 @@ else
 fi
 EOF
 
-####
+
+# 第五部分 第 4 节
 cat > /usr/local/bin/.myud_variable <<-"EOF"
 EXECUTIONS=1
 EOF
 
-####
+
+# 第五部分 第 5 节
 cat > /usr/local/bin/.myud_execute <<-"EOF"
 #!/bin/bash
 
@@ -396,60 +459,19 @@ if [[ -L "/dev/myud" ]]; then
 fi
 EOF
 
-####
+
+# 第五部分 第 6 节
 chmod 755 /usr/lib/udev/{"myud_mount","myud_umount","myud_exec"}
 chmod 755 /usr/local/bin/.myud_execute
 
-####
+
+# 第五部分 第 7 节
 /usr/bin/cp -af /usr/lib/systemd/system/systemd-udevd.service /etc/systemd/system/systemd-udevd.service
 sed -i "s/^MountFlags=slave$/MountFlags=shared/g" /etc/systemd/system/systemd-udevd.service
 
-####
-mount_device()
-{
-local MOUNT_DIRECTORY="$1"
-local MOUNT_DEVICE="$2"
-local MOUNT_DIR=
-local UNIT_NAME=
 
-MOUNT_DIRECTORY=$(echo "$MOUNT_DIRECTORY" | sed "s/^\///g" | sed "s/\/$//g")
-
-MOUNT_DIR="/${MOUNT_DIRECTORY}"
-UNIT_NAME=$(echo "$MOUNT_DIRECTORY" | sed "s/\//\-/g")
-
-if [[ -z "$MOUNT_DIR" ]] || [[ -z "$MOUNT_DEVICE" ]] || [[ -z "$UNIT_NAME" ]]; then
-        continue 1
 fi
 
-cat > /etc/systemd/system/${UNIT_NAME}.mount <<-EOF
-[Unit]
-Description=${UNIT_NAME} directory
-
-[Mount]
-What=${MOUNT_DEVICE}
-Where=${MOUNT_DIR}
-Type=xfs
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-cat > /etc/systemd/system/${UNIT_NAME}.automount <<-EOF
-[Unit]
-Description=${UNIT_NAME} directory
-
-[Automount]
-Where=${MOUNT_DIR}
-
-[Install]
-WantedBy=multi-user.target
-EOF
-}
-
-####
-systemctl disable postfix.service
-
-##CUSTOM##ADD##
 
 %end
 
