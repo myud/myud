@@ -26,20 +26,20 @@ if [[ "$(id -u)" != "0" ]]; then
         echo_error "Error: must run with root"
 fi
 
-# å…¨å±€å˜é‡
+# È«¾Ö±äÁ¿
 DEVICE_CONFIG_LIST=$(find /etc/sysconfig/network-scripts -name "ifcfg-enp*" -type f | xargs)
 
-# æ£€æµ‹ç½‘å¡é©±åŠ¨
+# ¼ì²âÍø¿¨Çı¶¯
 if ( ! dmesg | grep -in eth &> /dev/null ); then
         echo_error "Error: the nic driver does not exist"
 fi
 
-# æ£€æµ‹é…ç½®æ–‡ä»¶
+# ¼ì²âÅäÖÃÎÄ¼ş
 if [[ -z "$DEVICE_CONFIG_LIST" ]]; then
         echo_error "Error: ifcfg-enp* not found"
 fi
 
-# é…ç½®ç½‘ç»œ
+# ÅäÖÃÍøÂç
 for DEVICE_CONFIG in ${DEVICE_CONFIG_LIST}; do
         
         sed -i "/^BOOTPROTO=/d" ${DEVICE_CONFIG}
@@ -61,12 +61,12 @@ EOF
 
 done
 
-# é‡å¯ç½‘ç»œ
+# ÖØÆôÍøÂç
 systemctl restart network
 
-# ç¦ç”¨ SELinux
+# ½ûÓÃ SELinux
 sed -i "s/^SELINUX=enforcing/SELINUX=disabled/g"  /etc/selinux/config
 sed -i "s/^SELINUX=permissive/SELINUX=disabled/g" /etc/selinux/config
 
-# é‡å¯æœåŠ¡å™¨
+# ÖØÆô·şÎñÆ÷
 shutdown -r +1

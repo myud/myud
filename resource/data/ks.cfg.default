@@ -1,4 +1,4 @@
-# KS æ–‡ä»¶ä¸å…è®¸åŒ…å«ä¸­æ–‡
+# KS ÎÄ¼ş²»ÔÊĞí°üº¬ÖĞÎÄ
 
 
 ####
@@ -70,11 +70,11 @@ kexec-tools
 %post
 
 
-# ç¬¬ä¸€éƒ¨åˆ†
+# µÚÒ»²¿·Ö
 systemctl disable postfix.service
 
 
-# ç¬¬äºŒéƒ¨åˆ†
+# µÚ¶ş²¿·Ö
 mount_device()
 {
 local MOUNT_DIRECTORY="$1"
@@ -117,7 +117,7 @@ EOF
 }
 
 
-# ç¬¬ä¸‰éƒ¨åˆ†
+# µÚÈı²¿·Ö
 MYUD_RULES="0"
 
 myud_rules()
@@ -139,15 +139,15 @@ EOF
 }
 
 
-# ç¬¬å››éƒ¨åˆ†
+# µÚËÄ²¿·Ö
 ##CUSTOM##ADD##
 
 
-# ç¬¬äº”éƒ¨åˆ†
+# µÚÎå²¿·Ö
 if [[ "$MYUD_RULES" == "1" ]]; then
 
 
-# ç¬¬äº”éƒ¨åˆ† ç¬¬ 1 èŠ‚
+# µÚÎå²¿·Ö µÚ 1 ½Ú
 cat > /usr/lib/udev/myud_mount <<-"EOF"
 #!/bin/bash
 
@@ -168,7 +168,7 @@ fi
 EOF
 
 
-# ç¬¬äº”éƒ¨åˆ† ç¬¬ 2 èŠ‚
+# µÚÎå²¿·Ö µÚ 2 ½Ú
 cat > /usr/lib/udev/myud_umount <<-"EOF"
 #!/bin/bash
 
@@ -197,7 +197,7 @@ done
 EOF
 
 
-# ç¬¬äº”éƒ¨åˆ† ç¬¬ 3 èŠ‚
+# µÚÎå²¿·Ö µÚ 3 ½Ú
 cat > /usr/lib/udev/myud_exec <<-"EOF"
 #!/bin/bash
 
@@ -222,13 +222,13 @@ fi
 EOF
 
 
-# ç¬¬äº”éƒ¨åˆ† ç¬¬ 4 èŠ‚
+# µÚÎå²¿·Ö µÚ 4 ½Ú
 cat > /usr/local/bin/.myud_variable <<-"EOF"
 EXECUTIONS=1
 EOF
 
 
-# ç¬¬äº”éƒ¨åˆ† ç¬¬ 5 èŠ‚
+# µÚÎå²¿·Ö µÚ 5 ½Ú
 cat > /usr/local/bin/.myud_execute <<-"EOF"
 #!/bin/bash
 
@@ -464,12 +464,12 @@ fi
 EOF
 
 
-# ç¬¬äº”éƒ¨åˆ† ç¬¬ 6 èŠ‚
+# µÚÎå²¿·Ö µÚ 6 ½Ú
 chmod 755 /usr/lib/udev/{"myud_mount","myud_umount","myud_exec"}
 chmod 755 /usr/local/bin/.myud_execute
 
 
-# ç¬¬äº”éƒ¨åˆ† ç¬¬ 7 èŠ‚
+# µÚÎå²¿·Ö µÚ 7 ½Ú
 /usr/bin/cp -af /usr/lib/systemd/system/systemd-udevd.service /etc/systemd/system/systemd-udevd.service
 sed -i "s/^MountFlags=slave$/MountFlags=shared/g" /etc/systemd/system/systemd-udevd.service
 
