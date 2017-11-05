@@ -4,6 +4,7 @@
 
  - [重要说明][1]
  - [安装 Myud][2]
+ - 自动安装 CentOS-7.4-x86_64
  - 手动安装 CentOS-7.4-x86_64
  - [相关文档][3]
 
@@ -20,6 +21,67 @@
  - 请下载 [老毛桃U盘启动盘制作工具][4] 及 [Myud.exe][5]
  - 先使用 老毛桃U盘启动盘制作工具 将U盘制作成 `启动U盘`
  - 然后把 Myud.exe 拷贝到U盘 `根目录` 下运行
+
+## 自动安装 CentOS-7.4-x86_64
+
+**1.3 开始安装：**
+
+ - 开机从U盘启动
+ - 依次执行：
+
+    \[10] 启动自定义ISO/IMG文件（LMT目录）
+    
+    [02] 自动搜索并列出LMT目录下所有文件
+    
+    [03] RUN CentOS-7-x86_64-NetInstall-1708.iso
+    
+    Install CentOS 7
+
+ - 安装完成后自动关机
+ - 增加硬盘后开机
+
+**1.4 挂载硬盘：**
+
+ - 如果硬盘已经分区，并且格式化为 `xfs`
+ - 就可以直接挂载硬盘
+
+例如：
+
+    systemctl start   backup.mount
+    systemctl stop    backup.mount
+    
+    systemctl restart backup.mount
+    systemctl status  backup.mount
+    
+    systemctl enable  backup.mount
+    systemctl disable backup.mount
+
+ - 也可以自动挂载硬盘
+
+例如：
+
+    systemctl stop    backup.mount
+    systemctl disable backup.mount
+    
+    
+    systemctl start   backup.automount
+    systemctl stop    backup.automount
+    
+    systemctl restart backup.automount
+    systemctl status  backup.automount
+    
+    systemctl enable  backup.automount
+    systemctl disable backup.automount
+
+**1.5 挂载U盘：**
+
+如果U盘的文件系统为 `vfat`，可以开启自动挂载U盘的功能：
+
+ - U盘的卷标为 `QUENONG` 或者 `其他名称`：关闭自动挂载U盘的功能
+ - U盘的卷标为 `QUENONG2017`：2017年，全年开启自动挂载U盘的功能
+ - U盘的卷标为 `QUENONG1001`：10月01日，当天开启自动挂载U盘的功能（注意：`系统时间是否正确`）
+
+拔出U盘后，当挂载目录 `/mnt/卷标名称` 空闲时，将自动卸载U盘，并删除挂载目录。
 
 ## 手动安装 CentOS-7.4-x86_64
 
