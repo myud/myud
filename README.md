@@ -6,8 +6,8 @@
  - [安装 Myud][2]
  - [自动安装 CentOS-7.4-x86_64][3]
  - [手动安装 CentOS-7.4-x86_64][4]
- - 自动执行用户脚本
- - [相关文档][5]
+ - [自动执行用户脚本][5]
+ - [相关文档][6]
 
 ## 重要说明
 
@@ -19,7 +19,7 @@
 
 ## 安装 Myud
 
- - 请下载 [老毛桃U盘启动盘制作工具][6] 及 [Myud.exe][7]
+ - 请下载 [老毛桃U盘启动盘制作工具][7] 及 [Myud.exe][8]
  - 先使用 老毛桃U盘启动盘制作工具 将U盘制作成 `启动U盘`
  - 然后把 Myud.exe 拷贝到U盘 `根目录` 下运行
  - 根据提示完成安装
@@ -113,12 +113,16 @@
 
 **1. 配置 my.conf：**
 
+如果启用了自动挂载U盘的功能，就可以通过配置 `conf/my.conf` 文件来自动执行用户脚本。
 
+了解详情请见 [my.conf][9] 文件。
 
   [1]: https://github.com/myud/myud#%E9%87%8D%E8%A6%81%E8%AF%B4%E6%98%8E
   [2]: https://github.com/myud/myud#%E5%AE%89%E8%A3%85-myud
   [3]: https://github.com/myud/myud#%E8%87%AA%E5%8A%A8%E5%AE%89%E8%A3%85-centos-74-x86_64
   [4]: https://github.com/myud/myud#%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85-centos-74-x86_64
-  [5]: https://github.com/myud/docs
-  [6]: http://down.laomaotao.net:90/lmt816.exe
-  [7]: https://gitee.com/mydownload/myud-installer/raw/master/Myud.exe
+  [5]: https://github.com/myud/myud#%E8%87%AA%E5%8A%A8%E6%89%A7%E8%A1%8C%E7%94%A8%E6%88%B7%E8%84%9A%E6%9C%AC
+  [6]: https://github.com/myud/docs
+  [7]: http://down.laomaotao.net:90/lmt816.exe
+  [8]: https://gitee.com/mydownload/myud-installer/raw/master/Myud.exe
+  [9]: https://github.com/myud/myud/blob/master/resource/conf/my.conf
