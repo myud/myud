@@ -352,7 +352,8 @@ for (( NUM=0; NUM < SLEEP_MAX; NUM++ )); do
         fi
 done
 
-####
+# 开始执行 my.sh
+# 获取执行次数的记录
 if [[ -s "/usr/local/bin/.myud_variable" ]] && ( grep "^EXECUTIONS=[0-9][0-9]*$" /usr/local/bin/.myud_variable &> /dev/null ); then
         . /usr/local/bin/.myud_variable
         
