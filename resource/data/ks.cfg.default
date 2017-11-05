@@ -332,7 +332,7 @@ if [[ "$ADJUST_TIME" == "1" ]] && ( ping -c 1 ntp1.aliyun.com &> /dev/null ); th
         
 fi
 
-####
+# 是否应该退出
 config "EXECUTE_FOREVER" "[0-1]"
 config "EXECUTE_ONCE" "[0-1]"
 
