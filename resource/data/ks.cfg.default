@@ -260,7 +260,7 @@ init()
         MYUD_UDISK_ONCEBAK="${MYUD_UDISK_ROOT}/bak/once.bak.${MYUD_EXEC_TIME}"
 }
 
-####
+# ∂¡»°≈‰÷√Œƒº˛
 ADJUST_TIME="0"
 SLEEP_TIME="180"
 EXECUTE_FOREVER="0"
