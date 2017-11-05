@@ -108,7 +108,6 @@
  - 挂载U盘，例如 `fdisk -l; mount -t vfat /dev/sdb1 /mnt`
  - 运行 `config_network.sh`，例如 `/mnt/config_network.sh`
 
-
   [1]: https://github.com/myud/myud#%E9%87%8D%E8%A6%81%E8%AF%B4%E6%98%8E
   [2]: https://github.com/myud/myud#%E5%AE%89%E8%A3%85-myud
   [3]: https://github.com/myud/myud#%E8%87%AA%E5%8A%A8%E5%AE%89%E8%A3%85-centos-74-x86_64
