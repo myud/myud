@@ -1,16 +1,6 @@
 ﻿# Myud - My UDisk(我的U盘)
 
-
-
-
-
-
-
-
-
-My UDisk - 我的U盘
-
-## 内容目录
+内容目录：
 
  - [重要说明][1]
  - [相关文档][2]
@@ -22,6 +12,10 @@ My UDisk - 我的U盘
  - 仅支持一块 500G 以上的 SATA 硬盘
  - 需要一个 4G 以上的 U盘
  - 需要 CentOS 将硬盘识别为 `sda`，将U盘识别为 `sdb`
+
+
+
+
 
 
   [1]: https://github.com/myud/myud#%E9%87%8D%E8%A6%81%E8%AF%B4%E6%98%8E
