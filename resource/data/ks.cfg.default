@@ -1,4 +1,7 @@
 # KS 文件不允许包含中文
+# *.cmd 文件:        Windows 格式    ANSI  编码
+# *.default 文件:    Windows 格式    ANSI  编码
+# 其他文件:          UNIX    格式    UTF-8 编码
 
 
 ####
