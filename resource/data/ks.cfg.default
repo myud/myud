@@ -239,7 +239,7 @@ export TERM=xterm
 export SHELL=/bin/bash
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-####
+# ≥ı ºªØ
 MYUD_LOCAL_ROOT="/mnt/.myud"
 
 init()
