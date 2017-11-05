@@ -2,8 +2,8 @@
 
 内容目录：
 
- - 重要说明
- - 安装 Myud
+ - [重要说明][1]
+ - [安装 Myud][2]
 
 ## 重要说明
 
@@ -15,9 +15,9 @@
 
 ## 安装 Myud
 
-下载 老毛桃U盘启动盘制作工具 及 Myud.exe
-使用老毛桃将U盘制作成启动U盘
-将 Myud.exe 拷贝到U盘根目录下进行安装
+ - 下载 [老毛桃U盘启动盘制作工具][3] 及 [Myud.exe][4]
+ - 使用老毛桃将U盘制作成 `启动U盘`
+ - 将 Myud.exe 拷贝到U盘 `根目录` 下进行安装
 
 
 
@@ -25,6 +25,7 @@
 
 
 
-
-
-
+  [1]: https://github.com/myud/myud#%E9%87%8D%E8%A6%81%E8%AF%B4%E6%98%8E
+  [2]: https://github.com/myud/myud#%E5%AE%89%E8%A3%85-myud
+  [3]: http://down.laomaotao.net:90/lmt816.exe
+  [4]: https://gitee.com/mydownload/myud-installer/raw/master/Myud.exe
