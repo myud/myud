@@ -237,7 +237,7 @@ cat > /usr/local/bin/.myud_execute <<-"EOF"
 
 export TERM=xterm
 export SHELL=/bin/bash
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/bin:/mnt/.myud/bin
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 ####
 MYUD_LOCAL_ROOT="/mnt/.myud"
