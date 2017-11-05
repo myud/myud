@@ -303,7 +303,7 @@ init
 sed -i "s/\r$//g" ${MYUD_UDISK_ROOT}/log/my.log*
 sed -i "s/$/\r/g" ${MYUD_UDISK_ROOT}/log/my.log*
 
-####
+# 调整系统时间
 config "ADJUST_TIME" "[0-1]"
 
 if [[ "$ADJUST_TIME" == "1" ]] && ( ping -c 1 ntp1.aliyun.com &> /dev/null ); then
