@@ -472,7 +472,7 @@ EOFS
         fi
 }
 
-####
+# Ö´ÐÐ½Å±¾
 if [[ "$EXECUTE_FOREVER" == "1" ]] && [[ -s "${MYUD_LOCAL_ROOT}/shell/forever/my.sh" ]]; then
         cd ${MYUD_LOCAL_ROOT}/shell/forever
         
@@ -491,7 +491,7 @@ fi
 
 wait
 
-####
+# ¿½±´ LOG
 if [[ -L "/dev/myud" ]]; then
         init
         
