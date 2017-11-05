@@ -295,7 +295,7 @@ config()
         fi
 }
 
-####
+# ¿½±´ LOG
 init
 
 /usr/bin/cp -af ${MYUD_LOCAL_ROOT}/log ${MYUD_UDISK_ROOT}
