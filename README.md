@@ -16,13 +16,9 @@
 
 ## 安装 Myud
 
+**1.1 制作启动U盘：**
 
-
-
-
-
-
-
+使用 [老毛桃U盘启动盘制作工具][4]，先将U盘制作成启动U盘。
 
 
 
@@ -40,3 +36,4 @@
   [1]: https://github.com/myud/myud#%E9%87%8D%E8%A6%81%E8%AF%B4%E6%98%8E
   [2]: https://github.com/myud/myud#%E5%AE%89%E8%A3%85-myud
   [3]: https://github.com/myud/docs
+  [4]: http://laomaotao.net/down/2016/1015/4932.html
