@@ -6,6 +6,7 @@
  - [安装 Myud][2]
  - [自动安装 CentOS-7.4-x86_64][3]
  - [手动安装 CentOS-7.4-x86_64][4]
+ - 自动执行用户脚本
  - [相关文档][5]
 
 ## 重要说明
@@ -107,6 +108,12 @@
  - 如果网卡驱动默认已经安装
  - 挂载U盘，例如 `fdisk -l; mount -t vfat /dev/sdb1 /mnt`
  - 运行 `config_network.sh`，例如 `/mnt/config_network.sh`
+
+## 自动执行用户脚本
+
+**1. 配置 my.conf：**
+
+
 
   [1]: https://github.com/myud/myud#%E9%87%8D%E8%A6%81%E8%AF%B4%E6%98%8E
   [2]: https://github.com/myud/myud#%E5%AE%89%E8%A3%85-myud
