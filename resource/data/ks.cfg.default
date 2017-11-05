@@ -154,6 +154,8 @@ if [[ "$MYUD_RULES" == "1" ]]; then
 cat > /usr/lib/udev/myud_mount <<-"EOF"
 #!/bin/bash
 
+set -eu
+
 MYUDISK_TYPE="vfat"
 MYUDISK_LABEL1="MYUD$(date +"%Y")"
 MYUDISK_LABEL2="MYUD$(date +"%m%d")"
@@ -174,6 +176,8 @@ EOF
 # 第五部分 第 2 节
 cat > /usr/lib/udev/myud_umount <<-"EOF"
 #!/bin/bash
+
+set -eu
 
 MYUDISK_LABEL1="MYUD$(date +"%Y")"
 MYUDISK_LABEL2="MYUD$(date +"%m%d")"
@@ -203,6 +207,8 @@ EOF
 # 第五部分 第 3 节
 cat > /usr/lib/udev/myud_exec <<-"EOF"
 #!/bin/bash
+
+set -eu
 
 export MYUD_TYPE="$ID_FS_TYPE"
 export MYUD_LABEL="$ID_FS_LABEL"
@@ -234,6 +240,8 @@ EOF
 # 第五部分 第 5 节
 cat > /usr/local/bin/.myud_execute <<-"EOF"
 #!/bin/bash
+
+set -eu
 
 export TERM=xterm
 export SHELL=/bin/bash
@@ -464,10 +472,10 @@ You may need to execute the command: screen -list; screen -r SCREEN_NAME
 Executions:    ${MYUD_EXECUTIONS}
 Time:          ${MYUD_EXEC_TIME}
 Result:        ${RESULT}
-
 EOFS
         
         if [[ "$(echo "$RESULT" | tr "[A-Z]" "[a-z]")" == "failed" ]]; then
+                sed -i "1,2d" ${MYUD_LOCAL_ROOT}/log/my.log
                 exit 1
         fi
 }
