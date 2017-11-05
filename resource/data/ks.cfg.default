@@ -410,7 +410,7 @@ fi
 
 cd /mnt
 
-####
+# ±¸·Ý once
 config "BACKUP_ONCE" "[0-1]"
 
 if [[ "$EXECUTE_ONCE" == "1" ]] && [[ -s "${MYUD_UDISK_ROOT}/shell/once/my.sh" ]] \
