@@ -340,7 +340,7 @@ if [[ "$EXECUTE_FOREVER" == "0" ]] && [[ "$EXECUTE_ONCE" == "0" ]]; then
         exit 0
 fi
 
-####
+# …Ë÷√—”≥Ÿ ±º‰
 config "SLEEP_TIME" "[0-9][0-9]*"
 SLEEP_MAX="$SLEEP_TIME"
 
