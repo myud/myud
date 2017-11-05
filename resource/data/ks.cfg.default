@@ -364,17 +364,51 @@ else
         exit 1
 fi
 
-####
+# 删除本地目录及链接
+cd /usr/local/bin
+
+USR_LOCAL_BIN_LIST=$(ls -Al | grep "^l.*->.*${MYUD_LOCAL_ROOT}/bin" | awk '{ print $9 }' | sort -u | xargs)
+
+if [[ -n "$USR_LOCAL_BIN_LIST" ]]; then
+        
+        for USR_LOCAL_BIN_LINK in ${USR_LOCAL_BIN_LIST}; do
+                rm -rf ${USR_LOCAL_BIN_LINK}
+        done
+        
+fi
+
+cd /mnt
+
 if [[ -d "$MYUD_LOCAL_ROOT" ]]; then
         rm -rf ${MYUD_LOCAL_ROOT}
 fi
 
+# 拷贝目录及创建链接
 init
 
-/usr/bin/cp -af ${MYUD_UDISK_ROOT}/bin ${MYUD_LOCAL_ROOT}
 /usr/bin/cp -af ${MYUD_UDISK_ROOT}/shell/{"forever","once"} ${MYUD_LOCAL_ROOT}/shell
 
+/usr/bin/cp -af ${MYUD_UDISK_ROOT}/bin ${MYUD_LOCAL_ROOT}
+
 chmod -R 755 ${MYUD_LOCAL_ROOT}/bin
+
+cd ${MYUD_LOCAL_ROOT}/bin
+
+MYUD_LOCAL_BIN_LIST=$(ls -AF | grep "[^/]$" | sed "s/\*$//g" | sort -u | xargs)
+
+if [[ -n "$MYUD_LOCAL_BIN_LIST" ]]; then
+
+        for MYUD_LOCAL_BIN_COMMAND in ${MYUD_LOCAL_BIN_LIST}; do
+                
+                if [[ ! -f /usr/local/bin/${MYUD_LOCAL_BIN_COMMAND} ]] && [[ ! -d /usr/local/bin/${MYUD_LOCAL_BIN_COMMAND} ]]; then
+                        ln -s ${MYUD_LOCAL_ROOT}/bin/${MYUD_LOCAL_BIN_COMMAND} /usr/local/bin/${MYUD_LOCAL_BIN_COMMAND}
+                fi
+                
+        done
+
+fi
+
+cd /mnt
 
 ####
 config "BACKUP_ONCE" "[0-1]"
