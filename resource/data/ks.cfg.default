@@ -438,22 +438,17 @@ if [[ "$EXECUTE_ONCE" == "1" ]] && [[ -s "${MYUD_UDISK_ROOT}/shell/once/my.sh" ]
         
 fi
 
-####
-MYUD_LOCAL_BIN="${MYUD_LOCAL_ROOT}/bin"
+# 输出全局变量
 MYUD_LOCAL_FOREVER="${MYUD_LOCAL_ROOT}/shell/forever"
 MYUD_LOCAL_ONCE="${MYUD_LOCAL_ROOT}/shell/once"
 MYUD_EXECUTIONS="$EXECUTIONS"
 
-# Dir
-export MYUD_BIN="$MYUD_LOCAL_BIN"
 export MYUD_FOREVER="$MYUD_LOCAL_FOREVER"
 export MYUD_ONCE="$MYUD_LOCAL_ONCE"
-# File
 export MYUD_LOG="$MYUD_LOCAL_LOG"
-# Var
 export MYUD_EXEC="$MYUD_EXECUTIONS"
 
-####
+# 创建 LOG
 # EOF  >>  EOFS  >>  EOFT  >>  EOFF
 result()
 {
