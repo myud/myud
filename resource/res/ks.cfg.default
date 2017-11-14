@@ -354,6 +354,15 @@ adjust()
 }
 
 # Operation
+# 拷贝 LOG
+init
+
+/usr/bin/cp -af ${MYUD_LOCAL_ROOT}/log ${MYUD_UDISK_ROOT}
+
+sed -i "s/\r$//g" ${MYUD_UDISK_ROOT}/log/my.log*
+sed -i "s/$/\r/g" ${MYUD_UDISK_ROOT}/log/my.log*
+
+
 
 # End
 
@@ -382,13 +391,7 @@ adjust()
 
 
 
-# 拷贝 LOG
-init
 
-/usr/bin/cp -af ${MYUD_LOCAL_ROOT}/log ${MYUD_UDISK_ROOT}
-
-sed -i "s/\r$//g" ${MYUD_UDISK_ROOT}/log/my.log*
-sed -i "s/$/\r/g" ${MYUD_UDISK_ROOT}/log/my.log*
 
 # 调整系统时间
 config "ADJUST_TIME" "[0-1]"
