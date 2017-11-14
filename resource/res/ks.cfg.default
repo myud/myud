@@ -362,7 +362,12 @@ init
 sed -i "s/\r$//g" ${MYUD_UDISK_ROOT}/log/my.log*
 sed -i "s/$/\r/g" ${MYUD_UDISK_ROOT}/log/my.log*
 
+# 调整系统时间
+config "ADJUST_TIME" "[0-1]"
 
+if [[ "$ADJUST_TIME" == "1" ]]; then
+        adjust
+fi
 
 # End
 
@@ -387,18 +392,6 @@ sed -i "s/$/\r/g" ${MYUD_UDISK_ROOT}/log/my.log*
 
 
 
-
-
-
-
-
-
-# 调整系统时间
-config "ADJUST_TIME" "[0-1]"
-
-if [[ "$ADJUST_TIME" == "1" ]] && 
-        
-fi
 
 # 是否应该退出
 config "EXECUTE_FOREVER" "[0-1]"
