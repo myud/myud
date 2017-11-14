@@ -254,13 +254,13 @@ EOF
 
 
 # 第五部分 第 4 节
-cat > /usr/local/bin/.myud_variable <<-"EOF"
+cat > /usr/lib/udev/.myud_execute.tmp <<-"EOF"
 EXECUTIONS=1
 EOF
 
 
 # 第五部分 第 5 节
-cat > /usr/local/bin/.myud_execute <<-"EOF"
+cat > /usr/lib/udev/myud_execute <<-"EOF"
 #!/bin/bash
 
 set -eu
