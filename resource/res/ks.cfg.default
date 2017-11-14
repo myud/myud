@@ -91,7 +91,7 @@ MOUNT_DIR="/${MOUNT_DIRECTORY}"
 UNIT_NAME=$(echo "$MOUNT_DIRECTORY" | sed "s/\//\-/g")
 
 if [[ -z "$MOUNT_DIR" ]] || [[ -z "$MOUNT_DEVICE" ]] || [[ -z "$UNIT_NAME" ]]; then
-        continue 1
+        return 1
 fi
 
 cat > /etc/systemd/system/${UNIT_NAME}.mount <<-EOF
