@@ -180,7 +180,6 @@ if [[ "$MYUDISK_TYPE" == "$ID_FS_TYPE" ]]; then
 fi
 
 # End
-
 EOF
 
 
@@ -215,7 +214,6 @@ for (( NUM=1; NUM <= 30; NUM++ )); do
 done
 
 # End
-
 EOF
 
 
@@ -249,7 +247,6 @@ if [[ -n "$(rpm -qa at)" ]] && [[ -s "/usr/lib/udev/myud_execute" ]]; then
 fi
 
 # End
-
 EOF
 
 
@@ -263,45 +260,47 @@ EOF
 cat > /usr/lib/udev/myud_execute <<-"EOF"
 #!/bin/bash
 
-set -eu
-
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 export TERM=xterm
 export SHELL=/bin/bash
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-# 初始化
+set -eu
+
+# Variable
 MYUD_LOCAL_ROOT="/mnt/.myud"
 
-init()
-{
-        MYUD_UDISK_ROOT="/mnt/${MYUD_LABEL}"
-        
-        mkdir -p ${MYUD_LOCAL_ROOT}/{"bak","bin","conf","log","shell/forever","shell/once"}
-        mkdir -p ${MYUD_UDISK_ROOT}/{"bak","bin","conf","log","shell/forever","shell/once"}
-        
-        mkdir -p /root/.myud_bak
-        touch ${MYUD_UDISK_ROOT}/{"conf/my.conf","log/my.log","shell/forever/my.sh","shell/once/my.sh"}
-        
-        MYUD_EXEC_TIME=$(date +"%Y%m%d%H%M%S")
-        
-        MYUD_LOCAL_LOG="${MYUD_LOCAL_ROOT}/log/my.log.${MYUD_EXEC_TIME}"
-        
-        MYUD_LOCAL_ONCEBAK="/root/.myud_bak/once.bak.${MYUD_EXEC_TIME}"
-        MYUD_UDISK_ONCEBAK="${MYUD_UDISK_ROOT}/bak/once.bak.${MYUD_EXEC_TIME}"
-}
-
-# 读取配置文件
 ADJUST_TIME="0"
 SLEEP_TIME="180"
 EXECUTE_FOREVER="0"
 EXECUTE_ONCE="0"
 BACKUP_ONCE="1"
 
+# Function
+init()
+{
+        MYUD_UDISK_ROOT="/mnt/${MYUD_LABEL}"
+        
+        mkdir -p ${MYUD_LOCAL_ROOT}/{"bin","log","shell/forever","shell/once"}
+        mkdir -p ${MYUD_UDISK_ROOT}/{"bak","bin","conf","log","shell/forever","shell/once"}
+        
+        mkdir -p /root/.myud/bak
+        touch ${MYUD_UDISK_ROOT}/{"conf/my.conf","log/my.log","shell/forever/my.sh","shell/once/my.sh"}
+        
+        MYUD_EXEC_TIME=$(date +"%Y%m%d%H%M%S")
+        
+        MYUD_LOCAL_LOG="${MYUD_LOCAL_ROOT}/log/my.log.${MYUD_EXEC_TIME}"
+        
+        MYUD_LOCAL_ONCEBAK="/root/.myud/bak/once.bak.${MYUD_EXEC_TIME}"
+        MYUD_UDISK_ONCEBAK="${MYUD_UDISK_ROOT}/bak/once.bak.${MYUD_EXEC_TIME}"
+}
+
 config()
 {
         CONFIG_FILE="/mnt/${MYUD_LABEL}/conf/my.conf"
         
         if [[ -s "$CONFIG_FILE" ]]; then
+                
+                sed -i "s/\r$//g" ${CONFIG_FILE}
                 
                 while read LINE; do
                         
@@ -325,6 +324,64 @@ config()
         fi
 }
 
+adjust()
+{
+        if ( ping -c 1 ntp1.aliyun.com &> /dev/null ); then
+                
+                if ( ! type -p ntpdate &> /dev/null ); then
+                        
+                        for (( NUM=0; NUM < 5; NUM++ )); do
+                                yum -y install ntpdate
+                        done
+                        
+                fi
+                
+                systemctl stop    ntpd || true
+                systemctl disable ntpd || true
+                
+                for (( NUM=1; NUM < 11; NUM++ )); do
+                        
+                        if ( ntpdate ntp1.aliyun.com | awk '{ print $(NF-1) }' | grep "^[0\-][0\-]*\." &> /dev/null ); then
+                                hwclock -w
+                                break 1
+                        fi
+                        
+                done
+                
+                sed -i "s/^[ \t]*ADJUST_TIME[ \t]*=[ \t\"]*1[ \t\"]*$/adjust_time = 0/ig" /mnt/${MYUD_LABEL}/conf/my.conf
+                
+        fi
+}
+
+# Operation
+
+# End
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # 拷贝 LOG
 init
 
@@ -336,29 +393,7 @@ sed -i "s/$/\r/g" ${MYUD_UDISK_ROOT}/log/my.log*
 # 调整系统时间
 config "ADJUST_TIME" "[0-1]"
 
-if [[ "$ADJUST_TIME" == "1" ]] && ( ping -c 1 ntp1.aliyun.com &> /dev/null ); then
-        
-        if ( ! type -p ntpdate &> /dev/null ); then
-                for (( NUM=0; NUM < 5; NUM++ )); do
-                        yum -y install ntpdate
-                done
-        fi
-        
-        systemctl stop ntpd || true
-        systemctl disable ntpd || true
-        
-        for (( NUM=1; NUM < 11; NUM++ )); do
-                echo "adjust system time ${NUM} ..."
-                SECONDS=$(ntpdate ntp1.aliyun.com | awk '{ print $(NF-1) }')
-                
-                if [[ "0" < "$SECONDS" ]] && [[ "$SECONDS" < "1" ]]; then
-                        break 1
-                fi
-        done
-        
-        hwclock -w
-        
-        sed -i "s/^[ \t]*ADJUST_TIME[ \t]*=[ \t\"]*1[ \t\"]*$/adjust_time = 0/ig" ${CONFIG_FILE}
+if [[ "$ADJUST_TIME" == "1" ]] && 
         
 fi
 
