@@ -154,22 +154,33 @@ if [[ "$MYUD_RULES" == "1" ]]; then
 cat > /usr/lib/udev/myud_mount <<-"EOF"
 #!/bin/bash
 
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
 set -eu
 
+# Variable
 MYUDISK_TYPE="vfat"
 MYUDISK_LABEL1="MYUD$(date +"%Y")"
 MYUDISK_LABEL2="MYUD$(date +"%m%d")"
 
+# Function
+
+# Operation
 if [[ "$MYUDISK_TYPE" == "$ID_FS_TYPE" ]]; then
         if [[ "$MYUDISK_LABEL1" == "$ID_FS_LABEL" ]] || [[ "$MYUDISK_LABEL2" == "$ID_FS_LABEL" ]]; then
                 
                 mkdir -p /mnt/${ID_FS_LABEL}
                 mount -t ${ID_FS_TYPE} ${DEVNAME} /mnt/${ID_FS_LABEL}
                 
-                . /usr/lib/udev/myud_exec
+                if [[ -s "/usr/lib/udev/myud_exec" ]]; then
+                        . /usr/lib/udev/myud_exec
+                fi
                 
         fi
 fi
+
+# End
+
 EOF
 
 
