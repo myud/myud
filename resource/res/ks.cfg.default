@@ -130,7 +130,7 @@ local UDISK_PID="$2"
 local UDISK_SN="$3"
 
 if [[ -z "$UDISK_VID" ]] || [[ -z "$UDISK_PID" ]] || [[ -z "$UDISK_SN" ]]; then
-        continue 1
+        return 1
 fi
 
 cat >> /etc/udev/rules.d/51-myud.rules <<-EOF
