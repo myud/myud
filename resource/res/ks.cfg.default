@@ -369,6 +369,26 @@ if [[ "$ADJUST_TIME" == "1" ]]; then
         adjust
 fi
 
+# 是否应该退出
+config "EXECUTE_FOREVER" "[0-1]"
+config "EXECUTE_ONCE" "[0-1]"
+
+if [[ "$EXECUTE_FOREVER" == "0" ]] && [[ "$EXECUTE_ONCE" == "0" ]]; then
+        exit 0
+fi
+
+# 设置延迟时间
+config "SLEEP_TIME" "[0-9][0-9]*"
+SLEEP_MAX="$SLEEP_TIME"
+
+for (( NUM=0; NUM < SLEEP_MAX; NUM++ )); do
+        sleep 1
+        
+        if [[ ! -L "/dev/myud" ]]; then
+                exit 0
+        fi
+done
+
 # End
 
 
@@ -393,25 +413,7 @@ fi
 
 
 
-# 是否应该退出
-config "EXECUTE_FOREVER" "[0-1]"
-config "EXECUTE_ONCE" "[0-1]"
 
-if [[ "$EXECUTE_FOREVER" == "0" ]] && [[ "$EXECUTE_ONCE" == "0" ]]; then
-        exit 0
-fi
-
-# 设置延迟时间
-config "SLEEP_TIME" "[0-9][0-9]*"
-SLEEP_MAX="$SLEEP_TIME"
-
-for (( NUM=0; NUM < SLEEP_MAX; NUM++ )); do
-        sleep 1
-        
-        if [[ ! -L "/dev/myud" ]]; then
-                exit 0
-        fi
-done
 
 # 开始执行 my.sh
 # 获取执行次数的记录
