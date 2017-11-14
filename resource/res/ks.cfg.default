@@ -534,8 +534,7 @@ EOF
 
 
 # 第五部分 第 6 节
-chmod 755 /usr/lib/udev/{"myud_mount","myud_umount","myud_exec"}
-chmod 755 /usr/local/bin/.myud_execute
+chmod 755 /usr/lib/udev/{"myud_mount","myud_umount","myud_exec","myud_execute"}
 
 
 # 第五部分 第 7 节
