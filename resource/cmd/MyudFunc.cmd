@@ -518,10 +518,10 @@ REM   arg1:
 REM return: 
 SETLOCAL
 
-set KSDefault=%FuncPath%\..\data\ks.cfg.default
+set KSDefault=%FuncPath%\..\res\ks.cfg.default
 set KS=%FuncPath%\..\ks.cfg
 
-set NetworkDefault=%FuncPath%\..\data\config_network.sh.default
+set NetworkDefault=%FuncPath%\..\res\config_network.sh.default
 set Network=%FuncPath%\..\config_network.sh
 
 :BEGIN
