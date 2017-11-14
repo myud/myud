@@ -353,6 +353,28 @@ adjust()
         fi
 }
 
+result()
+{
+        RESULT="$1"
+        
+        if [[ -z "$RESULT" ]]; then
+                RESULT="Success"
+        fi
+        
+cat > ${MYUD_LOCAL_ROOT}/log/my.log <<-EOFS
+You may need to execute the command: screen -list; screen -r SCREEN_NAME
+
+Executions:    ${MYUD_EXECUTIONS}
+Time:          ${MYUD_EXEC_TIME}
+Result:        ${RESULT}
+EOFS
+        
+        if [[ "$(echo "$RESULT" | tr "[A-Z]" "[a-z]")" == "failed" ]]; then
+                sed -i "1,2d" ${MYUD_LOCAL_ROOT}/log/my.log
+                exit 1
+        fi
+}
+
 # Operation
 # 拷贝 LOG
 init
@@ -389,40 +411,15 @@ for (( NUM=0; NUM < SLEEP_MAX; NUM++ )); do
         fi
 done
 
-# End
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # 开始执行 my.sh
+
 # 获取执行次数的记录
-if [[ -s "/usr/local/bin/.myud_variable" ]] && ( grep "^EXECUTIONS=[0-9][0-9]*$" /usr/local/bin/.myud_variable &> /dev/null ); then
-        . /usr/local/bin/.myud_variable
+if [[ -s "/usr/lib/udev/.myud_execute.tmp" ]] && ( grep "^EXECUTIONS=[0-9][0-9]*$" /usr/lib/udev/.myud_execute.tmp &> /dev/null ); then
+        . /usr/lib/udev/.myud_execute.tmp
         
         EXECUTIONS_PLUS=$(( EXECUTIONS + 1 ))
         
-        sed -i "s/^EXECUTIONS=[0-9][0-9]*$/EXECUTIONS=${EXECUTIONS_PLUS}/g" /usr/local/bin/.myud_variable
+        sed -i "s/^EXECUTIONS=[0-9][0-9]*$/EXECUTIONS=${EXECUTIONS_PLUS}/g" /usr/lib/udev/.myud_execute.tmp
 else
         exit 1
 fi
@@ -485,9 +482,9 @@ if [[ "$EXECUTE_ONCE" == "1" ]] && [[ -s "${MYUD_UDISK_ROOT}/shell/once/my.sh" ]
                 
         else
                 
-                if [[ "$(du -ms /root/.myud_bak | cut -f 1)" > "1024" ]]; then
-                        rm -rf /root/.myud_bak
-                        mkdir -p /root/.myud_bak
+                if [[ "$(du -ms /root/.myud/bak | cut -f 1)" > "1024" ]]; then
+                        rm -rf /root/.myud/bak
+                        mkdir -p /root/.myud/bak
                 fi
                 
                 /usr/bin/cp -af ${MYUD_UDISK_ROOT}/shell/once ${MYUD_LOCAL_ONCEBAK}
@@ -510,30 +507,6 @@ export MYUD_FOREVER="$MYUD_LOCAL_FOREVER"
 export MYUD_ONCE="$MYUD_LOCAL_ONCE"
 export MYUD_LOG="$MYUD_LOCAL_LOG"
 export MYUD_EXEC="$MYUD_EXECUTIONS"
-
-# 创建 LOG
-# EOF  >>  EOFS  >>  EOFT  >>  EOFF
-result()
-{
-        RESULT="$1"
-        
-        if [[ -z "$RESULT" ]]; then
-                RESULT="Success"
-        fi
-        
-cat > ${MYUD_LOCAL_ROOT}/log/my.log <<-EOFS
-You may need to execute the command: screen -list; screen -r SCREEN_NAME
-
-Executions:    ${MYUD_EXECUTIONS}
-Time:          ${MYUD_EXEC_TIME}
-Result:        ${RESULT}
-EOFS
-        
-        if [[ "$(echo "$RESULT" | tr "[A-Z]" "[a-z]")" == "failed" ]]; then
-                sed -i "1,2d" ${MYUD_LOCAL_ROOT}/log/my.log
-                exit 1
-        fi
-}
 
 # 执行脚本
 if [[ "$EXECUTE_FOREVER" == "1" ]] && [[ -s "${MYUD_LOCAL_ROOT}/shell/forever/my.sh" ]]; then
@@ -563,6 +536,8 @@ if [[ -L "/dev/myud" ]]; then
         sed -i "s/\r$//g" ${MYUD_UDISK_ROOT}/log/my.log*
         sed -i "s/$/\r/g" ${MYUD_UDISK_ROOT}/log/my.log*
 fi
+
+# End
 EOF
 
 
